@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from './card'
 import Tag from './tag'
+import Library from './library'
 
 export default function Dashboard() {
   return (
@@ -27,6 +28,9 @@ export default function Dashboard() {
             {/* <label>🔍</label> */}
             <input className='bg-gray-600/20 px-2 rounded-2xl' placeholder='Search in your library' type="text" />
           </form>
+          <div>
+            <Library />
+          </div>
         </div>
       </Card>
     </div>
