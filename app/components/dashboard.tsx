@@ -23,6 +23,10 @@ export default function Dashboard() {
             <Tag title='Albums' />
             <Tag title='Podcasts' />
           </div>
+          <form>
+            {/* <label>🔍</label> */}
+            <input className='bg-gray-600/20 px-2 rounded-2xl' placeholder='Search in your library' type="text" />
+          </form>
         </div>
       </Card>
     </div>
