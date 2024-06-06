@@ -1,8 +1,9 @@
+import Card from "./components/card";
 
 export default async function TopTracks({ topTracks }) {
 
   return (
-    <div className="flex flex-col">
+    <Card>
       {topTracks.map((track) => (
         <div key={track.id} >
           {
@@ -13,6 +14,6 @@ export default async function TopTracks({ topTracks }) {
         </div>
       ))
       }
-    </div >
+    </Card >
   )
 }

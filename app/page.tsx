@@ -1,3 +1,4 @@
+import Dashboard from "./components/dashboard";
 import TopTracks from "./topTracks";
 
 export default async function Home() {
@@ -31,7 +32,8 @@ export default async function Home() {
   );
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-background-purple">
+    <main className="flex min-h-screen flex-row justify-between w-full bg-background gap-2 p-2">
+      <Dashboard />
       <TopTracks topTracks={topTracks} />
     </main>
   );
