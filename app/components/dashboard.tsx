@@ -1,9 +1,9 @@
 import React from 'react'
 import Card from './card'
 import Tag from './tag'
-import Library from './library'
+import LibraryList from './library'
 
-export default function Dashboard() {
+export default function Dashboard({ libraries }: { libraries: [] }) {
   return (
     <div className='flex flex-col gap-2'>
       <Card>
@@ -29,7 +29,7 @@ export default function Dashboard() {
             <input className='bg-gray-600/20 px-2 rounded-2xl' placeholder='Search in your library' type="text" />
           </form>
           <div>
-            <Library />
+            <LibraryList libraryList={libraries} />
           </div>
         </div>
       </Card>

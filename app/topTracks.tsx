@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Card from "./components/card";
 
 export default function TopTracks({ topTracks }) {
-  console.count()
   const [tracks, setTracks] = useState([])
 
   useEffect(() => {
