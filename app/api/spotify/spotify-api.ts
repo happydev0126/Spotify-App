@@ -1,25 +1,38 @@
-import { fetchWebApi } from '@/app/utils/getAuthSession';
+export const fetchWebApi = async (url: string, token: string) => {
+  if (!token) {
+    return null;
+  }
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 
-export async function getTopTracks(session, limit) {
+  return res;
+};
+
+export async function getTopTracks(token: string, limit: number) {
   // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
   return fetchWebApi(
     `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=${limit}`,
-    session
-  );
-}
-export async function getUser() {
-  const getUserResponse = await fetchWebApi(
-    'v1/me', 'GET'
+    token
   );
 }
 
-export async function getLibraries(session) {
+export async function getUser(token: string) {
+  const getUserResponse = await fetchWebApi(
+    'https://api.spotify.com/v1/me',
+    token
+  );
+}
+
+export async function getLibraries(token: string) {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/playlists`,
-    session
+    token
   );
 }
 
 export async function getTracks() {
-  return (await fetchWebApi('v1/me/tracks', 'GET'));
+  return (await fetchWebApi('https://api.spotify.com/v1/me/tracks', 'GET'));
 }
