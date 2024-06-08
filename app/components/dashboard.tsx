@@ -1,9 +1,10 @@
 import React from 'react'
 import Card from './card'
 import Tag from './tag'
-import LibraryList from './library'
+import UserPlaylists from './playlist'
+import { CurrentUserPlaylistItem } from '../types/spotify'
 
-export default function Dashboard({ libraries }: { libraries: [] }) {
+export default function Dashboard({ playlists }: { playlists: CurrentUserPlaylistItem[] }) {
   return (
     <div className='flex flex-col gap-2'>
       <Card>
@@ -29,7 +30,7 @@ export default function Dashboard({ libraries }: { libraries: [] }) {
             <input className='rounded-2xl bg-gray-600/20 px-2' placeholder='Search in your library' type="text" />
           </form>
           <div>
-            <LibraryList libraryList={libraries} />
+            <UserPlaylists playlists={playlists} />
           </div>
         </div>
       </Card>

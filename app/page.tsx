@@ -1,22 +1,20 @@
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
-import { getLibraries, getRecentlyPlayed } from "./api/spotify/spotify-api";
+import { getCurrentUserPlaylists, getRecentlyPlayed } from "./api/spotify/spotify-api";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import Card from "./components/card";
 import Dashboard from "./components/dashboard";
-import Link from "next/link";
 import Tag from "./components/tag";
-import { Item, RecentlyPlayed } from "./types/spotify";
+import { CurrentUserPlaylistItem, Item } from "./types/spotify";
 
 export default async function Page() {
-
   // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = auth();
-  let libraries = []
+  let playlists: CurrentUserPlaylistItem[] = []
   let recentlyPlayed: Item[] = []
   if (userId) {
     const provider = 'oauth_spotify';
     const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    libraries = await getLibraries(token).then(data => data.items)
+    playlists = await getCurrentUserPlaylists(token).then(data => data.items)
     recentlyPlayed = await getRecentlyPlayed(token, 6).then(data => data.items)
   }
 
@@ -28,7 +26,7 @@ export default async function Page() {
 
     <div className="flex min-h-screen w-full flex-row justify-between gap-2 bg-background p-2">
       <SignedIn>
-        <Dashboard libraries={libraries} />
+        <Dashboard playlists={playlists} />
         {/* main view */}
         <Card>
           <header className="flex justify-between">
