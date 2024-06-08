@@ -17,7 +17,7 @@ export default async function Page() {
     const provider = 'oauth_spotify';
     const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     libraries = await getLibraries(token).then(data => data.items)
-    recentlyPlayed = await getRecentlyPlayed(token).then(data => data.items)
+    recentlyPlayed = await getRecentlyPlayed(token, 6).then(data => data.items)
   }
 
   // Get the Backend API User object when you need access to the user's information
@@ -43,10 +43,13 @@ export default async function Page() {
             <Tag title={'Music'} />
             <Tag title={'Podcasts'} />
           </div>
-          <section>
+          <section className="grid grid-cols-2 xl:grid-cols-3  gap-4">
             {recentlyPlayed.map((item) => (
-              <div key={item.track.id}>
-                {item.track.album.name}
+              <div key={item.track.id} className="flex flex-row items-center">
+                <img src={item.track.album.images[0].url} className="w-14 rounded" alt="" />
+                <span className="bg-white/10 w-full h-full p-2 flex items-center font-bold">
+                  {item.track.album.name}
+                </span>
               </div>
             ))}
 

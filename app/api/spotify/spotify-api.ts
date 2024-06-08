@@ -38,9 +38,9 @@ export async function getTracks() {
   return (await fetchWebApi('https://api.spotify.com/v1/me/tracks', 'GET'));
 }
 
-export async function getRecentlyPlayed(token: string): Promise<RecentlyPlayed> {
+export async function getRecentlyPlayed(token: string, limit: number): Promise<RecentlyPlayed> {
   return fetchWebApi(
-    `https://api.spotify.com/v1/me/player/recently-played`,
+    `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`,
     token
   )
 }
