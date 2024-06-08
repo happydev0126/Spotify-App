@@ -2,7 +2,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 
-export const customGet = async (url: string, session) => {
+export const fetchWebApi = async (url: string, session) => {
   if (!session) {
     return null;
   }

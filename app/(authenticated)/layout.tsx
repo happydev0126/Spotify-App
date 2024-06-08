@@ -20,10 +20,10 @@ export default function RootLayout({
         <body
           className={
             fontFamily.className +
-            " h-screen flex flex-col overflow-hidden bg-background text-white items-stretch p-2"
+            ""
           }
         >
-          <main className="mx-8 my-4">{children}</main>
+          <main className="">{children}</main>
         </body>
       </NextAuthProvider>
     </html >
