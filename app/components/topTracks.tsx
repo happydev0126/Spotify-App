@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from "react";
-import Card from "./components/card";
+import Card from "./card";
 
 export default function TopTracks({ topTracks }) {
   const [tracks, setTracks] = useState([])
 
   useEffect(() => {
-    setTracks(topTracks)
+    setTracks(topTracks.items)
   }, [topTracks])
 
   return (
