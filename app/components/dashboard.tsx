@@ -26,7 +26,7 @@ export default function Dashboard({ libraries }: { libraries: [] }) {
           </div>
           <form>
             {/* <label>🔍</label> */}
-            <input className='bg-gray-600/20 px-2 rounded-2xl' placeholder='Search in your library' type="text" />
+            <input className='rounded-2xl bg-gray-600/20 px-2' placeholder='Search in your library' type="text" />
           </form>
           <div>
             <LibraryList libraryList={libraries} />

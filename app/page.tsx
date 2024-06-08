@@ -26,7 +26,7 @@ export default async function Page() {
   // Use `user` to render user details or create UI elements
   return (
 
-    <div className="flex min-h-screen flex-row justify-between w-full bg-background gap-2 p-2">
+    <div className="flex min-h-screen w-full flex-row justify-between gap-2 bg-background p-2">
       <SignedIn>
         <Dashboard libraries={libraries} />
         {/* main view */}
@@ -38,16 +38,16 @@ export default async function Page() {
             </div>
             <UserButton />
           </header>
-          <div className="flex row gap-2">
+          <div className="row flex gap-2">
             <Tag title={'All'} />
             <Tag title={'Music'} />
             <Tag title={'Podcasts'} />
           </div>
-          <section className="grid grid-cols-2 xl:grid-cols-3  gap-4">
+          <section className="grid grid-cols-2 gap-4  xl:grid-cols-3">
             {recentlyPlayed.map((item) => (
               <div key={item.track.id} className="flex flex-row items-center">
                 <img src={item.track.album.images[0].url} className="w-14 rounded" alt="" />
-                <span className="bg-white/10 w-full h-full p-2 flex items-center font-bold">
+                <span className="flex h-full w-full items-center bg-white/10 p-2 font-bold">
                   {item.track.album.name}
                 </span>
               </div>

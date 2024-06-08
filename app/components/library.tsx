@@ -11,7 +11,7 @@ export default function LibraryList({ libraryList }: { libraryList: [] }) {
   return (
     <div className='flex flex-col gap-4'>
       {userLibraryList?.map((library) => (
-        <div key={library.id} className='flex flex-row gap-2 items-center'>
+        <div key={library.id} className='flex flex-row items-center gap-2'>
           <img src={library.images[0].url} alt='Image' className='max-w-12 rounded'></img>
           <div>{library.name}</div>
         </div>
