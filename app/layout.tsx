@@ -11,14 +11,11 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <header>
+          </header>
+          <main>
             <SignedOut>
               <SignInButton />
             </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          <main>
             {children}
           </main>
         </body>
