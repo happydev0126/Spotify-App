@@ -1,13 +1,13 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { CurrentUserPlaylistItem, CurrentUserPlaylists } from '../types/spotify'
+import { CurrentUserPlaylistItem } from '../types/spotify'
 
 export default function UserPlaylists({ playlists }: { playlists: CurrentUserPlaylistItem[] }) {
   const [userPlaylists, setUserPlaylists] = useState<CurrentUserPlaylistItem[]>()
 
-  const searchLibrary = () => {
-    // let filteredLibraryList = userPlaylists.filter(library => library)
-  }
+  // const searchPlaylist = () => {
+  //    let filteredPlaylist = userPlaylists?.filter(playlist => )
+  // }
 
   useEffect(() => {
     setUserPlaylists(playlists)

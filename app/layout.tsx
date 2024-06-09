@@ -1,4 +1,4 @@
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, SignInButton, SignedOut } from '@clerk/nextjs'
 import './globals.css';
 
 export default function RootLayout({
@@ -14,7 +14,12 @@ export default function RootLayout({
           </header>
           <main>
             <SignedOut>
-              <SignInButton />
+              <div className='flex h-screen w-full flex-col items-center justify-center gap-4'>
+                <h1 className='text-2xl'>Spotify clone</h1>
+                <SignInButton mode='modal' >
+                  <button className='w-fit rounded-3xl bg-green p-3 text-background'>Sign in with Clerk</button>
+                </SignInButton>
+              </div>
             </SignedOut>
             {children}
           </main>
