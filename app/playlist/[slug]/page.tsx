@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
       {playlist.tracks.items.map((item, index) => (
         <div className="grid grid-cols-4">
-          <div>{index}</div>
+          <div className="max-w-2">{index + 1}</div>
           <div>{item.track.name}</div>
           <div>{item.added_at}</div>
           <div>{item.track.duration_ms}</div>

@@ -23,38 +23,29 @@ export default async function Page() {
 
   // Use `user` to render user details or create UI elements
   return (
-
-    <div className="flex min-h-screen w-full flex-row justify-between gap-2 bg-background p-2">
-      <SignedIn>
-        <Dashboard playlists={playlists} />
-        {/* main view */}
-        <Card>
-          <header className="flex justify-between">
-            <div>
-              <button> {' < '} </button>
-              <button>{' > '}</button>
-            </div>
-            <UserButton />
-          </header>
-          <div className="row flex gap-2">
-            <Tag title={'All'} />
-            <Tag title={'Music'} />
-            <Tag title={'Podcasts'} />
+    <>
+      <header className="flex justify-between">
+        <div>
+          <button> {' < '} </button>
+          <button>{' > '}</button>
+        </div>
+        <UserButton />
+      </header>
+      <div className="row flex gap-2">
+        <Tag title={'All'} />
+        <Tag title={'Music'} />
+        <Tag title={'Podcasts'} />
+      </div>
+      <section className="grid grid-cols-2 gap-4  xl:grid-cols-3">
+        {recentlyPlayed.map((item) => (
+          <div key={item.track.id} className="flex flex-row items-center">
+            <img src={item.track.album.images[0].url} className="w-14 rounded" alt="" />
+            <span className="flex h-full w-full items-center bg-white/10 p-2 font-bold">
+              {item.track.album.name}
+            </span>
           </div>
-          <section className="grid grid-cols-2 gap-4  xl:grid-cols-3">
-            {recentlyPlayed.map((item) => (
-              <div key={item.track.id} className="flex flex-row items-center">
-                <img src={item.track.album.images[0].url} className="w-14 rounded" alt="" />
-                <span className="flex h-full w-full items-center bg-white/10 p-2 font-bold">
-                  {item.track.album.name}
-                </span>
-              </div>
-            ))}
-
-          </section>
-        </Card>
-        {/* end main view */}
-      </SignedIn>
-    </div>
-  )
+        ))}
+      </section>
+    </>
+  );
 }

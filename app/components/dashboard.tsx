@@ -3,19 +3,22 @@ import Card from './card'
 import Tag from './tag'
 import UserPlaylists from './playlist'
 import { CurrentUserPlaylistItem } from '../types/spotify'
+import Link from 'next/link'
 
 export default function Dashboard({ playlists }: { playlists: CurrentUserPlaylistItem[] }) {
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 w-3/12'>
       <Card>
-        <div>
-          🏠 Home
-        </div>
+        <Link href='/'>
+          <div>
+            🏠 Home
+          </div>
+        </Link>
         <div>
           🔍 Search
         </div>
       </Card>
-      <Card height={'h-full'}>
+      <Card className='h-full'>
         <div className='flex flex-col gap-5'>
           <div>
             📚 Your library
