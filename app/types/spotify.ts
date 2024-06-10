@@ -13,9 +13,10 @@ export interface Cursors {
 }
 
 export interface Item {
+  added_at: string;
+  added_by: Owner;
+  is_local: boolean;
   track: Track;
-  played_at: string;
-  context: Context;
 }
 
 export interface Context {
@@ -153,6 +154,27 @@ export interface Owner {
 
 export interface Tracks {
   href: string;
+  limit: number;
+  next: string;
+  offset: number;
+  previous: string;
   total: number;
+  items: Item[];
 }
 
+export interface Playlist {
+  collaborative: boolean;
+  description: string;
+  external_urls: ExternalUrls;
+  followers: Followers;
+  href: string;
+  id: string;
+  images: Image[];
+  name: string;
+  owner: Owner;
+  public: boolean;
+  snapshot_id: string;
+  tracks: Tracks;
+  type: string;
+  uri: string;
+}
