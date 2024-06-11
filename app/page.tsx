@@ -1,31 +1,26 @@
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
-import { getCurrentUserPlaylists, getRecentlyPlayed } from "./api/spotify/spotify-api";
-import { SignedIn, UserButton } from "@clerk/nextjs";
-import Card from "./components/card";
-import Dashboard from "./components/dashboard";
+import { getRecentlyPlayed } from "./api/spotify/spotify-api";
+import { UserButton } from "@clerk/nextjs";
 import Tag from "./components/tag";
-import { CurrentUserPlaylistItem, Item } from "./types/spotify";
+import { Item } from "./types/spotify";
 
 export default async function Page() {
   // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = auth();
-  let playlists: CurrentUserPlaylistItem[] = []
   let recentlyPlayed: Item[] = []
   if (userId) {
     const provider = 'oauth_spotify';
     const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    playlists = await getCurrentUserPlaylists(token).then(data => data.items)
     recentlyPlayed = await getRecentlyPlayed(token, 6).then(data => data.items)
   }
 
   // Get the Backend API User object when you need access to the user's information
-  const user = await currentUser().then(data => data?.externalAccounts)
 
   // Use `user` to render user details or create UI elements
   return (
     <>
       <header className="flex justify-between">
-        <div>
+        <div className="flex flex-row gap-4">
           <button> {' < '} </button>
           <button>{' > '}</button>
         </div>

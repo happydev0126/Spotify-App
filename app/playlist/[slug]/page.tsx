@@ -1,7 +1,7 @@
 import { getPlaylist } from "@/app/api/spotify/spotify-api";
 import Card from "@/app/components/card";
 import { Playlist } from "@/app/types/spotify";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
@@ -17,15 +17,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
     return <div>No playlist found</div>
   }
 
+  const user = await currentUser().then(data => data?.externalAccounts)
+
   return (
     <Card>
-      <div className="flex flex-row items-center w-full gap-4">
-        <img className="shadow max-w-40 rounded" src={playlist.images[0].url} alt={playlist.name} />
+      <div className="flex flex-row items-end w-full gap-4">
+        <img className="shadow max-w-60 rounded" src={playlist.images[0].url} alt={playlist.name} />
         <div className="flex flex-col gap-4">
           <span className="capitalize">{playlist.type}</span>
           <h2 className="text-5xl font-bold">{playlist.name}</h2>
           <span className="italic text-gray-400">{playlist.description}</span>
           <div className="flex flex-row gap-2">
+            <img src={user[0].imageUrl} alt={user[0].username} className="max-w-6 rounded-2xl" />
             <span className="font-bold">{playlist.owner.display_name}  </span>
             <span>{playlist.tracks.total} songs </span>
           </div>
