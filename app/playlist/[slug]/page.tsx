@@ -1,23 +1,23 @@
-import { getPlaylist } from "@/app/api/spotify/spotify-api";
+import { getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
 import Card from "@/app/components/card";
-import { Playlist } from "@/app/types/spotify";
+import { Playlist, User } from "@/app/types/spotify";
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
   const { userId } = auth();
   let playlist: Playlist
+  let owner: User
   if (userId) {
     const provider = 'oauth_spotify';
     const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     playlist = await getPlaylist(token, params.slug)
+    owner = await getUser(token, playlist.owner.id)
   }
 
   if (!playlist) {
     return <div>No playlist found</div>
   }
-
-  const user = await currentUser().then(data => data?.externalAccounts)
 
   return (
     <Card>
@@ -25,10 +25,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <img className="shadow max-w-60 rounded" src={playlist.images[0].url} alt={playlist.name} />
         <div className="flex flex-col gap-4">
           <span className="capitalize">{playlist.type}</span>
-          <h2 className="text-5xl font-bold">{playlist.name}</h2>
+          <h2 className="text-6xl font-bold">{playlist.name}</h2>
           <span className="italic text-gray-400">{playlist.description}</span>
           <div className="flex flex-row gap-2">
-            <img src={user[0].imageUrl} alt={user[0].username} className="max-w-6 rounded-2xl" />
+            <img src={owner.images[0].url} alt={playlist.owner.display_name} className="max-w-6 rounded-2xl" />
             <span className="font-bold">{playlist.owner.display_name}  </span>
             <span>{playlist.tracks.total} songs </span>
           </div>
