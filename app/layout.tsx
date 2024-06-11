@@ -18,7 +18,7 @@ export default async function RootLayout({
         <body>
           <header>
           </header>
-          <main className='flex min-h-screen w-full flex-row justify-between gap-2 bg-background p-2'>
+          <main className='flex h-screen flex-row justify-between bg-background'>
             <SignedOut>
               <div className='flex h-screen w-full flex-col items-center justify-center gap-4'>
                 <h1 className='text-2xl'>Spotify clone</h1>

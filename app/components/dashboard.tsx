@@ -28,7 +28,7 @@ export default async function Dashboard() {
           🔍 Search
         </div>
       </Card>
-      <Card className='h-full'>
+      <Card className='h-full overflow-y-scroll'>
         <div className='flex flex-col gap-5'>
           <div>
             📚 Your library

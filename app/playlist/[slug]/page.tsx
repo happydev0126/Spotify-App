@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <Card>
+    <Card className="overflow-y-scroll">
       <div className="flex flex-row items-end w-full gap-4">
         <img className="shadow max-w-60 rounded" src={playlist.images[0].url} alt={playlist.name} />
         <div className="flex flex-col gap-4">
