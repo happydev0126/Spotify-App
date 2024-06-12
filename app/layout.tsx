@@ -1,16 +1,19 @@
 import { ClerkProvider, SignInButton, SignedIn, SignedOut } from '@clerk/nextjs'
 import './globals.css';
 import Card from './components/card';
-// import { auth, clerkClient } from '@clerk/nextjs/server';
-// import { CurrentUserPlaylistItem, Item } from './types/spotify';
-// import { getCurrentUserPlaylists, getRecentlyPlayed } from './api/spotify/spotify-api';
 import Dashboard from './components/dashboard';
+import Player from './components/player';
+import { auth, clerkClient } from '@clerk/nextjs/server';
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+
+  const { userId } = auth();
+  const provider = 'oauth_spotify';
+  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
 
   return (
     <ClerkProvider >
@@ -28,11 +31,12 @@ export default async function RootLayout({
               </div>
             </SignedOut>
             <SignedIn>
-              <div className='flex min-h-screen w-full flex-row justify-between gap-2 bg-background p-2'>
+              <div className='grid h-screen w-full columns-auto grid-cols-[auto,auto] grid-rows-[minmax(0,1fr)] gap-2 overflow-hidden bg-background p-2'>
                 <Dashboard />
-                <Card>
+                <Card className='w-fit'>
                   {children}
                 </Card>
+                <Player className={`col-span-full`} token={token} />
               </div>
             </SignedIn>
           </main>

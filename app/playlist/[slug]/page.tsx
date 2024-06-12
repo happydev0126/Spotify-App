@@ -46,6 +46,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <div className="w-full text-right">{index + 1}</div>
             <div className="flex flex-row items-center gap-2">
               <img src={item.track.album.images[0].url} className="max-w-12 rounded" alt="" />
+              {item.track.album.id}
               <div>
                 <div className="text-white">{item.track.name}</div>
                 <div className="text-xs">{item.track.artists[0].name}</div>

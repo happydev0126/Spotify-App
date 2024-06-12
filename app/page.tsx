@@ -18,7 +18,7 @@ export default async function Page() {
 
   // Use `user` to render user details or create UI elements
   return (
-    <>
+    <div>
       <header className="flex justify-between">
         <div className="flex flex-row gap-4">
           <button> {' < '} </button>
@@ -41,6 +41,6 @@ export default async function Page() {
           </div>
         ))}
       </section>
-    </>
+    </div>
   );
 }

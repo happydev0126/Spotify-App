@@ -10,14 +10,12 @@ import { getCurrentUserPlaylists } from '../api/spotify/spotify-api'
 export default async function Dashboard() {
   const { userId } = auth();
   let playlists: CurrentUserPlaylistItem[] = []
-  if (userId) {
-    const provider = 'oauth_spotify';
-    const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    playlists = await getCurrentUserPlaylists(token).then(data => data.items)
-  }
+  const provider = 'oauth_spotify';
+  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  playlists = await getCurrentUserPlaylists(token).then(data => data.items)
 
   return (
-    <div className='flex flex-col gap-2 w-3/12'>
+    <div className='flex flex-col gap-2 w-full'>
       <Card>
         <Link href='/'>
           <div>
@@ -28,23 +26,20 @@ export default async function Dashboard() {
           🔍 Search
         </div>
       </Card>
-      <Card className='h-full overflow-y-scroll'>
-        <div className='flex flex-col gap-5'>
-          <div>
-            📚 Your library
-          </div>
-          <div className='flex gap-1'>
-            <Tag title='Playlist' />
-            <Tag title='Albums' />
-            <Tag title='Podcasts' />
-          </div>
-          <form>
-            {/* <label>🔍</label> */}
-            <input className='rounded-2xl bg-gray-600/20 px-2' placeholder='Search in your library' type="text" />
-          </form>
-          <div>
-            <UserPlaylists playlists={playlists} />
-          </div>
+      <Card className='flex flex-col overflow-y-scroll max-h-full'>
+        <div className=''>
+          📚 Your library
+        </div>
+        <div className='flex gap-1'>
+          <Tag title='Playlist' />
+          <Tag title='Albums' />
+          <Tag title='Podcasts' />
+        </div>
+        <form>
+          <input className='rounded-2xl bg-gray-600/20 px-2' placeholder='Search in your library' type="text" />
+        </form>
+        <div>
+          <UserPlaylists playlists={playlists} />
         </div>
       </Card>
     </div>
