@@ -110,19 +110,23 @@ export default function Player(props) {
 
 
   return (
-    <div className={`flex h-full w-full items-center justify-between ${props.className}`} >
+    <div className={`flex h-16 w-full items-center justify-between ${props.className}`} >
       <div className="flex gap-2 items-center">
-        <img src={current_track.album.images[0].url} className="now-playing__cover size-12" alt="" />
+        {current_track.album.images[0].url &&
+          <>
+            <img src={current_track.album.images[0].url} className="now-playing__cover size-12" alt="" />
 
-        <div className="now-playing__side">
-          <div className="now-playing__name">
-            {current_track.name}
-          </div>
+            <div className="now-playing__side">
+              <div className="now-playing__name">
+                {current_track.name}
+              </div>
 
-          <div className="now-playing__artist text-xs text-gray-400">
-            {current_track.artists[0].name}
-          </div>
-        </div>
+              <div className="now-playing__artist text-xs text-gray-400">
+                {current_track.artists[0].name}
+              </div>
+            </div>
+          </>
+        }
       </div>
       <div className="flex items-center justify-center gap-4">
         <>
