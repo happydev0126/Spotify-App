@@ -4,7 +4,7 @@ import Card from './components/card';
 import Dashboard from './components/dashboard';
 import Player from './components/player';
 import { auth, clerkClient } from '@clerk/nextjs/server';
-import Providers from './deviceContext';
+import Providers from './appContext';
 
 export default async function RootLayout({
   children,

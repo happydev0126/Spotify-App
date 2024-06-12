@@ -27,7 +27,7 @@ export const fetchWebApi2 = async (url: string, token: string) => {
   return res
 };
 
-export const fetchPlayerApi = async (url: string, token: string, context_uri: string) => {
+export const fetchPlayerApi = async (url: string, token: string, context_uri: string, track_number: number) => {
   if (!token) {
     return null
   }
@@ -38,7 +38,11 @@ export const fetchPlayerApi = async (url: string, token: string, context_uri: st
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "uris": [`${context_uri}`]
+      "context_uri": `${context_uri}`,
+      "offset": {
+        "position": track_number
+      },
+      "position_ms": 0
     })
   };
 
@@ -68,12 +72,13 @@ export async function getDevice(token: string) {
   );
 }
 
-export async function resumePlayback(token: string, deviceId: string, context_uri: string) {
+export async function resumePlayback(token: string, deviceId: string, context_uri: string, track_number: number) {
   // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
   return fetchPlayerApi(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
     token,
-    context_uri
+    context_uri,
+    track_number
   );
 }
 
