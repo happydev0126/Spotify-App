@@ -1,19 +1,25 @@
-import { getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
+import { getCurrentUserPlaylists, getDevice, getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
 import Card from "@/app/components/card";
+import TrackC from "@/app/components/track";
 import { Playlist, User } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { useContext } from 'react';
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
   const { userId } = auth();
   let playlist: Playlist
   let owner: User
+  let token: string
   if (userId) {
     const provider = 'oauth_spotify';
-    const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+    token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     playlist = await getPlaylist(token, params.slug)
     owner = await getUser(token, playlist.owner.id)
+    // playlists = await getCurrentUserPlaylists(token).then(data => data.items)
+
   }
+  // console.log({ device })
 
   if (!playlist) {
     return <div>No playlist found</div>
@@ -43,18 +49,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <span>🕒</span>
         {playlist.tracks.items.map((item, index) => (
           <>
-            <div className="w-full text-right">{index + 1}</div>
-            <div className="flex flex-row items-center gap-2">
-              <img src={item.track.album.images[0].url} className="max-w-12 rounded" alt="" />
-              {item.track.album.id}
-              <div>
-                <div className="text-white">{item.track.name}</div>
-                <div className="text-xs">{item.track.artists[0].name}</div>
-              </div>
-            </div>
-            <div>{item.track.album.name}</div>
-            <div>{item.added_at}</div>
-            <div>{item.track.duration_ms}</div>
+            <TrackC item={item} index={index} token={token} device={''} />
           </>
         ))}
       </div>
