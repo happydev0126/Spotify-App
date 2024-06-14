@@ -10,9 +10,11 @@ import { getCurrentUserPlaylists } from '../api/spotify/spotify-api'
 export default async function Dashboard() {
   const { userId } = auth();
   let playlists: CurrentUserItem[] = []
-  const provider = 'oauth_spotify';
-  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-  playlists = await getCurrentUserPlaylists(token).then(data => data.items)
+  if (userId) {
+    const provider = 'oauth_spotify';
+    const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+    playlists = await getCurrentUserPlaylists(token).then(data => data.items)
+  }
 
   return (
     <div className='flex flex-col gap-2 w-full'>
