@@ -13,8 +13,11 @@ export default async function RootLayout({
 }) {
 
   const { userId } = auth();
-  const provider = 'oauth_spotify';
-  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  let token = ''
+  if (userId) {
+    const provider = 'oauth_spotify';
+    token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  }
 
   return (
     <ClerkProvider >
@@ -38,7 +41,7 @@ export default async function RootLayout({
                   <Card className='w-fit'>
                     {children}
                   </Card>
-                  <Player className={`col-span-full`} token={token} />
+                  <Player className={`col-span-full`} />
                 </div>
               </Providers>
             </SignedIn>
