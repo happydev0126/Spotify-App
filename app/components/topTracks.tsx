@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import Card from "./card";
-import { CurrentUserItem, CurrentUserItems, Track, Tracks } from "../types/spotify";
+import { CurrentUserItem, CurrentUserItems, Track, TrackArtist, Tracks } from "../types/spotify";
 
 export default function TopTracks({ topTracks }: { topTracks: CurrentUserItems | undefined }) {
   const [tracks, setTracks] = useState<CurrentUserItem[] | undefined>()
@@ -14,10 +14,10 @@ export default function TopTracks({ topTracks }: { topTracks: CurrentUserItems |
 
   return (
     <Card>
-      {tracks?.map((track) => (
+      {tracks?.map((track: any) => (
         <div key={track.id} >
           {
-            track.artists.map((artist) => (
+            track.artists.map((artist: TrackArtist) => (
               <span key={artist.name}>{artist.name}</span>
             ))
           }
