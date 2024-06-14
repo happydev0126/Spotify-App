@@ -1,14 +1,14 @@
 import { getCurrentUserPlaylists, getDevice, getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
 import Card from "@/app/components/card";
-import TrackC from "@/app/components/track";
+import Track from "@/app/components/track";
 import { Playlist, User } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
   const { userId } = auth();
-  let playlist: Playlist
-  let owner: User
+  let playlist: Playlist | undefined = undefined
+  let owner: User | undefined = undefined
   let token: string
   if (userId) {
     const provider = 'oauth_spotify';
@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <h2 className="text-6xl font-bold">{playlist.name}</h2>
           <span className="italic text-gray-400">{playlist.description}</span>
           <div className="flex flex-row gap-2">
-            <img src={owner.images[0].url} alt={playlist.owner.display_name} className="max-w-6 rounded-2xl" />
+            <img src={owner?.images[0].url} alt={playlist.owner.display_name} className="max-w-6 rounded-2xl" />
             <span className="font-bold">{playlist.owner.display_name}  </span>
             <span>{playlist.tracks.total} songs </span>
           </div>
@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         {playlist.tracks.items.map((item, index) => (
           <>
-            <TrackC item={item} index={index} token={token} playlist_uri={playlist.uri} />
+            <Track item={item} index={index} token={token} playlist_uri={playlist.uri} />
           </>
         ))}
       </div>

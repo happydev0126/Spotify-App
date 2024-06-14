@@ -116,17 +116,17 @@ export interface ExternalIDS {
 export interface LinkedFrom {
 }
 
-export interface CurrentUserPlaylists {
+export interface CurrentUserItems {
   href: string;
   limit: number;
   next: string;
   offset: number;
   previous: string;
   total: number;
-  items: CurrentUserPlaylistItem[];
+  items: CurrentUserItem[];
 }
 
-export interface CurrentUserPlaylistItem {
+export interface CurrentUserItem {
   collaborative: boolean;
   description: string;
   external_urls: ExternalUrls;
@@ -159,7 +159,7 @@ export interface Tracks {
   offset: number;
   previous: string;
   total: number;
-  items: Item[];
+  items: Item[]
 }
 
 export interface Playlist {

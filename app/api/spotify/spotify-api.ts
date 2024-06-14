@@ -1,4 +1,4 @@
-import { CurrentUserPlaylists, Playlist, RecentlyPlayed, User } from "@/app/types/spotify";
+import { CurrentUserItems, Playlist, RecentlyPlayed, User } from "@/app/types/spotify";
 export const fetchWebApi = async (url: string, token: string) => {
   if (!token) {
     return null;
@@ -105,7 +105,7 @@ export async function getUser(token: string, user_id: string): Promise<User> {
   );
 }
 
-export async function getCurrentUserPlaylists(token: string): Promise<CurrentUserPlaylists> {
+export async function getCurrentUserPlaylists(token: string): Promise<CurrentUserItems> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/playlists`,
     token

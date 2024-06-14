@@ -2,14 +2,14 @@ import React from 'react'
 import Card from './card'
 import Tag from './tag'
 import UserPlaylists from './playlist'
-import { CurrentUserPlaylistItem, Item } from '../types/spotify'
+import { CurrentUserItem } from '../types/spotify'
 import Link from 'next/link'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { getCurrentUserPlaylists } from '../api/spotify/spotify-api'
 
 export default async function Dashboard() {
   const { userId } = auth();
-  let playlists: CurrentUserPlaylistItem[] = []
+  let playlists: CurrentUserItem[] = []
   const provider = 'oauth_spotify';
   const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
   playlists = await getCurrentUserPlaylists(token).then(data => data.items)

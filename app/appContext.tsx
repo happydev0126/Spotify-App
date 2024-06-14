@@ -1,22 +1,25 @@
 'use client';
 
 import { createContext, useEffect, useState } from 'react';
-import { Track } from './types/spotify';
 
 
+interface PlayerContextState {
+  player: Spotify.Player | undefined;
+  is_active: boolean;
+  is_paused: boolean;
+  current_track: Spotify.Track | undefined;
+}
 export const DeviceContext = createContext('');
-export const PlayerContext = createContext<Spotify.Player | undefined>(undefined);
+export const PlayerContext = createContext<PlayerContextState>({ player: undefined, is_active: false, is_paused: true, current_track: undefined });
 
 export default function Providers({ children, token }: { children: React.ReactNode, token: string }) {
 
   const [player, setPlayer] = useState<Spotify.Player>();
   const [deviceId, setDeviceId] = useState('')
   const [current_track, setTrack] = useState<Spotify.Track>();
-  const [is_paused, setPaused] = useState(false);
+  const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
-  const [playerState, setPlayerState] = useState()
-  const [currentTrack, setCurrentTrack] = useState<Spotify.Track>()
-  const [nextTrack, setNextTrack] = useState<Spotify.Track>()
+  current_track?.album.images[0]
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -46,22 +49,10 @@ export default function Providers({ children, token }: { children: React.ReactNo
       });
 
       player.addListener('player_state_changed', (state => {
-        setPlayerState(state);
         (!state) ? setActive(false) : setActive(true)
-        if (!state) {
-          return;
-        }
 
         setTrack(state.track_window.current_track);
         setPaused(state.paused);
-
-        var current_track = state.track_window.current_track;
-        setCurrentTrack(current_track)
-        var next_track = state.track_window.next_tracks[0];
-        setNextTrack(next_track)
-
-        console.log('Currently Playing', current_track);
-        console.log('Playing Next', next_track);
 
       }));
 
@@ -91,7 +82,7 @@ export default function Providers({ children, token }: { children: React.ReactNo
 
   return (
     <DeviceContext.Provider value={deviceId}>
-      <PlayerContext.Provider value={player}>
+      <PlayerContext.Provider value={{ player, is_active, is_paused, current_track }}>
         {children}
       </PlayerContext.Provider>
     </DeviceContext.Provider>

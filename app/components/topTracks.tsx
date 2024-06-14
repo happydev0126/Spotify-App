@@ -1,12 +1,15 @@
 'use client'
 import { useEffect, useState } from "react";
 import Card from "./card";
+import { CurrentUserItem, CurrentUserItems, Track, Tracks } from "../types/spotify";
 
-export default function TopTracks({ topTracks }) {
-  const [tracks, setTracks] = useState([])
+export default function TopTracks({ topTracks }: { topTracks: CurrentUserItems | undefined }) {
+  const [tracks, setTracks] = useState<CurrentUserItem[] | undefined>()
 
   useEffect(() => {
-    setTracks(topTracks.items)
+    if (topTracks) {
+      setTracks(topTracks.items)
+    }
   }, [topTracks])
 
   return (

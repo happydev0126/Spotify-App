@@ -4,11 +4,8 @@ import { resumePlayback } from "../api/spotify/spotify-api"
 import { Item } from "../types/spotify"
 import { DeviceContext } from "../appContext"
 
-export default function TrackC({ item, index, token, playlist_uri }: { item: Item, index: number, token: string, playlist_uri: string }) {
+export default function Track({ item, index, token, playlist_uri }: { item: Item, index: number, token: string, playlist_uri: string }) {
   const deviceId = useContext(DeviceContext)
-  console.log(
-    item.track.track_number
-  )
 
   return (
     <button
