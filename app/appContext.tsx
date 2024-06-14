@@ -41,11 +41,11 @@ export default function Providers({ children, token }: { children: React.ReactNo
 
       player.addListener("ready", ({ device_id }: { device_id: string }) => {
         setDeviceId(device_id)
-        console.log("Device ID has gone online", device_id);
+        // console.log("Device ID has gone online", device_id);
       });
 
       player.addListener("not_ready", ({ device_id }: { device_id: string }) => {
-        console.log("Device ID has gone offline", device_id);
+        // console.log("Device ID has gone offline", device_id);
       });
 
       player.addListener('player_state_changed', (state => {

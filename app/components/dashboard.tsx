@@ -38,9 +38,6 @@ export default async function Dashboard() {
           <Tag title='Albums' />
           <Tag title='Podcasts' />
         </div>
-        <form>
-          <input className='rounded-2xl bg-gray-600/20 px-2' placeholder='Search in your library' type="text" />
-        </form>
         <div>
           <UserPlaylists playlists={playlists} />
         </div>
