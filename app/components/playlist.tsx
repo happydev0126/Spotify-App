@@ -24,7 +24,7 @@ export default function UserPlaylists({ playlists }: { playlists: CurrentUserIte
     <div className='flex flex-col'>
       <form>
         <input
-          className='rounded-2xl bg-gray-600/20 px-2'
+          className='bg-stone-500/20 rounded mb-2 w-full px-2 placeholder-gray-300 text-sm p-1'
           placeholder='Search in your library'
           onChange={(e) => handleSearch(e)}
           type="text"
