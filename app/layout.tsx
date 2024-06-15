@@ -1,4 +1,4 @@
-import { ClerkProvider, SignInButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import './globals.css';
 import Card from './components/card';
 import Dashboard from './components/dashboard';
@@ -39,6 +39,14 @@ export default async function RootLayout({
                 <div className='grid h-screen w-full columns-auto grid-cols-[auto,auto] grid-rows-[minmax(0,1fr)] gap-2 overflow-hidden bg-background p-2'>
                   <Dashboard />
                   <Card className='w-fit'>
+                    <header className="flex justify-between">
+                      <div className="flex flex-row gap-4">
+                        <img src="/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png" className='w-24' alt="Spotify_Logo_RGB_Green" />
+                        <button> {' < '} </button>
+                        <button>{' > '}</button>
+                      </div>
+                      <UserButton />
+                    </header>
                     {children}
                   </Card>
                   <Player className={`col-span-full`} />

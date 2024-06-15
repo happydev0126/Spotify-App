@@ -19,13 +19,6 @@ export default async function Page() {
   // Use `user` to render user details or create UI elements
   return (
     <div>
-      <header className="flex justify-between">
-        <div className="flex flex-row gap-4">
-          <button> {' < '} </button>
-          <button>{' > '}</button>
-        </div>
-        <UserButton />
-      </header>
       <div className="row flex gap-2">
         <Tag title={'All'} />
         <Tag title={'Music'} />
