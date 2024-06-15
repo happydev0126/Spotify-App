@@ -23,8 +23,6 @@ export default async function RootLayout({
     <ClerkProvider >
       <html lang="en">
         <body>
-          <header>
-          </header>
           <main className='flex h-screen flex-row justify-between bg-background'>
             <SignedOut>
               <div className='flex h-screen w-full flex-col items-center justify-center gap-4'>
@@ -49,7 +47,7 @@ export default async function RootLayout({
                     </header>
                     {children}
                   </Card>
-                  <Player className={`col-span-full`} /> </div>
+                  <Player className='col-span-full' /> </div>
               </Providers>
             </SignedIn>
           </main>

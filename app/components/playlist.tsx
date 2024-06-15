@@ -13,7 +13,7 @@ export default function UserPlaylists({ playlists }: { playlists: CurrentUserIte
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    setSearchInput(e.target.value)
+    setSearchInput(e.target.value.toLowerCase())
   }
 
   if (!playlists) {
@@ -30,7 +30,7 @@ export default function UserPlaylists({ playlists }: { playlists: CurrentUserIte
           type="text"
         />
       </form>
-      {userPlaylists?.filter(usePlaylist => usePlaylist.name.includes(searchInput))?.map((playlist) => (
+      {userPlaylists?.filter(usePlaylist => usePlaylist.name.toLowerCase().includes(searchInput))?.map((playlist) => (
         <Link key={playlist.id} href={`/playlist/${playlist.id}`} className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
           <div className='flex flex-row items-center gap-2'>
             <img src={playlist.images[0].url} alt='Image' className='max-w-12 rounded'></img>

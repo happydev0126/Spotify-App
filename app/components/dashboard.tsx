@@ -25,21 +25,23 @@ export default async function Dashboard() {
             Home
           </div>
         </Link>
-        <div className='flex items-center gap-2 text-gray-400'>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" viewBox="0 0 24 24" data-icon="SvgSearch" aria-hidden="true"><path d="M10.1 3a7.1 7.1 0 11-5.02 2.08A7.074 7.074 0 0110.1 3zM21 21l-2.9-2.9-2.9-2.9"></path></svg>
-          Search
-        </div>
+        {/* TODO */}
+        {/* <div className='flex items-center gap-2 text-gray-400'> */}
+        {/*   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" viewBox="0 0 24 24" data-icon="SvgSearch" aria-hidden="true"><path d="M10.1 3a7.1 7.1 0 11-5.02 2.08A7.074 7.074 0 0110.1 3zM21 21l-2.9-2.9-2.9-2.9"></path></svg> */}
+        {/*   Search */}
+        {/* </div> */}
       </Card>
       <Card className='flex flex-col overflow-y-scroll h-full'>
         <div className='flex items-center gap-2 text-gray-400'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" width="24" height="24" viewBox="0 0 24 24" data-icon="SvgLibrary" aria-hidden="true"><path d="M20.332 20L16.844 4M12 20V4M6 20V4"></path></svg>
           Your library
         </div>
-        <div className='flex gap-1'>
-          <Tag title='Playlist' />
-          <Tag title='Albums' />
-          <Tag title='Podcasts' />
-        </div>
+        {/* TODO */}
+        {/* <div className='flex gap-1'> */}
+        {/*   <Tag title='Playlist' /> */}
+        {/*   <Tag title='Albums' /> */}
+        {/*   <Tag title='Podcasts' /> */}
+        {/* </div> */}
         <div>
           <UserPlaylists playlists={playlists} />
         </div>

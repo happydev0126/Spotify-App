@@ -22,9 +22,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <Card className="overflow-y-scroll">
+    <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
       <div className="flex flex-row items-end w-full gap-4">
-        <img className="shadow max-w-60 rounded" src={playlist.images[0].url} alt={playlist.name} />
+        <img className="shadow max-w-56 rounded" src={playlist.images[0].url} alt={playlist.name} />
         <div className="flex flex-col gap-4">
           <span className="capitalize">{playlist.type}</span>
           <h2 className="text-6xl font-bold">{playlist.name}</h2>
@@ -36,9 +36,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <hr />
-      <div className="flex flex-col w-full gap-2">
-        <div className="grid items-center grid-cols-[5%_25%_25%_25%_10%] gap-x-6 gap-y-2 text-gray-300">
+      <div className="flex flex-col w-full text-sm text-zinc-400">
+        <div className="grid items-center grid-cols-[5%_25%_25%_25%_10%] gap-x-6 gap-y-2">
           <span className="w-full text-right">#</span>
           <span>Title</span>
           <span>Album</span>
@@ -47,13 +46,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" data-icon="SvgClock" aria-hidden="true"><path d="M11.75 2.75a9 9 0 11-6.364 2.636A8.972 8.972 0 0111.75 2.75zm0 5.2v4h4.2"></path></svg>
           </span>
         </div>
+
+        <hr className="mt-2 mb-4 opacity-20" />
         {playlist.tracks.items.map((item, index) => (
           <>
             <Track item={item} index={index} token={token} playlist_uri={playlist.uri} />
           </>
         ))}
       </div>
-    </Card >
+    </div >
   );
 }
 
