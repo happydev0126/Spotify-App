@@ -15,7 +15,7 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
     return <div>{month} {day}, {year}</div>
   }
 
-  function msToTime(s: number) {
+  const msToTime = (s: number) => {
     var ms = s % 1000;
     s = (s - ms) / 1000;
     var secs = s % 60;
@@ -32,7 +32,7 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
   return (
     <button
       key={item.track.id + index}
-      className="text-zinc-400 grid grid-cols-[5%_25%_25%_25%_10%] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 p-2 rounded max-h-16"
+      className="text-zinc-400 grid grid-cols-[3%_35%_25%_22%_5%] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 p-2 rounded max-h-16"
       onClick={() => resumePlayback(token, deviceId, playlist_uri, index)}
     >
       <div className="w-full text-right">{index + 1}</div>

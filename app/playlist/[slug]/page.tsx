@@ -1,5 +1,4 @@
-import { getCurrentUserPlaylists, getDevice, getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
-import Card from "@/app/components/card";
+import { getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track";
 import { Playlist, User } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server";
@@ -37,7 +36,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="flex flex-col w-full text-sm text-zinc-400">
-        <div className="grid items-center grid-cols-[5%_25%_25%_25%_10%] gap-x-6 gap-y-2">
+        <div className="grid items-center grid-cols-[3%_35%_25%_22%_5%] gap-x-6 gap-y-2">
           <span className="w-full text-right">#</span>
           <span>Title</span>
           <span>Album</span>
