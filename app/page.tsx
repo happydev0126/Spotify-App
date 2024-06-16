@@ -9,7 +9,7 @@ export default async function Page() {
   const { userId } = auth();
   let recentlyPlayed: Item[] = []
   let usersTopItems: Artist[] = []
-  let featuredPlaylist: FeaturedPlaylist
+  let featuredPlaylist: FeaturedPlaylist = { href: '', items: [], limit: 0, next: '', total: 0, offset: 0, previous: '' }
   if (userId) {
     const provider = 'oauth_spotify';
     const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
@@ -76,7 +76,6 @@ export default async function Page() {
           ))}
         </div>
       </section>
-
     </div>
   );
 }
