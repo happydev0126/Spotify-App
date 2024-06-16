@@ -2,30 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
-
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 
-
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
 }
-
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
@@ -93,7 +87,6 @@ h6 {
     --background-end-rgb: 0, 0, 0;
   }
 }
-
 
 body {
   font: CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva;

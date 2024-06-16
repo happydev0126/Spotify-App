@@ -162,6 +162,41 @@ export interface Tracks {
   items: Item[]
 }
 
+
+export interface User {
+  display_name: string;
+  external_urls: ExternalUrls;
+  followers: Followers;
+  href: string;
+  id: string;
+  images: Image[];
+  type: string;
+  uri: string;
+}
+
+export interface Artist {
+  external_urls: ExternalUrls;
+  followers: Followers;
+  genres: string[];
+  href: string;
+  id: string;
+  images: Image[];
+  name: string;
+  popularity: number;
+  type: string;
+  uri: string;
+}
+
+export interface CurrentUserArtist {
+  href: string;
+  limit: number;
+  next: string;
+  offset: number;
+  previous: string;
+  total: number;
+  items: Artist[];
+}
+
 export interface Playlist {
   collaborative: boolean;
   description: string;
@@ -179,13 +214,17 @@ export interface Playlist {
   uri: string;
 }
 
-export interface User {
-  display_name: string;
-  external_urls: ExternalUrls;
-  followers: Followers;
+export interface FeaturedPlaylist {
   href: string;
-  id: string;
-  images: Image[];
-  type: string;
-  uri: string;
+  limit: number;
+  next: string;
+  offset: number;
+  previous: string;
+  total: number;
+  items: Playlist[];
+}
+
+export interface FeaturedPlaylists {
+  message: string;
+  playlists: FeaturedPlaylist
 }
