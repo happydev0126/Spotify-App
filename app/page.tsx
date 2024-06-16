@@ -1,8 +1,8 @@
-import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { getFeaturedPlaylists, getRecentlyPlayed, getUsersSavedTracks, getUsersTopItems } from "./api/spotify/spotify-api";
 import { UserButton } from "@clerk/nextjs";
 import Tag from "./components/tag";
-import { Artist, CurrentUserArtist, CurrentUserItem, FeaturedPlaylist, FeaturedPlaylists, Item, Playlist } from "./types/spotify";
+import { Artist, FeaturedPlaylist, Item, Playlist } from "./types/spotify";
 
 export default async function Page() {
   // Get the userId from auth() -- if null, the user is not signed in

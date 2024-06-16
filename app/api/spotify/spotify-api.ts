@@ -1,4 +1,4 @@
-import { Artist, CurrentUserArtist, CurrentUserItems, FeaturedPlaylists, Item, Playlist, RecentlyPlayed, User, currentUserArtist } from "@/app/types/spotify";
+import { CurrentUserArtist, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, User } from "@/app/types/spotify";
 export const fetchWebApi = async (url: string, token: string) => {
   if (!token) {
     return null;
