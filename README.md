@@ -1,4 +1,4 @@
-The app is currently on development mode on the Spotify API, in order to access the app via the link, i have to grant you access with your Spotify Acc. (I'll add a test acc soon)
+The app is currently on development mode on the Spotify API, in order to access the app via the link, i have to grant you access with your Spotify account, in order to use the player, you'll need Spotify Premium. (I'll add a test acc soon)
 
 To run this locally, follow the documentation on [`Spotify`](api.spotify.com) and [`Clerk`](www.clerk.com).
 
