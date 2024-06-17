@@ -40,12 +40,12 @@ export default async function Page() {
           </div>
         ))}
       </section>
-      <section className="flex flex-col gap-4 h-96">
+      <section className="flex flex-col gap-4">
         <h3 className="text-2xl font-bold">Your favorite artists</h3>
         <div className="flex flex-row gap-4">
           {usersTopItems.map((item: Artist) => (
             <div key={item.id} className="flex flex-col items-start gap-2">
-              <img src={item.images[0].url} className="min-w-[120px] ratio aspect-square rounded-full" alt={item.name} />
+              <img src={item.images[0].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded-full" alt={item.name} />
               <div className="flex flex-col">
                 <p className="w-full font-bold text-sm">
                   {item.name}
