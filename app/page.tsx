@@ -1,7 +1,5 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { getFeaturedPlaylists, getRecentlyPlayed, getUsersSavedTracks, getUsersTopItems } from "./api/spotify/spotify-api";
-import { UserButton } from "@clerk/nextjs";
-import Tag from "./components/tag";
+import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api/spotify/spotify-api";
 import { Artist, FeaturedPlaylist, Item, Playlist } from "./types/spotify";
 
 export default async function Page() {
@@ -42,7 +40,7 @@ export default async function Page() {
       </section>
       <section className="flex flex-col gap-4 ">
         <h3 className="text-2xl font-bold">Your favorite artists</h3>
-        {usersTopItems.length < 1 ? <div className="text-xs italic">You don't have favorite artists yet!</div> :
+        {(usersTopItems.length < 1) ? <div className="text-xs italic">You don't have favorite artists yet!</div> :
           <div className="flex flex-row gap-4 overflow-x-scroll">
             {usersTopItems.map((item: Artist) => (
               <div key={item.id} className="flex flex-col items-start gap-2">
