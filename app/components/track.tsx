@@ -6,7 +6,6 @@ import { DeviceContext } from "../appContext"
 
 export default function Track({ item, index, token, playlist_uri }: { item: Item, index: number, token: string, playlist_uri: string }) {
   const { deviceId, user } = useContext(DeviceContext)
-  console.log({ deviceId })
 
   const formatTime = (trackDate: string) => {
     const date = new Date(trackDate)
@@ -36,7 +35,6 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
       return
     }
     if (deviceId) {
-      alert('you have device id')
       resumePlayback(token, deviceId, playlist_uri, index)
     }
   }
