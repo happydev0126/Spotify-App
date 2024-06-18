@@ -1,3 +1,9 @@
+The app is currently on development mode on the Spotify API, in order to access the app via the link, i have to grant you access with your Spotify account. In order to use the player, you'll need Spotify Premium. (I'll add a test acc soon)
+
+To run this locally, follow the documentation on [`Spotify`](api.spotify.com) and [`Clerk`](www.clerk.com), you need your own .env variables.
+
+This app is currently only usable on desktop.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
