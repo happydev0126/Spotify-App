@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useEffect, useState } from 'react';
+import { CurrentUser } from './types/spotify'
 
 
 interface PlayerContextState {
@@ -9,19 +10,30 @@ interface PlayerContextState {
   is_paused: boolean;
   current_track: Spotify.Track | undefined;
 }
-export const DeviceContext = createContext('');
+
+interface DeviceContext {
+  deviceId?: string;
+  user?: CurrentUser;
+}
+
+export const DeviceContext = createContext<DeviceContext>({ deviceId: undefined, user: undefined });
 export const PlayerContext = createContext<PlayerContextState>({ player: undefined, is_active: false, is_paused: true, current_track: undefined });
 
-export default function Providers({ children, token }: { children: React.ReactNode, token: string }) {
+export default function Providers({ children, token, user }: { children: React.ReactNode, token: string, user: CurrentUser }) {
 
   const [player, setPlayer] = useState<Spotify.Player>();
-  const [deviceId, setDeviceId] = useState('')
+  const [currentUser] = useState<CurrentUser>(user)
+  const [deviceId, setDeviceId] = useState<string | undefined>(undefined)
   const [current_track, setTrack] = useState<Spotify.Track>();
   const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
   current_track?.album.images[0]
 
   useEffect(() => {
+    if (currentUser && currentUser.product !== 'premium') {
+      return
+    }
+
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
     script.async = true;
@@ -81,10 +93,10 @@ export default function Providers({ children, token }: { children: React.ReactNo
   }, []);
 
   return (
-    <DeviceContext.Provider value={deviceId}>
+    <DeviceContext.Provider value={{ deviceId: deviceId, user: currentUser }}>
       <PlayerContext.Provider value={{ player, is_active, is_paused, current_track }}>
         {children}
       </PlayerContext.Provider>
-    </DeviceContext.Provider>
+    </DeviceContext.Provider >
   );
 }

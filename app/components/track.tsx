@@ -5,7 +5,7 @@ import { Item } from "../types/spotify"
 import { DeviceContext } from "../appContext"
 
 export default function Track({ item, index, token, playlist_uri }: { item: Item, index: number, token: string, playlist_uri: string }) {
-  const deviceId = useContext(DeviceContext)
+  const { deviceId, user } = useContext(DeviceContext)
 
   const formatTime = (trackDate: string) => {
     const date = new Date(trackDate)
@@ -29,11 +29,22 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
     return 0 + ':' + secsStr
   }
 
+  const handlePlayTrack = () => {
+    console.log(user?.product)
+    if (user?.product !== 'premium') {
+      alert('Get Spotify Premium to use the player')
+      return
+    }
+    if (deviceId) {
+      resumePlayback(token, deviceId, playlist_uri, index)
+    }
+  }
+
   return (
     <button
       key={item.track.id + index}
       className="text-zinc-400 grid grid-cols-[3%_35%_25%_22%_5%] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 p-2 rounded max-h-16"
-      onClick={() => resumePlayback(token, deviceId, playlist_uri, index)}
+      onClick={handlePlayTrack}
     >
       <div className="w-full text-right">{index + 1}</div>
       <div className="flex flex-row items-center gap-2">

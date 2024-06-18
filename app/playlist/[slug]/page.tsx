@@ -29,7 +29,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <h2 className="text-6xl font-bold">{playlist.name}</h2>
           <span className="italic text-gray-400">{playlist.description}</span>
           <div className="flex flex-row gap-2">
-            <img src={owner?.images[0].url} alt={playlist.owner.display_name} className="max-w-6 rounded-2xl" />
+            {owner?.images[0] &&
+              <img src={owner?.images[0].url} alt={playlist.owner.display_name} className="max-w-6 rounded-2xl" />
+            }
             <span className="font-bold">{playlist.owner.display_name}  </span>
             <span>{playlist.tracks.total} songs </span>
           </div>

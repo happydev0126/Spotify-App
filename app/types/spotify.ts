@@ -1,3 +1,24 @@
+export interface CurrentUser {
+  display_name: string;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  images: Image[];
+  type: string;
+  uri: string;
+  followers: Followers;
+  country: string;
+  product: string;
+  explicit_content: ExplicitContent;
+  email: string;
+}
+
+export interface ExplicitContent {
+  filter_enabled: boolean;
+  filter_locked: boolean;
+}
+
+
 export interface RecentlyPlayed {
   href: string;
   limit: number;

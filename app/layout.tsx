@@ -5,6 +5,7 @@ import Dashboard from './components/dashboard';
 import Player from './components/player';
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import Providers from './appContext';
+import { getCurrentUser } from './api/spotify/spotify-api';
 
 export default async function RootLayout({
   children,
@@ -14,9 +15,14 @@ export default async function RootLayout({
 
   const { userId } = auth();
   let token = ''
+  let user
   if (userId) {
     const provider = 'oauth_spotify';
     token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+    user = await getCurrentUser(token)
+  }
+  if (!user) {
+    return
   }
 
   return (
@@ -33,7 +39,7 @@ export default async function RootLayout({
               </div>
             </SignedOut>
             <SignedIn>
-              <Providers token={token}>
+              <Providers token={token} user={user}>
                 <div className='grid h-screen w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 overflow-hidden bg-background p-2'>
                   <Dashboard />
                   <Card className='w-full'>
