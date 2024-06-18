@@ -30,7 +30,6 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
   }
 
   const handlePlayTrack = () => {
-    console.log(user?.product)
     if (user?.product !== 'premium') {
       alert('Get Spotify Premium to use the player')
       return
@@ -41,7 +40,8 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
   }
 
   return (
-    <button
+    <div
+      role="button"
       key={item.track.id + index}
       className="text-zinc-400 grid grid-cols-[3%_35%_25%_22%_5%] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 p-2 rounded max-h-16"
       onClick={handlePlayTrack}
@@ -57,7 +57,7 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
       <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden">{item.track.album.name}</div>
       <div>{formatTime(item.added_at)}</div>
       <div>{msToTime(item.track.duration_ms)}</div>
-    </button>
+    </div>
   );
 }
 
