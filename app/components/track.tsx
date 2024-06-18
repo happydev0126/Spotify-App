@@ -39,6 +39,7 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
       alert('you have device id')
       resumePlayback(token, deviceId, playlist_uri, index)
     }
+    alert('hello world')
   }
 
   return (
