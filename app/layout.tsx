@@ -38,7 +38,7 @@ export default async function RootLayout({
             <SignedIn>
               {user &&
                 <Providers token={token} user={user}>
-                  <div className='grid h-screen w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 overflow-hidden bg-background p-2'>
+                  <div className='flex flex-col md:grid h-screen w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 overflow-hidden bg-background p-2'>
                     <Dashboard />
                     <Card className='w-full'>
                       <header className="flex justify-between">

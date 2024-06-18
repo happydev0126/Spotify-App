@@ -22,12 +22,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
-      <div className="flex flex-row items-end w-full gap-4">
-        <img className="shadow max-w-56 rounded" src={playlist.images[0].url} alt={playlist.name} />
-        <div className="flex flex-col gap-4">
-          <span className="capitalize">{playlist.type}</span>
-          <h2 className="text-6xl font-bold">{playlist.name}</h2>
-          <span className="italic text-gray-400">{playlist.description}</span>
+      <div className="flex flex-col items-center md:flex-row md:items-end w-full gap-4">
+        <img className="shadow xs:order-2 max-w-56 rounded" src={playlist.images[0].url} alt={playlist.name} />
+        <div className="flex flex-col xs:order-1 gap-4">
+          <span className="capitalize xs:order-2">{playlist.type}</span>
+          <h2 className="text-6xl font-bold xs:order-1">{playlist.name}</h2>
+          <span className="italic text-gray-400 xs:order-3">{playlist.description}</span>
           <div className="flex flex-row gap-2">
             {owner?.images[0] &&
               <img src={owner?.images[0].url} alt={playlist.owner.display_name} className="max-w-6 rounded-2xl" />
