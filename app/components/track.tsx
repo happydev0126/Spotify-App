@@ -1,10 +1,11 @@
 'use client'
 import { useContext } from "react"
 import { resumePlayback } from "../api/spotify/spotify-api"
-import { Item } from "../types/spotify"
 import { DeviceContext } from "../appContext"
+import Link from "next/link"
+import type { Track } from "../types/spotify"
 
-export default function Track({ item, index, token, playlist_uri }: { item: Item, index: number, token: string, playlist_uri: string }) {
+export default function Track({ item, index, token, playlist_uri, uris, added_at }: { item: Track, index: number, token: string, playlist_uri?: string, uris?: string[], added_at?: string }) {
   const { deviceId, user } = useContext(DeviceContext)
 
   const formatTime = (trackDate: string) => {
@@ -35,28 +36,32 @@ export default function Track({ item, index, token, playlist_uri }: { item: Item
       return
     }
     if (deviceId) {
-      resumePlayback(token, deviceId, playlist_uri, index)
+      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
     }
   }
 
   return (
     <div
       role="button"
-      key={item.track.id + index}
+      key={item.id + index}
       className="text-zinc-400 grid grid-cols-[3%_35%_25%_22%_5%] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 p-2 rounded max-h-16"
       onClick={handlePlayTrack}
     >
       <div className="w-full text-right">{index + 1}</div>
       <div className="flex flex-row items-center gap-2">
-        <img src={item.track.album.images[0].url} className="max-w-12 rounded" alt="" />
+        <img src={item.album.images[0].url} className="max-w-12 rounded" alt="" />
         <div className="overflow-hidden">
-          <div className="text-white whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold">{item.track.name}</div>
-          <div className="text-xs">{item.track.artists[0].name}</div>
+          <div className="text-white whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold">{item.name}</div>
+          <Link href={`/artist/${item.artists[0].id}`} className="text-xs">{item.artists[0].name}</Link>
         </div>
       </div>
-      <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden">{item.track.album.name}</div>
-      <div>{formatTime(item.added_at)}</div>
-      <div>{msToTime(item.track.duration_ms)}</div>
+      <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden">{item.album.name}</div>
+      {added_at &&
+        <>
+          <div>{formatTime(added_at)}</div>
+          <div>{msToTime(item.duration_ms)}</div>
+        </>
+      }
     </div>
   );
 }

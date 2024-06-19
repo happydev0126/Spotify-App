@@ -62,7 +62,6 @@ export default function Providers({ children, token, user }: { children: React.R
 
       player.addListener('player_state_changed', (state => {
         (!state) ? setActive(false) : setActive(true)
-
         setTrack(state.track_window.current_track);
         setPaused(state.paused);
 

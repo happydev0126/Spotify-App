@@ -1,9 +1,12 @@
 'use client'
 import { useContext } from "react";
 import { PlayerContext } from "../appContext";
+import { resumePlayback } from "../api/spotify/spotify-api";
 
 export default function Player({ className }: { className: string }) {
   const { player, is_active, is_paused, current_track } = useContext(PlayerContext)
+  console.log({ player })
+
 
   return (
     <div className={`flex h-16 w-full items-center justify-between ${className}`} >

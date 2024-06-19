@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <hr className="mt-2 mb-4 opacity-20" />
         {playlist.tracks.items.map((item, index) => (
           <>
-            <Track item={item} index={index} token={token} playlist_uri={playlist.uri} />
+            <Track item={item.track} added_at={item.added_at} index={index} token={token} playlist_uri={playlist.uri} />
           </>
         ))}
       </div>

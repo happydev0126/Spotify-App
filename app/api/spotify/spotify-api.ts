@@ -1,4 +1,4 @@
-import { CurrentUser, CurrentUserArtist, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, User } from "@/app/types/spotify";
+import { Artist, CurrentUser, CurrentUserArtist, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, Track, Tracks, User } from "@/app/types/spotify";
 export const fetchWebApi = async (url: string, token: string) => {
   if (!token) {
     return null;
@@ -27,24 +27,44 @@ export const fetchWebApi2 = async (url: string, token: string) => {
   return res
 };
 
-export const fetchPlayerApi = async (url: string, token: string, context_uri: string, track_number: number) => {
+export const fetchPlayerApi = async (url: string, token: string, track_number: number, context_uri?: string, uris?: string[]) => {
   if (!token) {
     return null
   }
-  const requestOptions = {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "context_uri": `${context_uri}`,
-      "offset": {
-        "position": track_number
+  let requestOptions = {}
+  if (context_uri !== undefined) {
+    console.log({ context_uri })
+    requestOptions = {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
       },
-      "position_ms": 0
-    })
-  };
+      body: JSON.stringify({
+        "context_uri": `${context_uri}`,
+        "offset": {
+          "position": track_number
+        },
+        "position_ms": 0
+      })
+    };
+  }
+
+  if (uris !== undefined) {
+
+    console.log({ uris })
+    requestOptions = {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "uris": [`${uris}`],
+        "position_ms": 0
+      })
+    };
+  }
 
   const res = await fetch(url, requestOptions)
   return res
@@ -72,13 +92,13 @@ export async function getDevice(token: string) {
   );
 }
 
-export async function resumePlayback(token: string, deviceId: string, context_uri: string, track_number: number) {
-  // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
+export async function resumePlayback(token: string, deviceId: string, track_number: number, context_uri?: string, uris?: string[]) {
   return fetchPlayerApi(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
     token,
+    track_number,
     context_uri,
-    track_number
+    uris
   );
 }
 
@@ -154,6 +174,24 @@ export async function getFeaturedPlaylists(token: string, limit?: number): Promi
 export async function getCurrentUser(token: string): Promise<CurrentUser | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me`,
+    token
+  )
+}
+
+export async function getArtist(token: string, id: string): Promise<Artist | undefined> {
+  return fetchWebApi(
+    `https://api.spotify.com/v1/artists/${id}`,
+    token
+  )
+}
+
+interface artistsTopTracks {
+  tracks: Track[]
+}
+
+export async function getArtistTopTracks(token: string, id: string): Promise<artistsTopTracks | undefined> {
+  return fetchWebApi(
+    `https://api.spotify.com/v1/artists/${id}/top-tracks`,
     token
   )
 }
