@@ -91,7 +91,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       <div className="flex flex-row items-center gap-2">
         <img src={item.album.images[0].url} className="max-w-12 rounded" alt="" />
         <div className="overflow-hidden">
-          <div className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '}text-white whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>{item.name}</div>
+          <div className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '} whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>{item.name}</div>
           <Link href={`/artist/${item.artists[0].id}`} className="text-xs">{item.artists[0].name}</Link>
         </div>
       </div>
