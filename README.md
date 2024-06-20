@@ -1,4 +1,4 @@
-The app is currently on development mode on the Spotify API, in order to access the app via [`sclonetify`](https://sclonetify.jodarini.dev), i have to grant you access with your Spotify account or, alternatively, you can use these credentials (not premium):
+This app is currently on development mode on the Spotify API so in order to access the app via [`sclonetify`](https://sclonetify.jodarini.dev), i have to grant you access with your Spotify email/username or, alternatively, you can use these non-premium credentials:
 
 Test acc:
 ```
@@ -8,6 +8,8 @@ Test pwd:
 ```
 test12345!
 ```
+
+![alt text](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_1.png)
 
 In order to use the player, you'll need Spotify Premium.
 
