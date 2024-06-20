@@ -33,7 +33,6 @@ export const fetchPlayerApi = async (url: string, token: string, track_number: n
   }
   let requestOptions = {}
   if (context_uri !== undefined) {
-    console.log({ context_uri })
     requestOptions = {
       method: 'PUT',
       headers: {
@@ -52,7 +51,6 @@ export const fetchPlayerApi = async (url: string, token: string, track_number: n
 
   if (uris !== undefined) {
 
-    console.log({ uris })
     requestOptions = {
       method: 'PUT',
       headers: {

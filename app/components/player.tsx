@@ -2,11 +2,14 @@
 import { useContext } from "react";
 import { PlayerContext } from "../appContext";
 import { resumePlayback } from "../api/spotify/spotify-api";
+import Link from "next/link";
 
 export default function Player({ className }: { className: string }) {
   const { player, is_active, is_paused, current_track } = useContext(PlayerContext)
-  console.log({ player })
-
+  const getId = (string: string) => {
+    const id = string.split(':')
+    return id[id.length - 1]
+  }
 
   return (
     <div className={`flex h-16 w-full items-center justify-between ${className}`} >
@@ -14,8 +17,7 @@ export default function Player({ className }: { className: string }) {
         {current_track &&
           <>
             <img src={current_track.album.images[0].url} className="now-playing__cover size-12 rounded" alt="" />
-
-            <div className="now-playing__side">
+            <Link href={`../artist/${getId(current_track.artists[0].uri)}`} className="now-playing__side">
               <div className="now-playing__name">
                 {current_track.name}
               </div>
@@ -23,7 +25,7 @@ export default function Player({ className }: { className: string }) {
               <div className="now-playing__artist text-xs text-gray-400">
                 {current_track.artists[0].name}
               </div>
-            </div>
+            </Link>
           </>
         }
       </div>
