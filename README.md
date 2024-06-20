@@ -1,8 +1,19 @@
-The app is currently on development mode on the Spotify API, in order to access the app via the link, i have to grant you access with your Spotify account. In order to use the player, you'll need Spotify Premium. (I'll add a test acc soon)
+The app is currently on development mode on the Spotify API, in order to access the app via [`sclonetify`](https://sclonetify.jodarini.dev), i have to grant you access with your Spotify account or, alternatively, you can use these credentials:
+
+Test acc:
+```
+sclonetifytest@gmail.com
+```
+Test pwd: 
+```
+test12345!
+```
+
+In order to use the player, you'll need Spotify Premium.
 
 To run this locally, follow the documentation on [`Spotify`](api.spotify.com) and [`Clerk`](www.clerk.com), you need your own .env variables.
 
-This app is currently only usable on desktop.
+This app is desktop only.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
