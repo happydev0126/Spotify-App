@@ -1,7 +1,6 @@
 'use client'
 import { useContext } from "react";
 import { PlayerContext } from "../appContext";
-import { resumePlayback } from "../api/spotify/spotify-api";
 import Link from "next/link";
 
 export default function Player({ className }: { className: string }) {

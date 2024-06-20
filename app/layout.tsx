@@ -6,6 +6,7 @@ import Player from './components/player';
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import Providers from './appContext';
 import { getCurrentUser } from './api/spotify/spotify-api';
+import Navigation from './navigation';
 
 export default async function RootLayout({
   children,
@@ -42,10 +43,7 @@ export default async function RootLayout({
                     <Dashboard />
                     <Card className='w-full'>
                       <header className="flex justify-between">
-                        <div className="flex flex-row gap-4 text-gray-400">
-                          <button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" data-icon="SvgChevronLeft" aria-hidden="true"><path d="M14.9 6L12 9l-2.9 3 2.9 3 2.9 3"></path></svg></button>
-                          <button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" data-icon="SvgChevronRight" aria-hidden="true"><path d="M9.1 18l2.9-3 2.9-3L12 9 9.1 6"></path></svg></button>
-                        </div>
+                        <Navigation />
                         <img src="/logos/01_RGB/02_PNG/Spotify_Logo_RGB_White.png" className='w-24' alt="Spotify_Logo_RGB_White" />
                         <UserButton />
                       </header>
