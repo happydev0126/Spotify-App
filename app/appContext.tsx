@@ -64,8 +64,6 @@ export default function Providers({ children, token, user }: { children: React.R
         (!state) ? setActive(false) : setActive(true)
         setTrack(state.track_window.current_track);
         setPaused(state.paused);
-        console.log({ state })
-
       }));
 
       player.addListener("account_error", () => {

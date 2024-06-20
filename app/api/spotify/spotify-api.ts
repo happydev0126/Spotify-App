@@ -23,7 +23,6 @@ export const fetchWebApi2 = async (url: string, token: string) => {
     }
   }
   const res = await fetch(url, requestOptions)
-  console.log('hello', res)
   return res
 };
 
