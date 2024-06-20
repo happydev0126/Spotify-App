@@ -9,7 +9,8 @@ Test pwd:
 test12345!
 ```
 
-![alt text](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_1.png)
+![Playlist view](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_1.png)
+![Playlist view](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_2.png)
 
 In order to use the player, you'll need Spotify Premium.
 
