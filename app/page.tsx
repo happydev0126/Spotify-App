@@ -39,7 +39,7 @@ export default async function Page() {
       <section className="flex flex-col gap-4 ">
         <h3 className="text-2xl font-bold">Your favorite artists</h3>
         {(usersTopArtists.length < 1) ? <div className="text-xs italic">You dont have favorite artists yet</div> :
-          <div className="flex flex-row gap-4 overflow-x-scroll">
+          <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 overflow-x-scroll">
             {usersTopArtists.map((artist: Artist) => (
               <Link href={`/artist/${artist.id}`} key={artist.id} className="flex flex-col items-start gap-2 p-2 hover:bg-gray-50/10">
                 <img src={artist.images[0].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={artist.name} />
@@ -58,7 +58,7 @@ export default async function Page() {
       </section>
       <section className="flex flex-col gap-4">
         <h3 className="text-2xl font-bold">Featured playlists</h3>
-        <div className="flex flex-row gap-4 w-full overflow-x-scroll">
+        <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 w-full overflow-x-scroll">
           {featuredPlaylist.items.map((playlist: Playlist) => (
             <Link href={`/playlist/${playlist.id}`} key={playlist.id} className="flex flex-col items-start gap-2 min-w-44 max-w-32 overflow-hidden">
               <img src={playlist.images[0].url} className="min-w-44 max-w-32 ratio aspect-square" alt={playlist.name} />

@@ -224,6 +224,10 @@ export interface Artist {
   uri: string;
 }
 
+export interface ArtistAlbums extends Omit<CurrentUserArtist, 'items'> {
+  items: Album[]
+}
+
 export interface CurrentUserArtist {
   href: string;
   limit: number;

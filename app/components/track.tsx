@@ -4,11 +4,13 @@ import { pausePlayback, resumePlayback } from "../api/spotify/spotify-api"
 import { DeviceContext, PlayerContext } from "../appContext"
 import Link from "next/link"
 import type { Track } from "../types/spotify"
+import { usePathname } from "next/navigation"
 
 export default function Track({ item, index, token, playlist_uri, uris, added_at }: { item: Track, index: number, token: string, playlist_uri?: string, uris?: string[], added_at?: string }) {
   const { deviceId, user } = useContext(DeviceContext)
   const { is_active, is_paused, current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
+  const pathName = usePathname()
 
   const formatTime = (trackDate: string) => {
     const date = new Date(trackDate)
@@ -53,6 +55,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     return false
   }
 
+
   return (
     <div
       role="button"
@@ -94,7 +97,25 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         </Link>
         <div className="overflow-hidden">
           <div className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '} whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>{item.name}</div>
-          <Link href={`/artist/${item.artists[0].id}`} className="text-xs hover:underline">{item.artists[0].name}</Link>
+          {
+            !(pathName.includes('/artist/')) &&
+            <span>
+              {
+                item.artists.map((artist, index) => (
+                  <>
+                    <Link href={`/artist/${item.artists[0].id}`} className="text-xs hover:underline">
+                      {artist.name}
+                    </Link>
+                    {item.artists.length > 1 && item.artists.length !== index + 1 &&
+                      <>
+                        {', '}
+                      </>
+                    }
+                  </>
+                ))
+              }
+            </span>
+          }
         </div>
       </div>
 

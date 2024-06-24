@@ -1,7 +1,8 @@
-import { getArtist, getArtistTopTracks } from "@/app/api/spotify/spotify-api";
+import { getArtist, getArtistAlbums, getArtistTopTracks } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track";
-import { Artist } from "@/app/types/spotify";
+import { Album, Artist, ArtistAlbums } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server"
+import Link from "next/link";
 
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -9,11 +10,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
   let token: string
   let artist: Artist | undefined = undefined
   let topTracks
+  let albums: ArtistAlbums | undefined = undefined
   if (userId) {
     const provider = 'oauth_spotify';
     token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     artist = await getArtist(token, params.slug)
     topTracks = await getArtistTopTracks(token, params.slug).then(data => data?.tracks)
+    albums = await getArtistAlbums(token, params.slug)
   }
 
   if (!artist) {
@@ -30,7 +33,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="flex flex-col w-full text-sm text-zinc-400">
-        <h4 className="text-4xl text-white font-bold">Popular</h4>
+        <h3 className="text-4xl text-white font-bold">Popular</h3>
         {topTracks && topTracks?.length === 0 ? <p>No top tracks found</p> :
           topTracks && topTracks.map((track, index: number) => (
             <>
@@ -39,6 +42,27 @@ export default async function Page({ params }: { params: { slug: string } }) {
           ))
         }
       </div>
+
+      <section className="flex flex-col gap-4 ">
+        <h3 className="text-2xl font-bold">Albums</h3>
+        {albums && (albums.items.length < 1) ? <div className="text-xs italic">No albums found</div> :
+          <div className="flex flex-row gap-4 overflow-x-scroll">
+            {albums?.items.map((album) => (
+              <Link href={`/album/${album.id}`} key={album.id} className="flex flex-col items-start gap-2 p-2 hover:bg-gray-50/10">
+                <img src={album.images[0].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={album.name} />
+                <div className="flex flex-col">
+                  <p className="w-full font-bold text-sm">
+                    {album.name}
+                  </p>
+                  <p className="w-full text-sm text-zinc-400">
+                    {album.type}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        }
+      </section>
     </div >
   )
 }

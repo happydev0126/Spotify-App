@@ -8,13 +8,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const { userId } = auth();
   let token: string
   let album: AlbumFull | undefined = undefined
-  let tracks: SpotifyTrack[] | undefined = undefined
   if (userId) {
     const provider = 'oauth_spotify';
     token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     album = await getAlbum(token, params.slug)
   }
-  console.log(album)
 
   if (!album) {
     return <div>No album found</div>
