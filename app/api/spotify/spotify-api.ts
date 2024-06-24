@@ -1,4 +1,4 @@
-import { Artist, CurrentUser, CurrentUserArtist, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, Track, Tracks, User } from "@/app/types/spotify";
+import { AlbumFull, Artist, CurrentUser, CurrentUserArtist, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, Track, Tracks, User } from "@/app/types/spotify";
 export const fetchWebApi = async (url: string, token: string) => {
   if (!token) {
     return null;
@@ -189,6 +189,13 @@ interface artistsTopTracks {
 export async function getArtistTopTracks(token: string, id: string): Promise<artistsTopTracks | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/artists/${id}/top-tracks`,
+    token
+  )
+}
+
+export async function getAlbum(token: string, id: string): Promise<AlbumFull | undefined> {
+  return fetchWebApi(
+    `https://api.spotify.com/v1/albums/${id}`,
     token
   )
 }

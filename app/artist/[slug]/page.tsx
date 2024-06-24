@@ -21,7 +21,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
       <div className="flex flex-col items-center md:flex-row md:items-end w-full gap-4">
         <img className="shadow xs:order-2 max-w-56 rounded" src={artist.images[0].url} alt={artist.name} />
@@ -33,13 +32,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <div className="flex flex-col w-full text-sm text-zinc-400">
         <h4 className="text-4xl text-white font-bold">Popular</h4>
         {topTracks && topTracks?.length === 0 ? <p>No top tracks found</p> :
-
           topTracks && topTracks.map((track, index: number) => (
             <>
               <Track item={track} index={index} token={token} uris={[track.uri]} />
             </>
           ))
-
         }
       </div>
     </div >

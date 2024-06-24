@@ -91,6 +91,22 @@ export interface Album {
   artists: AlbumArtist[];
 }
 
+type AlbumTracks = Omit<Tracks, 'items'>
+
+export interface AlbumFull extends Album {
+  tracks: AlbumTracks & {
+    items: Track[]
+  }
+  copyright: {
+    text: string
+    type: string
+  }
+  external_ids: ExternalIDS
+  genres: string[]
+  label: string
+  popularity: number
+}
+
 export interface AlbumArtist {
   external_urls: ExternalUrls;
   href: string;
