@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { AlbumFull, CurrentUserItem } from '../types/spotify'
 import Link from 'next/link'
 
-export default function UserPlaylists({ library }: { library: CurrentUserItem[] | AlbumFull[] }) {
-  const [userPlaylists, setUserPlaylists] = useState<CurrentUserItem[] | AlbumFull[]>()
+export default function UserPlaylists({ library }: { library: Array<CurrentUserItem | AlbumFull> }) {
+  const [userPlaylists, setUserPlaylists] = useState<Array<CurrentUserItem | AlbumFull>>()
   const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
@@ -41,7 +41,6 @@ export default function UserPlaylists({ library }: { library: CurrentUserItem[] 
                 {
                   'owner' in playlist && playlist.owner ? playlist.owner.display_name :
                     'artists' in playlist &&
-
                     <span>
                       {
                         playlist.artists.map((artist, index) => (

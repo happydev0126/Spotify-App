@@ -228,6 +228,15 @@ export interface ArtistAlbums extends Omit<CurrentUserArtist, 'items'> {
   items: Album[]
 }
 
+export interface UsersAlbums extends Omit<CurrentUserArtist, 'items'> {
+  items: [
+    {
+      added_at: string;
+      album: AlbumFull;
+    }
+  ]
+}
+
 export interface CurrentUserArtist {
   href: string;
   limit: number;
