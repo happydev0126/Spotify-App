@@ -65,7 +65,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="flex align-center justify-end w-full text-right">
+      <div className="flex align-center justify-end w-full text-right min-w-6">
         {
           isHover && is_paused ?
             <svg onClick={handlePlayTrack} className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -103,7 +103,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
               {
                 item.artists.map((artist, index) => (
                   <>
-                    <Link href={`/artist/${item.artists[0].id}`} className="text-xs hover:underline hover:text-white">
+                    <Link href={`/artist/${item.artists[0].id}`} className="text-xs whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">
                       {artist.name}
                     </Link>
                     {item.artists.length > 1 && item.artists.length !== index + 1 &&
