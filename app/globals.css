@@ -2,14 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* .scrollbar-hidden::-webkit-scrollbar { */
+  /*   width: 6px; */
+  /* } */
+  /**/
+  /* .scrollbar-shown::-webkit-scrollbar { */
+  /*   width: 55px; */
+  /* } */
+
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {

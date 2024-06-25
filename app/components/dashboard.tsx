@@ -17,9 +17,6 @@ export default async function Dashboard() {
     playlists = await getCurrentUserPlaylists(token).then(data => data.items)
     albums = await getUsersAlbums(token)
   }
-  console.log({ playlists });
-  console.log({ albums })
-
 
   let library: Array<CurrentUserItem | AlbumFull> = [...playlists]
   albums?.items.forEach(({ album }) => {

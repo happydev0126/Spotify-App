@@ -27,7 +27,7 @@ export default function Providers({ children, token, user }: { children: React.R
   const [current_track, setTrack] = useState<Spotify.Track>();
   const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
-  current_track?.album.images[0]
+  current_track?.album.images[current_track?.album.images.length - 1]
 
   useEffect(() => {
     if (currentUser && currentUser.product !== 'premium') {

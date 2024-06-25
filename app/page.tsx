@@ -20,6 +20,9 @@ export default async function Page() {
     featuredPlaylist = await getFeaturedPlaylists(token, 6).then(data => data.playlists)
   }
 
+  const playlistSet = new Set(recentlyPlayed)
+  playlistSet.forEach(playlist => console.log({ playlist }))
+
   // Get the Backend API User object when you need access to the user's information
 
   // Use `user` to render user details or create UI elements
@@ -42,7 +45,7 @@ export default async function Page() {
           <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 overflow-x-scroll">
             {usersTopArtists.map((artist: Artist) => (
               <Link href={`/artist/${artist.id}`} key={artist.id} className="flex flex-col items-start gap-2 p-2 hover:bg-gray-50/10">
-                <img src={artist.images[0].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={artist.name} />
+                <img src={artist.images[1].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={artist.name} />
                 <div className="flex flex-col">
                   <p className="w-full font-bold text-sm">
                     {artist.name}

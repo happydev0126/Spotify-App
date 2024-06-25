@@ -15,7 +15,7 @@ export default function Player({ className }: { className: string }) {
       <div className="flex gap-2 items-center w-1/3">
         {current_track &&
           <>
-            <img src={current_track.album.images[0].url} className="now-playing__cover size-12 rounded" alt="" />
+            <img src={current_track.album.images[current_track.album.images.length - 1].url} className="now-playing__cover size-12 rounded" alt={current_track.album.name} />
             <Link href={`../artist/${getId(current_track.artists[0].uri)}`} className="now-playing__side">
               <div className="now-playing__name">
                 {current_track.name}
