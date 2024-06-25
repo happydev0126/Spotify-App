@@ -205,3 +205,10 @@ export async function getAlbum(token: string, id: string): Promise<AlbumFull | u
     token
   )
 }
+
+export async function getUsersAlbums(token: string): Promise<ArtistAlbums> {
+  return fetchWebApi(
+    `https://api.spotify.com/v1/me/albums`,
+    token
+  )
+}

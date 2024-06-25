@@ -103,7 +103,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
               {
                 item.artists.map((artist, index) => (
                   <>
-                    <Link href={`/artist/${item.artists[0].id}`} className="text-xs hover:underline">
+                    <Link href={`/artist/${item.artists[0].id}`} className="text-xs hover:underline hover:text-white">
                       {artist.name}
                     </Link>
                     {item.artists.length > 1 && item.artists.length !== index + 1 &&

@@ -1,20 +1,27 @@
 import React from 'react'
 import Card from './card'
-import Tag from './tag'
 import UserPlaylists from './playlist'
-import { CurrentUserItem } from '../types/spotify'
+import { Album, ArtistAlbums, CurrentUserItem } from '../types/spotify'
 import Link from 'next/link'
 import { auth, clerkClient } from '@clerk/nextjs/server'
-import { getCurrentUserPlaylists } from '../api/spotify/spotify-api'
+import { getCurrentUserPlaylists, getUsersAlbums } from '../api/spotify/spotify-api'
 
 export default async function Dashboard() {
   const { userId } = auth();
   let playlists: CurrentUserItem[] = []
+  let albums: Album[] = []
   if (userId) {
     const provider = 'oauth_spotify';
     const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     playlists = await getCurrentUserPlaylists(token).then(data => data.items)
+    albums = await getUsersAlbums(token).then(data => data.items)
   }
+  let library = [...playlists]
+
+  albums.forEach(album => {
+    library.push(album.album)
+  })
+  console.log(library)
 
   return (
     <div className='flex flex-col gap-2 w-full'>
@@ -43,7 +50,7 @@ export default async function Dashboard() {
         {/*   <Tag title='Podcasts' /> */}
         {/* </div> */}
         <div>
-          <UserPlaylists playlists={playlists} />
+          <UserPlaylists library={library} />
         </div>
       </Card>
     </div>

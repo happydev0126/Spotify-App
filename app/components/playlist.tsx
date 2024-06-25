@@ -1,22 +1,22 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { CurrentUserItem } from '../types/spotify'
+import { AlbumFull, CurrentUserItem } from '../types/spotify'
 import Link from 'next/link'
 
-export default function UserPlaylists({ playlists }: { playlists: CurrentUserItem[] }) {
-  const [userPlaylists, setUserPlaylists] = useState<CurrentUserItem[]>()
+export default function UserPlaylists({ library }: { library: CurrentUserItem[] | AlbumFull[] }) {
+  const [userPlaylists, setUserPlaylists] = useState<CurrentUserItem[] | AlbumFull[]>()
   const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
-    setUserPlaylists(playlists)
-  }, [playlists])
+    setUserPlaylists(library)
+  }, [library])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setSearchInput(e.target.value.toLowerCase())
   }
 
-  if (!playlists) {
+  if (!library) {
     return <div>No playlists found</div>
   }
 
@@ -30,15 +30,38 @@ export default function UserPlaylists({ playlists }: { playlists: CurrentUserIte
           type="text"
         />
       </form>
-      {userPlaylists?.filter(usePlaylist => usePlaylist.name.toLowerCase().includes(searchInput))?.map((playlist) => (
-        <Link key={playlist.id} href={`/playlist/${playlist.id}`} className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
+      {userPlaylists?.filter(userPlaylist => userPlaylist.name.toLowerCase().includes(searchInput))?.map((playlist) => (
+        <Link key={playlist.id} href={playlist.type === 'playlist' ? `/playlist/${playlist.id}` : `/album/${playlist.id}`} className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
           <div className='flex flex-row items-center gap-2'>
             <img src={playlist.images[0].url} alt='Image' className='max-w-12 rounded'></img>
             <div className='flex flex-col'>
               <div className=''>{playlist.name}</div>
-              <span className='text-gray-400 text-sm'>{playlist.type} - {playlist.owner.display_name}</span>
+              <span className='text-gray-400 text-sm capitalize'>{playlist.type}
+                {' - '}
+                {
+                  'owner' in playlist && playlist.owner ? playlist.owner.display_name :
+                    'artists' in playlist &&
+
+                    <span>
+                      {
+                        playlist.artists.map((artist, index) => (
+                          <>
+                            <Link href={`/artist/${playlist.artists[0].id}`} className="text-xs hover:underline hover:text-white">
+                              {artist.name}
+                            </Link>
+                            {playlist.artists.length > 1 && playlist.artists.length !== index + 1 &&
+                              <>
+                                {', '}
+                              </>
+                            }
+                          </>
+                        ))
+                      }
+                    </span>
+                }
+              </span>
             </div>
-          </div >
+          </div>
         </Link >
       ))
       }
