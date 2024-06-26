@@ -120,7 +120,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       </div>
 
       <Link href={`/album/${item.album?.id}`} className="text-xs">
-        <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden hover:underline">{item.album?.name}</div>
+        <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">{item.album?.name}</div>
       </Link>
       {added_at &&
         <>
