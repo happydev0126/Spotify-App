@@ -31,7 +31,7 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserI
         />
       </form>
       {userPlaylists?.filter(userPlaylist => userPlaylist.name.toLowerCase().includes(searchInput))?.map((playlist) => (
-        <Link key={playlist.id} href={playlist.type === 'playlist' ? `/playlist/${playlist.id}` : `/album/${playlist.id}`} className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
+        <Link key={`${playlist.id}`} href={playlist.type === 'playlist' ? `/playlist/${playlist.id}` : `/album/${playlist.id}`} className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
           <div className='flex flex-row items-center gap-2'>
             <img src={playlist.images[playlist.images.length - 1].url} alt='Image' className='max-w-12 rounded'></img>
             <div className='flex flex-col'>
