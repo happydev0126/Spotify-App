@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <div className="flex flex-row gap-4 overflow-x-scroll">
             {albums?.items.map((album) => (
               <Link href={`/album/${album.id}`} key={album.id} className="flex flex-col items-start gap-2 p-2 hover:bg-gray-50/10">
-                <img src={album.images[album.images.length - 1].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={album.name} />
+                <img src={album.images[0].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={album.name} />
                 <div className="flex flex-col">
                   <p className="w-full font-bold text-sm">
                     {album.name}
