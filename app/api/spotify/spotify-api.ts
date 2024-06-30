@@ -1,4 +1,4 @@
-import { AlbumFull, Artist, ArtistAlbums, CurrentUser, CurrentUserArtist, CurrentUserItem, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, Track, Tracks, User, UsersAlbums } from "@/app/types/spotify";
+import { AlbumFull, Artist, ArtistAlbums, CurrentUser, CurrentUserArtist, CurrentUserItem, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, SearchType, Track, Tracks, User, UsersAlbums } from "@/app/types/spotify";
 export const fetchWebApi = async (url: string, token: string) => {
   if (!token) {
     return null;
@@ -209,6 +209,14 @@ export async function getAlbum(token: string, id: string): Promise<AlbumFull | u
 export async function getUsersAlbums(token: string): Promise<UsersAlbums | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/albums`,
+    token
+  )
+}
+
+
+export async function search(token: string, query: string, type: SearchType[], limit?: number, offset?: number): Promise<UsersAlbums | undefined> {
+  return fetchWebApi(
+    `https://api.spotify.com/v1/search?q=${query}&type=${type}`,
     token
   )
 }

@@ -1,3 +1,5 @@
+export type SearchType = "album" | "artist" | "playlist" | "track" | "show" | "episode" | "audiobook"
+
 export interface CurrentUser {
   display_name: string;
   external_urls: ExternalUrls;
