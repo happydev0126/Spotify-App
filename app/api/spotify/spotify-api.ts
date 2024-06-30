@@ -214,9 +214,12 @@ export async function getUsersAlbums(token: string): Promise<UsersAlbums | undef
 }
 
 
-export async function search(token: string, query: string, type: SearchType[], limit?: number, offset?: number): Promise<UsersAlbums | undefined> {
+export async function search(token: string, query: string, type?: SearchType[], limit?: 0, offset?: number): Promise<UsersAlbums | undefined> {
+  if (type === undefined) {
+    type = ['playlist', 'track', 'album', 'artist']
+  }
   return fetchWebApi(
-    `https://api.spotify.com/v1/search?q=${query}&type=${type}`,
+    `https://api.spotify.com/v1/search?q=${query}&type=${type}&limit=${limit}`,
     token
   )
 }

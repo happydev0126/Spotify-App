@@ -1,4 +1,4 @@
-export type SearchType = "album" | "artist" | "playlist" | "track" | "show" | "episode" | "audiobook"
+export type SearchType = "album" | "artist" | "playlist" | "track" | "show" | "episode" | "audiobook" | undefined
 
 export interface CurrentUser {
   display_name: string;

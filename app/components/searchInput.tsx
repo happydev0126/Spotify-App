@@ -15,7 +15,7 @@ export default function SearchInput() {
       <input
         className='bg-stone-500/20 rounded mb-2 w-full px-2 placeholder-gray-300 text-sm p-1'
         placeholder='Search in your library'
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => setQuery((e.target.value).toLowerCase())}
         type="text"
       />
       <button type="submit">Search</button>
