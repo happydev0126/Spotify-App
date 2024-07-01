@@ -34,7 +34,10 @@ export default async function Dashboard() {
           </div>
         </Link>
         <Link href='/search'>
-          Search
+
+          <div className='flex items-center gap-2 text-gray-400'>
+            Search
+          </div>
         </Link>
         {/* TODO */}
         {/* <div className='flex items-center gap-2 text-gray-400'> */}
