@@ -4,7 +4,7 @@ import Card from './components/card';
 import Dashboard from './components/dashboard';
 import Player from './components/player';
 import { auth, clerkClient } from '@clerk/nextjs/server';
-import Providers from './appContext';
+import Providers from './context/appContext';
 import { getCurrentUser } from './api/spotify/spotify-api';
 import Navigation from './navigation';
 

@@ -30,9 +30,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <div className="flex flex-col w-full text-sm text-zinc-400">
         <h4 className="text-4xl text-white font-bold">Tracks</h4>
         {album.tracks.items.map((track, index: number) => (
-          <>
-            <Track item={track} index={index} token={token} playlist_uri={album.uri} />
-          </>
+          <Track item={track} index={index} token={token} playlist_uri={album.uri} />
         ))
         }
       </div>

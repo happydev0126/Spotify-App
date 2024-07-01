@@ -36,9 +36,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <h3 className="text-4xl text-white font-bold">Popular</h3>
         {topTracks && topTracks?.length === 0 ? <p>No top tracks found</p> :
           topTracks && topTracks.map((track, index: number) => (
-            <>
-              <Track item={track} index={index} token={token} uris={[track.uri]} />
-            </>
+            <Track item={track} index={index} token={token} uris={[track.uri]} />
           ))
         }
       </div>

@@ -1,6 +1,6 @@
 'use client'
 import { useContext } from "react";
-import { PlayerContext } from "../appContext";
+import { PlayerContext } from "../context/appContext";
 import Link from "next/link";
 
 export default function Player({ className }: { className: string }) {

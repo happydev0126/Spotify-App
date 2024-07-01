@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useEffect, useState } from 'react';
-import { CurrentUser } from './types/spotify'
+import { CurrentUser } from '../types/spotify'
 
 
 interface PlayerContextState {
@@ -62,6 +62,7 @@ export default function Providers({ children, token, user }: { children: React.R
 
       player.addListener('player_state_changed', (state => {
         (!state) ? setActive(false) : setActive(true)
+        console.log('player state changed')
         setTrack(state.track_window.current_track);
         setPaused(state.paused);
       }));
