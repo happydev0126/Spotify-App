@@ -43,7 +43,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <span>Title</span>
           <span>Album</span>
           <span>Date added</span>
-          <span>
+          <span className="justify-self-end">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" data-icon="SvgClock" aria-hidden="true"><path d="M11.75 2.75a9 9 0 11-6.364 2.636A8.972 8.972 0 0111.75 2.75zm0 5.2v4h4.2"></path></svg>
           </span>
         </div>

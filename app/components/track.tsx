@@ -108,7 +108,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         </>
       }
       {!added_at && item.duration_ms &&
-        <div>{convertMsToTimestamp(item.duration_ms)}</div>
+        <div className="justify-self-end">{convertMsToTimestamp(item.duration_ms)}</div>
       }
     </div>
   );

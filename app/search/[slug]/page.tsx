@@ -17,7 +17,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
     token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     searchQuery = await search(token, params.slug, undefined, 5)
   }
-  console.log(searchQuery.artists.items)
 
   return (
     <div className="flex flex-row gap-4">
