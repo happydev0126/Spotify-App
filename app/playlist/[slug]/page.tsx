@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="flex flex-col w-full text-sm text-zinc-400">
-        <div className="grid items-center grid-cols-[3%_35%_25%_22%_5%] gap-x-6 gap-y-2">
+        <div className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left  py-1 px-2 rounded max-h-16">
           <span className="w-full text-right">#</span>
           <span>Title</span>
           <span>Album</span>

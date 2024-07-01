@@ -39,12 +39,12 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     <div
       role="button"
       key={item.id}
-      className="text-zinc-400 grid grid-cols-[max-content_35%_25%_22%_max-content] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 p-2 rounded max-h-16 justify-end"
+      className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 py-1 px-2 rounded max-h-16"
       onDoubleClick={handlePlayTrack}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="flex align-center justify-end w-full text-right min-w-6">
+      <div className="flex align-center justify-end w-full text-right min-w-6 text-sm">
         {
           isHover && is_paused ?
             <svg onClick={handlePlayTrack} className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
