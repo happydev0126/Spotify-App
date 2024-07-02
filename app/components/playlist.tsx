@@ -1,14 +1,14 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { AlbumFull, CurrentUserItem } from '../types/spotify'
+import { useEffect, useState } from 'react'
+import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
 
-export default function UserPlaylists({ library }: { library: Array<CurrentUserItem | AlbumFull> }) {
-  const [userPlaylists, setUserPlaylists] = useState<Array<CurrentUserItem | AlbumFull>>()
+export default function UserPlaylists({ library }: { library: Array<CurrentUserPlaylist | Album> }) {
+  const [userLibrary, setUserLibrary] = useState<Array<CurrentUserPlaylist | Album>>()
   const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
-    setUserPlaylists(library)
+    setUserLibrary(library)
   }, [library])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +16,7 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserI
     setSearchInput(e.target.value.toLowerCase())
   }
 
-  if (!library) {
+  if (!userLibrary) {
     return <div>No playlists found</div>
   }
 
@@ -30,16 +30,26 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserI
           type="text"
         />
       </form>
-      {userPlaylists?.filter(userPlaylist => userPlaylist.name.toLowerCase().includes(searchInput))?.map((playlist) => (
-        <Link key={`${playlist.id}`} href={playlist.type === 'playlist' ? `/playlist/${playlist.id}` : `/album/${playlist.id}`} className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
-          <div className='flex flex-row items-center gap-2'>
-            <img src={playlist.images[playlist.images.length - 1].url} alt='Image' className='max-w-12 rounded'></img>
-            <div className='flex flex-col'>
-              <div className=''>{playlist.name}</div>
-              <span className='text-gray-400 text-sm capitalize'>{playlist.type}
-                {' - '}
-                {
-                  'owner' in playlist && playlist.owner ? playlist.owner.display_name :
+      {userLibrary
+        ?.filter(userPlaylist => userPlaylist.name.toLowerCase().includes(searchInput))
+        .map((playlist) => (
+          <Link
+            key={`${playlist.id}`}
+            href={playlist.type === 'playlist' ? `/playlist/${playlist.id}` : `/album/${playlist.id}`}
+            className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
+            <div className='flex flex-row items-center gap-2'>
+              <img
+                src={playlist.images[playlist.images.length - 1].url}
+                alt='Image'
+                className='max-w-12 rounded'>
+              </img>
+              <div className='flex flex-col'>
+                <div className=''>{playlist.name}</div>
+                <span className='text-gray-400 text-sm capitalize'>
+                  {playlist.type}
+                  {' - '}
+                  {'owner' in playlist && playlist.owner.display_name}
+                  {
                     'artists' in playlist &&
                     <span>
                       {
@@ -57,12 +67,12 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserI
                         ))
                       }
                     </span>
-                }
-              </span>
+                  }
+                </span>
+              </div>
             </div>
-          </div>
-        </Link >
-      ))
+          </Link >
+        ))
       }
     </div >
   )

@@ -1,20 +1,16 @@
 import { getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track";
-import { Playlist, User } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
   const { userId } = auth();
-  let playlist: Playlist | undefined = undefined
-  let owner: User | undefined = undefined
-  let token: string
-  if (userId) {
-    const provider = 'oauth_spotify';
-    token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    playlist = await getPlaylist(token, params.slug)
-    owner = await getUser(token, playlist.owner.id)
-  }
+  if (!userId) return <div>NOT LOGGED IN</div>
+
+  const provider = 'oauth_spotify';
+  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const playlist = await getPlaylist(token, params.slug)
+  const owner = await getUser(token, playlist.owner.id)
 
   if (!playlist) {
     return <div>No playlist found</div>

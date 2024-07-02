@@ -1,4 +1,4 @@
-import { AlbumFull, Artist, ArtistAlbums, CurrentUser, CurrentUserArtist, CurrentUserItems, FeaturedPlaylists, Playlist, RecentlyPlayed, SearchType, Track, User, UsersAlbums } from "@/app/types/spotify";
+import { Artist, Albums, CurrentUser, Artists, Playlists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists } from "@/app/types/spotify";
 export const fetchWebApi = async (url: string, token: string) => {
   if (!token) {
     return null;
@@ -119,7 +119,7 @@ export async function getUser(token: string, user_id: string): Promise<User> {
   );
 }
 
-export async function getCurrentUserPlaylists(token: string): Promise<CurrentUserItems> {
+export async function getCurrentUserPlaylists(token: string): Promise<CurrentUserPlaylists> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/playlists`,
     token
@@ -151,14 +151,14 @@ export async function getUsersSavedTracks(token: string, limit?: number): Promis
   )
 }
 
-export async function getUsersTopItems(token: string, type: string, limit?: number): Promise<CurrentUserArtist> {
+export async function getUsersTopItems(token: string, type: string, limit?: number): Promise<Artists> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/top/${type}?limit=${limit}`,
     token
   )
 }
 
-export async function getFeaturedPlaylists(token: string, limit?: number): Promise<FeaturedPlaylists> {
+export async function getFeaturedPlaylists(token: string, limit?: number): Promise<Playlists> {
   return fetchWebApi(
     `https://api.spotify.com/v1/browse/featured-playlists?limit=${limit}`,
     token
@@ -178,40 +178,35 @@ export async function getArtist(token: string, id: string): Promise<Artist | und
     token
   )
 }
-export async function getArtistAlbums(token: string, id: string): Promise<ArtistAlbums | undefined> {
+export async function getArtistAlbums(token: string, id: string): Promise<Albums | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/artists/${id}/albums`,
     token
   )
 }
 
-interface artistsTopTracks {
-  tracks: Track[]
-}
-
-export async function getArtistTopTracks(token: string, id: string): Promise<artistsTopTracks | undefined> {
+export async function getArtistTopTracks(token: string, id: string): Promise<TopTracks> {
   return fetchWebApi(
     `https://api.spotify.com/v1/artists/${id}/top-tracks`,
     token
   )
 }
 
-export async function getAlbum(token: string, id: string): Promise<AlbumFull | undefined> {
+export async function getAlbum(token: string, id: string): Promise<Album | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/albums/${id}`,
     token
   )
 }
 
-export async function getUsersAlbums(token: string): Promise<UsersAlbums | undefined> {
+export async function getUsersAlbums(token: string): Promise<SavedAlbums | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/albums`,
     token
   )
 }
 
-
-export async function search(token: string, query: string, type?: SearchType[], limit?: number, offset?: number): Promise<UsersAlbums | undefined> {
+export async function search(token: string, query: string, type?: SearchType[], limit?: number, offset?: number): Promise<Search> {
   if (type === undefined) {
     type = ['playlist', 'track', 'album', 'artist']
   }

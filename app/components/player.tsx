@@ -4,7 +4,7 @@ import { PlayerContext } from "../context/appContext";
 import Link from "next/link";
 
 export default function Player({ className }: { className: string }) {
-  const { player, is_active, is_paused, current_track } = useContext(PlayerContext)
+  const { player, is_paused, current_track } = useContext(PlayerContext)
   const getId = (string: string) => {
     const id = string.split(':')
     return id[id.length - 1]

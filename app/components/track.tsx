@@ -35,6 +35,9 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     return false
   }
 
+  /*   TODO
+   *   Refactor this component
+  */
   return (
     <div
       role="button"

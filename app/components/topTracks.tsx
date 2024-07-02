@@ -1,15 +1,15 @@
 'use client'
 import { useEffect, useState } from "react";
 import Card from "./card";
-import { CurrentUserItem, CurrentUserItems, TrackArtist } from "../types/spotify";
+import { CurrentUserPlaylist, CurrentUserPlaylists, TrackArtist } from "../types/spotify";
 
-export default function TopTracks({ topTracks }: { topTracks: CurrentUserItems | undefined }) {
-  const [tracks, setTracks] = useState<CurrentUserItem[] | undefined>()
+export default function TopTracks({ topTracks }: { topTracks: CurrentUserPlaylists | undefined }) {
+  const [tracks, setTracks] = useState<CurrentUserPlaylist[] | undefined>()
+
+  if (!topTracks) return <div>No top tracks found</div>
 
   useEffect(() => {
-    if (topTracks) {
-      setTracks(topTracks.items)
-    }
+    setTracks(topTracks.items)
   }, [topTracks])
 
   return (
