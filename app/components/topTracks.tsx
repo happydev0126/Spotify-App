@@ -6,11 +6,15 @@ import { CurrentUserPlaylist, CurrentUserPlaylists, TrackArtist } from "../types
 export default function TopTracks({ topTracks }: { topTracks: CurrentUserPlaylists | undefined }) {
   const [tracks, setTracks] = useState<CurrentUserPlaylist[] | undefined>()
 
+  useEffect(() => {
+    if (topTracks) {
+      setTracks(topTracks.items)
+    }
+
+  }, [topTracks])
+
   if (!topTracks) return <div>No top tracks found</div>
 
-  useEffect(() => {
-    setTracks(topTracks.items)
-  }, [topTracks])
 
   return (
     <Card>
