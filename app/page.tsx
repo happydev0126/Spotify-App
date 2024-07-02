@@ -1,25 +1,23 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api/spotify/spotify-api";
-import { Artist, FeaturedPlaylist, Item, Playlist, Track as SpotifyTrack } from "./types/spotify";
+import { Artist, FeaturedPlaylist, Item, Playlist } from "./types/spotify";
 import Link from "next/link";
 import Track from "./components/track";
 
 export default async function Page() {
-  // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = auth();
   let recentlyPlayed: Item[] = []
   let usersTopArtists: Artist[] = []
   let featuredPlaylist: FeaturedPlaylist = { href: '', items: [], limit: 0, next: '', total: 0, offset: 0, previous: '' }
   let token = ''
+
   if (userId) {
     const provider = 'oauth_spotify';
     token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
     recentlyPlayed = await getRecentlyPlayed(token, 6).then(data => data.items)
-    // usersSavedTracks = await getUsersSavedTracks(token).then(data => data.items)
     usersTopArtists = await getUsersTopItems(token, 'artists', 6).then(data => data.items)
     featuredPlaylist = await getFeaturedPlaylists(token, 6).then(data => data.playlists)
   }
-
 
   const removeDuplicates = (items: Item[]) => {
     const seenItems = new Set()
@@ -33,9 +31,6 @@ export default async function Page() {
     })
   }
 
-  // Get the Backend API User object when you need access to the user's information
-
-  // Use `user` to render user details or create UI elements
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-8 flex flex-col">
       <section className="flex flex-col gap-4 ">

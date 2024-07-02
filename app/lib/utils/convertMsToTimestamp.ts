@@ -1,4 +1,3 @@
-
 export const convertMsToTimestamp = (s: number) => {
   var ms = s % 1000;
   s = (s - ms) / 1000;

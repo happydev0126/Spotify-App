@@ -1,4 +1,3 @@
-
 export const isoDateToMonthDayYear = (trackDate: string) => {
   const date = new Date(trackDate)
   const month = date.toLocaleString('default', { month: 'long' })

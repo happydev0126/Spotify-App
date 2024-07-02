@@ -1,6 +1,5 @@
-import { getPlaylist, getUser, search } from "@/app/api/spotify/spotify-api";
-import { Playlist } from "@/app/types/spotify";
-import { User, auth, clerkClient } from "@clerk/nextjs/server";
+import { search } from "@/app/api/spotify/spotify-api";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import Track from "@/app/components/track"
 import Link from "next/link";
 

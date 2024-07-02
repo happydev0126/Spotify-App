@@ -1,11 +1,10 @@
 import React from 'react'
 import Card from './card'
 import UserPlaylists from './playlist'
-import { Album, AlbumFull, ArtistAlbums, CurrentUserItem, UsersAlbums } from '../types/spotify'
+import { AlbumFull, CurrentUserItem, UsersAlbums } from '../types/spotify'
 import Link from 'next/link'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { getCurrentUserPlaylists, getUsersAlbums } from '../api/spotify/spotify-api'
-
 
 export default async function Dashboard() {
   const { userId } = auth();
@@ -22,7 +21,6 @@ export default async function Dashboard() {
   albums?.items.forEach(({ album }) => {
     library.push(album)
   })
-
 
   return (
     <div className='flex flex-col gap-2 w-full'>

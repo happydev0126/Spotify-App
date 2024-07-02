@@ -6,7 +6,7 @@ import Player from './components/player';
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import Providers from './context/appContext';
 import { getCurrentUser } from './api/spotify/spotify-api';
-import Navigation from './navigation';
+import Navigation from './components/navigation';
 
 export default async function RootLayout({
   children,

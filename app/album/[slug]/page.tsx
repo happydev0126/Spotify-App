@@ -1,7 +1,6 @@
 import { getAlbum } from "@/app/api/spotify/spotify-api";
 import type { AlbumFull } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { Track as SpotifyTrack } from "@/app/types/spotify"
 import Track from "@/app/components/track"
 
 export default async function Page({ params }: { params: { slug: string } }) {

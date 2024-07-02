@@ -1,6 +1,6 @@
 import { getArtist, getArtistAlbums, getArtistTopTracks } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track";
-import { Album, Artist, ArtistAlbums } from "@/app/types/spotify";
+import { Artist, ArtistAlbums } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server"
 import Link from "next/link";
 
