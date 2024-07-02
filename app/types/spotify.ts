@@ -139,6 +139,11 @@ export interface Playlists extends Items {
   items: Playlist[]
 }
 
+export interface FeaturedPlaylist {
+  message: string
+  playlists: Playlists
+}
+
 export interface CurrentUserPlaylist extends Items {
   items: SimplifiedPlaylist[]
 }

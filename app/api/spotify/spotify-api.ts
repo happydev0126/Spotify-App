@@ -1,4 +1,4 @@
-import { Artist, Albums, CurrentUser, Artists, Playlists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists } from "@/app/types/spotify";
+import { Artist, Albums, CurrentUser, Artists, Playlists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist } from "@/app/types/spotify";
 export const fetchWebApi = async (url: string, token: string) => {
   if (!token) {
     return null;
@@ -158,7 +158,7 @@ export async function getUsersTopItems(token: string, type: string, limit?: numb
   )
 }
 
-export async function getFeaturedPlaylists(token: string, limit?: number): Promise<Playlists> {
+export async function getFeaturedPlaylists(token: string, limit?: number): Promise<FeaturedPlaylist> {
   return fetchWebApi(
     `https://api.spotify.com/v1/browse/featured-playlists?limit=${limit}`,
     token

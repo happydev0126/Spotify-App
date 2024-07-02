@@ -1,23 +1,18 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api/spotify/spotify-api";
-import { Artist, FeaturedPlaylist, Item, Playlist } from "./types/spotify";
+import { Artist, Item, Playlist } from "./types/spotify";
 import Link from "next/link";
 import Track from "./components/track";
 
 export default async function Page() {
   const { userId } = auth();
-  let recentlyPlayed: Item[] = []
-  let usersTopArtists: Artist[] = []
-  let featuredPlaylist: FeaturedPlaylist = { href: '', items: [], limit: 0, next: '', total: 0, offset: 0, previous: '' }
-  let token = ''
+  if (!userId) return <div>NOT LOGGED IN</div>
 
-  if (userId) {
-    const provider = 'oauth_spotify';
-    token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    recentlyPlayed = await getRecentlyPlayed(token, 6).then(data => data.items)
-    usersTopArtists = await getUsersTopItems(token, 'artists', 6).then(data => data.items)
-    featuredPlaylist = await getFeaturedPlaylists(token, 6).then(data => data.playlists)
-  }
+  const provider = 'oauth_spotify';
+  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const recentlyPlayed = await getRecentlyPlayed(token, 6).then(data => data.items)
+  const usersTopArtists = await getUsersTopItems(token, 'artists', 6).then(data => data.items)
+  const featuredPlaylist = await getFeaturedPlaylists(token, 6).then(data => data.playlists)
 
   const removeDuplicates = (items: Item[]) => {
     const seenItems = new Set()
