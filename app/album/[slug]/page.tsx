@@ -1,17 +1,13 @@
 import { getAlbum } from "@/app/api/spotify/spotify-api";
-import type { Album } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import Track from "@/app/components/track"
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { userId } = auth();
-  let token: string
-  let album: Album | undefined = undefined
-  if (userId) {
-    const provider = 'oauth_spotify';
-    token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    album = await getAlbum(token, params.slug)
-  }
+  if (!userId) return <div>NOT LOGGED IN</div>
+  const provider = 'oauth_spotify';
+  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const album = await getAlbum(token, params.slug)
 
   if (!album) {
     return <div>No album found</div>

@@ -1,23 +1,17 @@
 import { getArtist, getArtistAlbums, getArtistTopTracks } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track";
-import { Albums, Artist, Track as SpotifyTrack } from "@/app/types/spotify";
 import { auth, clerkClient } from "@clerk/nextjs/server"
 import Link from "next/link";
 
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { userId } = auth();
-  let token: string
-  let artist: Artist | undefined = undefined
-  let topTracks: SpotifyTrack[] | undefined = undefined
-  let albums: Albums | undefined = undefined
-  if (userId) {
-    const provider = 'oauth_spotify';
-    token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    artist = await getArtist(token, params.slug)
-    topTracks = await getArtistTopTracks(token, params.slug).then(data => data?.tracks)
-    albums = await getArtistAlbums(token, params.slug)
-  }
+  if (!userId) return <div>NOT LOGGED IN</div>
+  const provider = 'oauth_spotify';
+  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const artist = await getArtist(token, params.slug)
+  const topTracks = await getArtistTopTracks(token, params.slug).then(data => data?.tracks)
+  const albums = await getArtistAlbums(token, params.slug)
 
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">

@@ -15,13 +15,10 @@ export default async function RootLayout({
 }) {
 
   const { userId } = auth();
-  let token = ''
-  let user
-  if (userId) {
-    const provider = 'oauth_spotify';
-    token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
-    user = await getCurrentUser(token)
-  }
+  if (!userId) return <div>NOT LOGGED IN</div>
+  const provider = 'oauth_spotify';
+  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const user = await getCurrentUser(token)
 
   return (
     <ClerkProvider >
