@@ -1,6 +1,6 @@
 import { getToken } from "@/app/api/clerk/getToken";
 import { getAlbum } from "@/app/api/spotify/spotify-api";
-import Track from "@/app/components/track"
+import Track from "@/app/components/track/track"
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const album = await getAlbum(params.slug)

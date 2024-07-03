@@ -1,9 +1,8 @@
-import { ClerkProvider, SignIn, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import './globals.css';
-import Card from './components/card';
+import Card from './components/ui/card';
 import Dashboard from './components/dashboard';
 import Player from './components/player';
-import { auth, clerkClient } from '@clerk/nextjs/server';
 import Providers from './context/appContext';
 import { getCurrentUser } from './api/spotify/spotify-api';
 import Navigation from './components/navigation';

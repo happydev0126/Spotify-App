@@ -1,6 +1,6 @@
 import { getToken } from "@/app/api/clerk/getToken";
 import { getArtist, getArtistAlbums, getArtistTopTracks } from "@/app/api/spotify/spotify-api";
-import Track from "@/app/components/track";
+import Track from "@/app/components/track/track";
 import Link from "next/link";
 
 

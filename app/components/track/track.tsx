@@ -1,16 +1,18 @@
 'use client'
 import { useContext, useState } from "react"
-import { pausePlayback, resumePlayback } from "../api/spotify/spotify-api"
-import { DeviceContext, PlayerContext } from "../context/appContext"
+import { resumePlayback } from "../../api/spotify/spotify-api"
+import { DeviceContext, PlayerContext } from "../../context/appContext"
 import Link from "next/link"
-import type { Track } from "../types/spotify"
+import type { Track } from "../../types/spotify"
 import { usePathname } from "next/navigation"
-import { convertMsToTimestamp } from "../lib/utils/convertMsToTimestamp"
-import { isoDateToMonthDayYear } from "../lib/utils/isoDateToMonthDayYear"
+import { convertMsToTimestamp } from "../../lib/utils/convertMsToTimestamp"
+import { isoDateToMonthDayYear } from "../../lib/utils/isoDateToMonthDayYear"
+import HandleTrack from "./handleTrack"
+
 
 export default function Track({ item, index, token, playlist_uri, uris, added_at }: { item: Track, index: number, token: string, playlist_uri?: string, uris?: string[], added_at?: string }) {
   const { deviceId, user } = useContext(DeviceContext)
-  const { is_active, is_paused, current_track } = useContext(PlayerContext)
+  const { current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
   const pathName = usePathname()
 
@@ -24,22 +26,12 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     }
   }
 
-  const handlePauseTrack = () => {
-    deviceId && pausePlayback(token, deviceId)
-  }
-
   const isCurrentlyPlaying = (trackid: string) => {
     if (current_track?.id === trackid) {
       return true
     }
     return false
   }
-
-  const showPlay = isHover && !isCurrentlyPlaying(item.id) || isHover && is_active && is_paused
-  const showPause = (isHover && !is_paused) && isCurrentlyPlaying(item.id)
-  const showPlaying = (!isHover && isCurrentlyPlaying(item.id)) && !is_paused
-  const showActive = !isHover && isCurrentlyPlaying(item.id) && is_paused
-  const showNumber = (!showPlay && !showPause && !showPlaying && !showActive)
 
   /*   TODO
    *   Refactor this component
@@ -54,30 +46,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       onMouseLeave={() => setIsHover(false)}
     >
       <div className="flex align-center justify-end w-full text-right min-w-6 text-sm">
-        {
-          showPlay &&
-          <svg onClick={handlePlayTrack} className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fillRule="evenodd" d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z" clipRule="evenodd" />
-          </svg>
-        }
-        {
-          showPause &&
-          <svg onClick={handlePauseTrack} className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fillRule="evenodd" d="M8 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H8Zm7 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1Z" clipRule="evenodd" />
-          </svg>
-        }
-        {
-          showPlaying &&
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="#1ED45E" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" data-icon="SvgActivity" aria-hidden="true"><path d="M3 12.3h3.3l.8-2.4.8-2.4 1.8 6.75L11.5 21l1.95-9 1.95-9 1 4.65 1 4.65H21"></path></svg>
-        }
-        {
-          showActive &&
-          <span className="text-green">{index + 1}</span>
-        }
-        {
-          showNumber &&
-          <span>{index + 1}</span>
-        }
+        {<HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />}
       </div>
       <div className="flex flex-row items-center gap-2">
         <Link href={`/album/${item.album?.id}`} className="text-xs">
@@ -110,16 +79,18 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       <Link href={`/album/${item.album?.id}`} className="text-xs">
         <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">{item.album?.name}</div>
       </Link>
-      {added_at &&
+      {
+        added_at &&
         <>
           <div>{isoDateToMonthDayYear(added_at).month} {isoDateToMonthDayYear(added_at).day}, {isoDateToMonthDayYear(added_at).year}</div>
           <div>{convertMsToTimestamp(item.duration_ms)}</div>
         </>
       }
-      {!added_at && item.duration_ms &&
+      {
+        !added_at && item.duration_ms &&
         <div className="justify-self-end">{convertMsToTimestamp(item.duration_ms)}</div>
       }
-    </div>
+    </div >
   );
 }
 

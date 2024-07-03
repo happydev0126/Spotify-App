@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from './card'
+import Card from './ui/card'
 import UserPlaylists from './playlist'
 import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
