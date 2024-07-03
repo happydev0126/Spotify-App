@@ -1,13 +1,11 @@
-import { getToken } from "@/app/api/clerk/getToken";
 import { getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track";
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
-  const token = await getToken()
 
-  const playlist = await getPlaylist(token, params.slug)
-  const owner = await getUser(token, playlist.owner.id)
+  const playlist = await getPlaylist(params.slug)
+  const owner = await getUser(playlist.owner.id)
 
   if (!playlist) {
     return <div>No playlist found</div>
@@ -42,7 +40,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <hr className="mt-2 mb-4 opacity-20" />
         {playlist.tracks.items.map((item, index) => (
-          <Track key={item.track.id} item={item.track} added_at={item.added_at} index={index} token={token} playlist_uri={playlist.uri} />
+          <Track key={item.track.id} item={item.track} added_at={item.added_at} index={index} playlist_uri={playlist.uri} />
         ))}
       </div>
     </div >

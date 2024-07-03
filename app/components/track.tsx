@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation"
 import { convertMsToTimestamp } from "../lib/utils/convertMsToTimestamp"
 import { isoDateToMonthDayYear } from "../lib/utils/isoDateToMonthDayYear"
 
-export default function Track({ item, index, token, playlist_uri, uris, added_at }: { item: Track, index: number, token: string, playlist_uri?: string, uris?: string[], added_at?: string }) {
+export default function Track({ item, index, playlist_uri, uris, added_at }: { item: Track, index: number, playlist_uri?: string, uris?: string[], added_at?: string }) {
   const { deviceId, user } = useContext(DeviceContext)
   const { is_active, is_paused, current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
@@ -20,12 +20,12 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       return
     }
     if (deviceId) {
-      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
+      resumePlayback(deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
     }
   }
 
   const handlePauseTrack = () => {
-    deviceId && pausePlayback(token, deviceId)
+    deviceId && pausePlayback(deviceId)
   }
 
   const isCurrentlyPlaying = (trackid: string) => {

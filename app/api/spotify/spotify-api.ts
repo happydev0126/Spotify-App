@@ -1,5 +1,8 @@
 import { Artist, Albums, CurrentUser, Artists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist } from "@/app/types/spotify";
-export const fetchWebApi = async (url: string, token: string) => {
+import { getToken } from "../clerk/getToken";
+
+export const fetchWebApi = async (url: string) => {
+  const token = await getToken()
   if (!token) {
     return null;
   }
@@ -13,7 +16,9 @@ export const fetchWebApi = async (url: string, token: string) => {
   return res;
 };
 
-export const fetchWebApi2 = async (url: string, token: string) => {
+export const fetchWebApi2 = async (url: string) => {
+  const token = await getToken()
+
   if (!token) {
     return null;
   }
@@ -26,7 +31,10 @@ export const fetchWebApi2 = async (url: string, token: string) => {
   return res
 };
 
-export const fetchPlayerApi = async (url: string, token: string, track_number: number, context_uri?: string, uris?: string[]) => {
+export const fetchPlayerApi = async (url: string, track_number: number, context_uri?: string, uris?: string[]) => {
+
+  const token = await getToken()
+
   if (!token) {
     return null
   }
@@ -66,7 +74,9 @@ export const fetchPlayerApi = async (url: string, token: string, track_number: n
   const res = await fetch(url, requestOptions)
   return res
 }
-export const pausePlayerApi = async (url: string, token: string) => {
+export const pausePlayerApi = async (url: string) => {
+  const token = await getToken()
+
   if (!token) {
     return null
   }
@@ -81,55 +91,48 @@ export const pausePlayerApi = async (url: string, token: string) => {
   return res
 }
 
-export async function getDevice(token: string) {
+export async function getDevice() {
   return fetchWebApi2(
     `https://api.spotify.com/v1/me/player?market=ES`,
-    token
   );
 }
 
-export async function resumePlayback(token: string, deviceId: string, track_number: number, context_uri?: string, uris?: string[]) {
+export async function resumePlayback(deviceId: string, track_number: number, context_uri?: string, uris?: string[]) {
   return fetchPlayerApi(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
-    token,
     track_number,
     context_uri,
     uris
   );
 }
 
-export async function pausePlayback(token: string, deviceId: string) {
+export async function pausePlayback(deviceId: string) {
   return pausePlayerApi(
     `https://api.spotify.com/v1/me/player/pause?${deviceId}`,
-    token
   );
 }
 
-export async function getTopTracks(token: string, limit: number) {
+export async function getTopTracks(limit: number) {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=${limit}`,
-    token
   );
 }
 
-export async function getUser(token: string, user_id: string): Promise<User> {
+export async function getUser(user_id: string): Promise<User> {
   return fetchWebApi(
     `https://api.spotify.com/v1/users/${user_id}`,
-    token
   );
 }
 
-export async function getCurrentUserPlaylists(token: string): Promise<CurrentUserPlaylists> {
+export async function getCurrentUserPlaylists(): Promise<CurrentUserPlaylists> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/playlists`,
-    token
   );
 }
 
-export async function getPlaylist(token: string, playlist_id: string): Promise<Playlist> {
+export async function getPlaylist(playlist_id: string): Promise<Playlist> {
   return fetchWebApi(
     `https://api.spotify.com/v1/playlists/${playlist_id}`,
-    token
   );
 }
 
@@ -137,81 +140,70 @@ export async function getTracks() {
   return (await fetchWebApi('https://api.spotify.com/v1/me/tracks', 'GET'));
 }
 
-export async function getRecentlyPlayed(token: string, limit: number): Promise<RecentlyPlayed> {
+export async function getRecentlyPlayed(limit: number): Promise<RecentlyPlayed> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`,
-    token
   )
 }
 
-export async function getUsersSavedTracks(token: string, limit?: number): Promise<RecentlyPlayed> {
+export async function getUsersSavedTracks(limit?: number): Promise<RecentlyPlayed> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/tracks?${limit}`,
-    token
   )
 }
 
-export async function getUsersTopItems(token: string, type: string, limit?: number): Promise<Artists> {
+export async function getUsersTopItems(type: string, limit?: number): Promise<Artists> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/top/${type}?limit=${limit}`,
-    token
   )
 }
 
-export async function getFeaturedPlaylists(token: string, limit?: number): Promise<FeaturedPlaylist> {
+export async function getFeaturedPlaylists(limit?: number): Promise<FeaturedPlaylist> {
   return fetchWebApi(
     `https://api.spotify.com/v1/browse/featured-playlists?limit=${limit}`,
-    token
   )
 }
 
-export async function getCurrentUser(token: string): Promise<CurrentUser | undefined> {
+export async function getCurrentUser(): Promise<CurrentUser | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me`,
-    token
   )
 }
 
-export async function getArtist(token: string, id: string): Promise<Artist | undefined> {
+export async function getArtist(id: string): Promise<Artist | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/artists/${id}`,
-    token
   )
 }
-export async function getArtistAlbums(token: string, id: string): Promise<Albums | undefined> {
+export async function getArtistAlbums(id: string): Promise<Albums | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/artists/${id}/albums`,
-    token
   )
 }
 
-export async function getArtistTopTracks(token: string, id: string): Promise<TopTracks> {
+export async function getArtistTopTracks(id: string): Promise<TopTracks> {
   return fetchWebApi(
     `https://api.spotify.com/v1/artists/${id}/top-tracks`,
-    token
   )
 }
 
-export async function getAlbum(token: string, id: string): Promise<Album | undefined> {
+export async function getAlbum(id: string): Promise<Album | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/albums/${id}`,
-    token
   )
 }
 
-export async function getUsersAlbums(token: string): Promise<SavedAlbums | undefined> {
+export async function getUsersAlbums(): Promise<SavedAlbums | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/albums`,
-    token
   )
 }
 
-export async function search(token: string, query: string, type?: SearchType[], limit?: number, offset?: number): Promise<Search> {
+export async function search(query: string, type?: SearchType[], limit?: number, offset?: number): Promise<Search> {
   if (type === undefined) {
     type = ['playlist', 'track', 'album', 'artist']
   }
   return fetchWebApi(
     `https://api.spotify.com/v1/search?q=${query}&type=${type}&limit=${limit}`,
-    token
   )
 }

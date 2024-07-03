@@ -16,7 +16,7 @@ export default async function RootLayout({
 }) {
 
   const token = await getToken()
-  const user = await getCurrentUser(token)
+  const user = await getCurrentUser()
 
   return (
     <ClerkProvider >

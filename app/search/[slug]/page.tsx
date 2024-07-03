@@ -1,12 +1,10 @@
 import { search } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track"
 import Link from "next/link";
-import { getToken } from "@/app/api/clerk/getToken";
 
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const token = await getToken()
-  const searchQuery = await search(token, params.slug, undefined, 5)
+  const searchQuery = await search(params.slug, undefined, 5)
 
   if (!searchQuery) return <div>No results found</div>
 
@@ -33,7 +31,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           {
             searchQuery.tracks &&
             searchQuery?.tracks.items.map((track, index) => (
-              <Track key={track.id} item={track} token={token} index={index} uris={[track.uri]} />
+              <Track key={track.id} item={track} index={index} uris={[track.uri]} />
             ))}
         </div>
       </div>

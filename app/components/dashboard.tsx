@@ -4,12 +4,10 @@ import UserPlaylists from './playlist'
 import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
 import { getCurrentUserPlaylists, getUsersAlbums } from '../api/spotify/spotify-api'
-import { getToken } from '../api/clerk/getToken'
 
 export default async function Dashboard() {
-  const token = await getToken()
-  let playlists = await getCurrentUserPlaylists(token).then(data => data.items)
-  let albums = await getUsersAlbums(token)
+  let playlists = await getCurrentUserPlaylists().then(data => data.items)
+  let albums = await getUsersAlbums()
 
   let library: Array<CurrentUserPlaylist | Album> = [...playlists]
   albums?.items.forEach(({ album }) => {
