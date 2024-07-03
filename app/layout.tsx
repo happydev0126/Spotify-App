@@ -1,4 +1,4 @@
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, SignIn, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import './globals.css';
 import Card from './components/card';
 import Dashboard from './components/dashboard';
@@ -7,6 +7,7 @@ import { auth, clerkClient } from '@clerk/nextjs/server';
 import Providers from './context/appContext';
 import { getCurrentUser } from './api/spotify/spotify-api';
 import Navigation from './components/navigation';
+import { getToken } from './api/clerk/getToken';
 
 export default async function RootLayout({
   children,
@@ -14,10 +15,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
 
-  const { userId } = auth();
-  if (!userId) return <div>NOT LOGGED IN</div>
-  const provider = 'oauth_spotify';
-  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const token = await getToken()
   const user = await getCurrentUser(token)
 
   return (

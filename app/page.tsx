@@ -1,15 +1,11 @@
-import { auth, clerkClient } from "@clerk/nextjs/server";
 import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api/spotify/spotify-api";
 import { Artist, Item, Playlist } from "./types/spotify";
 import Link from "next/link";
 import Track from "./components/track";
+import { getToken } from "./api/clerk/getToken";
 
 export default async function Page() {
-  const { userId } = auth();
-  if (!userId) return <div>NOT LOGGED IN</div>
-
-  const provider = 'oauth_spotify';
-  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const token = await getToken()
   const recentlyPlayed = await getRecentlyPlayed(token, 6).then(data => data.items)
   const usersTopArtists = await getUsersTopItems(token, 'artists', 6).then(data => data.items)
   const featuredPlaylist = await getFeaturedPlaylists(token, 6).then(data => data.playlists)

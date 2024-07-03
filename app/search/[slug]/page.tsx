@@ -1,15 +1,11 @@
 import { search } from "@/app/api/spotify/spotify-api";
-import { auth, clerkClient } from "@clerk/nextjs/server";
 import Track from "@/app/components/track"
 import Link from "next/link";
+import { getToken } from "@/app/api/clerk/getToken";
 
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const { userId } = auth();
-  if (!userId) return <div>Not logged in</div>
-
-  const provider = 'oauth_spotify';
-  const token = await clerkClient.users.getUserOauthAccessToken(userId, provider).then(data => data.data[0].token)
+  const token = await getToken()
   const searchQuery = await search(token, params.slug, undefined, 5)
 
   if (!searchQuery) return <div>No results found</div>

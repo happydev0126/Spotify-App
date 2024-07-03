@@ -2,10 +2,12 @@
 import { useEffect, useState } from 'react'
 import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function UserPlaylists({ library }: { library: Array<CurrentUserPlaylist | Album> }) {
   const [userLibrary, setUserLibrary] = useState<Array<CurrentUserPlaylist | Album>>()
   const [searchInput, setSearchInput] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
     setUserLibrary(library)
@@ -20,6 +22,15 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserP
     return <div>No playlists found</div>
   }
 
+  const handleClick = (e: any, type: string, id: string) => {
+    e.stopPropagation()
+    router.push(
+      type === 'playlist' ? `/playlist/${id}` : `/album/${id}`
+    )
+  }
+
+  userLibrary.forEach(playlist => console.log(playlist.id))
+
   return (
     <div className='flex flex-col'>
       <form>
@@ -33,10 +44,10 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserP
       {userLibrary
         ?.filter(userPlaylist => userPlaylist.name.toLowerCase().includes(searchInput))
         .map((playlist) => (
-          <Link
+          <div
             key={`${playlist.id}`}
-            href={playlist.type === 'playlist' ? `/playlist/${playlist.id}` : `/album/${playlist.id}`}
-            className='p-2 rounded hover:bg-gradient-to-r from-white/0 to-white/5'>
+            onClick={e => handleClick(e, playlist.type, playlist.id)}
+            className='p-2 rounded hover:bg-gradient-to-r hover:cursor-pointer from-white/0 to-white/5'>
             <div className='flex flex-row items-center gap-2'>
               <img
                 src={playlist.images[playlist.images.length - 1].url}
@@ -71,7 +82,7 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserP
                 </span>
               </div>
             </div>
-          </Link >
+          </div >
         ))
       }
     </div >
