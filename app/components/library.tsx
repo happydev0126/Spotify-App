@@ -4,7 +4,7 @@ import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-export default function UserPlaylists({ library }: { library: Array<CurrentUserPlaylist | Album> }) {
+export default function UserLibrary({ library }: { library: Array<CurrentUserPlaylist | Album> }) {
   const [userLibrary, setUserLibrary] = useState<Array<CurrentUserPlaylist | Album>>()
   const [searchInput, setSearchInput] = useState('')
   const router = useRouter()

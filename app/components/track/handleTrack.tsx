@@ -33,7 +33,7 @@ export default function HandleTrack({ token, item, isHover, index, uris, playlis
       }
       {
         showPlaying &&
-        <PlayingSVG />
+        <img src="/icons/track/playing.svg" alt="Playing" />
       }
       {
         showActive &&

@@ -40,12 +40,12 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     <div
       role="button"
       key={item.id}
-      className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content] max-w-full text-sm overflow-hidden gap-x-6 items-center text-left hover:bg-gray-50/10 py-1 px-2 rounded max-h-16"
+      className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content] max-w-full text-sm overflow-hidden gap-x-3 items-center text-left hover:bg-gray-50/10 py-1 px-2 rounded max-h-16"
       onDoubleClick={handlePlayTrack}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="flex align-center justify-end w-full text-right min-w-6 text-sm">
+      <div className="flex align-center justify-center w-full min-w-6 text-sm">
         {<HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />}
       </div>
       <div className="flex flex-row items-center gap-2">

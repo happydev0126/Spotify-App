@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from './ui/card'
-import UserPlaylists from './playlist'
+import UserLibrary from './library'
 import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
 import { getCurrentUserPlaylists, getUsersAlbums } from '../api/spotify/spotify-api'
@@ -38,7 +38,7 @@ export default async function Dashboard() {
           Add library filters
         */}
         <div>
-          <UserPlaylists library={library} />
+          <UserLibrary library={library} />
         </div>
       </Card>
     </div>
