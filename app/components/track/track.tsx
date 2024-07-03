@@ -9,8 +9,16 @@ import { convertMsToTimestamp } from "../../lib/utils/convertMsToTimestamp"
 import { isoDateToMonthDayYear } from "../../lib/utils/isoDateToMonthDayYear"
 import HandleTrack from "./handleTrack"
 
-
-export default function Track({ item, index, token, playlist_uri, uris, added_at }: { item: Track, index: number, token: string, playlist_uri?: string, uris?: string[], added_at?: string }) {
+interface TrackProps {
+  item: Track,
+  index: number,
+  token: string,
+  playlist_uri?: string,
+  uris?: string[],
+  added_at?: string
+  variant: 'trackOnly' | 'trackAndDescription' | 'all'
+}
+export default function Track({ item, index, token, playlist_uri, uris, added_at, variant }: TrackProps) {
   const { deviceId, user } = useContext(DeviceContext)
   const { current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
@@ -32,15 +40,26 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     }
     return false
   }
+  const compVariant = () => {
+    if (variant === 'trackOnly') {
+      return 'grid-cols-[24px_minmax(200px,95%)_max-content]'
+    }
+    if (variant === 'trackAndDescription') {
+      return 'grid-cols-[24px_minmax(200px,55%)_35%_max-content]'
+    }
+    if (variant === 'all') {
+      return 'grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content]'
+    }
+  }
 
-  /*   TODO
-   *   Refactor this component
-  */
+  const notOnArtist = !(pathName.includes('/artist/'))
+
   return (
     <div
       role="button"
       key={item.id}
-      className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content] max-w-full text-sm overflow-hidden gap-x-3 items-center text-left hover:bg-gray-50/10 py-1 px-2 rounded max-h-16"
+      className={
+        `text-zinc-400 grid ${compVariant()} max-w-full text-sm overflow-hidden gap-x-3 items-center text-left hover:bg-gray-50/10 py-1 px-2 rounded max-h-16`}
       onDoubleClick={handlePlayTrack}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
@@ -49,13 +68,18 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         {<HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />}
       </div>
       <div className="flex flex-row items-center gap-2">
-        <Link href={`/album/${item.album?.id}`} className="text-xs">
+        {/* ALBUM IMAGE */}
+        <Link
+          href={`/album/${item.album?.id}`} className="text-xs">
           <img src={item.album?.images[item.album?.images.length - 1].url} className="max-w-12 rounded" alt={item.album?.name} />
         </Link>
         <div className="overflow-hidden">
-          <div className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '} whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>{item.name}</div>
+          {/* TRACK NAME */}
+          <div className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '} whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>
+            {item.name}
+          </div>
           {
-            !(pathName.includes('/artist/')) &&
+            notOnArtist &&
             <span>
               {
                 item.artists.map((artist, index) => (
@@ -76,19 +100,30 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         </div>
       </div>
 
-      <Link href={`/album/${item.album?.id}`} className="text-xs">
-        <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">{item.album?.name}</div>
-      </Link>
       {
-        added_at &&
+        !(variant === 'trackOnly') &&
         <>
-          <div>{isoDateToMonthDayYear(added_at).month} {isoDateToMonthDayYear(added_at).day}, {isoDateToMonthDayYear(added_at).year}</div>
-          <div>{convertMsToTimestamp(item.duration_ms)}</div>
+          <Link href={`/album/${item.album?.id}`} className="text-xs">
+            <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">
+              {item.album?.name}
+            </div>
+          </Link>
+          {added_at &&
+            <>
+              <div>
+                {isoDateToMonthDayYear(added_at).month} {isoDateToMonthDayYear(added_at).day}, {isoDateToMonthDayYear(added_at).year}
+              </div>
+              <div>
+                {convertMsToTimestamp(item.duration_ms)}
+              </div>
+            </>
+          }
         </>
       }
-      {
-        !added_at && item.duration_ms &&
-        <div className="justify-self-end">{convertMsToTimestamp(item.duration_ms)}</div>
+      {!added_at && item.duration_ms &&
+        <div className="justify-self-end">
+          {convertMsToTimestamp(item.duration_ms)}
+        </div>
       }
     </div >
   );

@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           {
             searchQuery.tracks &&
             searchQuery?.tracks.items.map((track, index) => (
-              <Track token={token} key={track.id} item={track} index={index} uris={[track.uri]} />
+              <Track token={token} key={track.id} item={track} index={index} uris={[track.uri]} variant="trackOnly" />
             ))}
         </div>
       </div>

@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <h3 className="text-4xl text-white font-bold">Popular</h3>
           {
             topTracks.map((track, index: number) => (
-              <Track token={token} key={track.id} item={track} index={index} uris={[track.uri]} />
+              <Track variant="trackOnly" token={token} key={track.id} item={track} index={index} uris={[track.uri]} />
             ))
           }
         </div>
