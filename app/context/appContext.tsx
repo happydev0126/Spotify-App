@@ -62,29 +62,28 @@ export default function Providers({ children, token, user }: { children: React.R
 
       player.addListener('player_state_changed', (state => {
         (!state) ? setActive(false) : setActive(true)
-        console.log('player state changed')
         setTrack(state.track_window.current_track);
         setPaused(state.paused);
       }));
 
       player.addListener("account_error", () => {
-        console.log("account error ");
+        // console.log("account error ");
       });
 
       player.addListener("authentication_error", () => {
-        console.log("authentication_error ");
+        // console.log("authentication_error ");
       });
 
       player.addListener("autoplay_failed", () => {
-        console.log("autoplay_failed ");
+        // console.log("autoplay_failed ");
       });
 
       player.addListener("initialization_error", () => {
-        console.log("initialization_error ");
+        // console.log("initialization_error ");
       });
 
       player.addListener("playback_error", () => {
-        console.log("playback_error ");
+        // console.log("playback_error ");
       });
 
       player.connect();

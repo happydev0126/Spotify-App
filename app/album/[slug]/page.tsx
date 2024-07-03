@@ -1,8 +1,10 @@
+import { getToken } from "@/app/api/clerk/getToken";
 import { getAlbum } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track"
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const album = await getAlbum(params.slug)
+  const token = await getToken()
 
   if (!album) {
     return <div>No album found</div>
@@ -20,7 +22,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <div className="flex flex-col w-full text-sm text-zinc-400">
         <h4 className="text-4xl text-white font-bold">Tracks</h4>
         {album.tracks.items.map((track, index: number) => (
-          <Track key={track.id} item={track} index={index} playlist_uri={album.uri} />
+          <Track token={token} key={track.id} item={track} index={index} playlist_uri={album.uri} />
         ))
         }
       </div>

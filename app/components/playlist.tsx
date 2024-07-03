@@ -29,8 +29,6 @@ export default function UserPlaylists({ library }: { library: Array<CurrentUserP
     )
   }
 
-  userLibrary.forEach(playlist => console.log(playlist.id))
-
   return (
     <div className='flex flex-col'>
       <form>

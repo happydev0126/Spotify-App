@@ -31,10 +31,7 @@ export const fetchWebApi2 = async (url: string) => {
   return res
 };
 
-export const fetchPlayerApi = async (url: string, track_number: number, context_uri?: string, uris?: string[]) => {
-
-  const token = await getToken()
-
+export const fetchPlayerApi = async (url: string, token: string, track_number: number, context_uri?: string, uris?: string[]) => {
   if (!token) {
     return null
   }
@@ -74,9 +71,7 @@ export const fetchPlayerApi = async (url: string, track_number: number, context_
   const res = await fetch(url, requestOptions)
   return res
 }
-export const pausePlayerApi = async (url: string) => {
-  const token = await getToken()
-
+export const pausePlayerApi = async (url: string, token: string) => {
   if (!token) {
     return null
   }
@@ -97,18 +92,20 @@ export async function getDevice() {
   );
 }
 
-export async function resumePlayback(deviceId: string, track_number: number, context_uri?: string, uris?: string[]) {
+export async function resumePlayback(token: string, deviceId: string, track_number: number, context_uri?: string, uris?: string[]) {
   return fetchPlayerApi(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+    token,
     track_number,
     context_uri,
     uris
   );
 }
 
-export async function pausePlayback(deviceId: string) {
+export async function pausePlayback(token: string, deviceId: string) {
   return pausePlayerApi(
     `https://api.spotify.com/v1/me/player/pause?${deviceId}`,
+    token
   );
 }
 
@@ -137,7 +134,7 @@ export async function getPlaylist(playlist_id: string): Promise<Playlist> {
 }
 
 export async function getTracks() {
-  return (await fetchWebApi('https://api.spotify.com/v1/me/tracks', 'GET'));
+  return (await fetchWebApi('https://api.spotify.com/v1/me/tracks'));
 }
 
 export async function getRecentlyPlayed(limit: number): Promise<RecentlyPlayed> {

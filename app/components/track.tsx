@@ -7,8 +7,10 @@ import type { Track } from "../types/spotify"
 import { usePathname } from "next/navigation"
 import { convertMsToTimestamp } from "../lib/utils/convertMsToTimestamp"
 import { isoDateToMonthDayYear } from "../lib/utils/isoDateToMonthDayYear"
+import { currentUser } from "@clerk/nextjs/server"
+import { getToken } from "next-auth/jwt"
 
-export default function Track({ item, index, playlist_uri, uris, added_at }: { item: Track, index: number, playlist_uri?: string, uris?: string[], added_at?: string }) {
+export default function Track({ item, index, token, playlist_uri, uris, added_at }: { item: Track, index: number, token: string, playlist_uri?: string, uris?: string[], added_at?: string }) {
   const { deviceId, user } = useContext(DeviceContext)
   const { is_active, is_paused, current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
@@ -20,12 +22,12 @@ export default function Track({ item, index, playlist_uri, uris, added_at }: { i
       return
     }
     if (deviceId) {
-      resumePlayback(deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
+      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
     }
   }
 
   const handlePauseTrack = () => {
-    deviceId && pausePlayback(deviceId)
+    deviceId && pausePlayback(token, deviceId)
   }
 
   const isCurrentlyPlaying = (trackid: string) => {

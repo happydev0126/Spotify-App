@@ -2,11 +2,13 @@ import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api
 import { Artist, Item, Playlist } from "./types/spotify";
 import Link from "next/link";
 import Track from "./components/track";
+import { getToken } from "./api/clerk/getToken";
 
 export default async function Page() {
   const recentlyPlayed = await getRecentlyPlayed(6).then(data => data.items)
   const usersTopArtists = await getUsersTopItems('artists', 6).then(data => data.items)
   const featuredPlaylist = await getFeaturedPlaylists(6).then(data => data.playlists)
+  const token = await getToken()
 
   const removeDuplicates = (items: Item[]) => {
     const seenItems = new Set()
@@ -26,7 +28,7 @@ export default async function Page() {
         <h3 className="text-2xl font-bold">Recently played tracks</h3>
         <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
           {removeDuplicates(recentlyPlayed).map((item, index) => (
-            <Track key={item.track.id} item={item.track} index={index} uris={[item.track.uri]} />
+            <Track token={token} key={item.track.id} item={item.track} index={index} uris={[item.track.uri]} />
           ))}
         </div>
       </section>

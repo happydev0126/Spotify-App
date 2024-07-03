@@ -1,3 +1,4 @@
+import { getToken } from "@/app/api/clerk/getToken";
 import { getArtist, getArtistAlbums, getArtistTopTracks } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track";
 import Link from "next/link";
@@ -8,6 +9,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const artist = await getArtist(params.slug)
   const topTracks = await getArtistTopTracks(params.slug).then(data => data?.tracks)
   const albums = await getArtistAlbums(params.slug)
+  const token = await getToken()
 
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
@@ -26,7 +28,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <h3 className="text-4xl text-white font-bold">Popular</h3>
           {
             topTracks.map((track, index: number) => (
-              <Track key={track.id} item={track} index={index} uris={[track.uri]} />
+              <Track token={token} key={track.id} item={track} index={index} uris={[track.uri]} />
             ))
           }
         </div>
