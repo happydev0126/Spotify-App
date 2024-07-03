@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="flex flex-col w-full text-sm text-zinc-400">
-        <div className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content] max-w-full text-sm overflow-hidden gap-x-3 items-center text-left py-1 px-2 rounded max-h-16">
+        <div className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_30%_20%_auto] max-w-full text-sm overflow-hidden gap-x-3 items-center text-left py-1 px-2 rounded max-h-16">
           <span className="w-full text-center">#</span>
           <span>Title</span>
           <span>Album</span>
@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <hr className="mt-2 mb-4 opacity-20" />
         {playlist.tracks.items.map((item, index) => (
-          <Track variant="all" token={token} key={item.track.id} item={item.track} added_at={item.added_at} index={index} playlist_uri={playlist.uri} />
+          <Track variant={'all'} token={token} key={item.track.id} item={item.track} added_at={item.added_at} index={index} playlist_uri={playlist.uri} />
         ))}
       </div>
     </div >

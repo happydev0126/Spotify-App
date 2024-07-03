@@ -1,10 +1,8 @@
-import SearchInput from "../components/searchInput";
+import React from 'react'
 
-export default async function Page() {
-
+export default function Page() {
   return (
-    <div>
-      <SearchInput placeholder="Search" />
-    </div >
+    <></>
   )
 }
+

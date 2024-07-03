@@ -42,13 +42,13 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
   }
   const compVariant = () => {
     if (variant === 'trackOnly') {
-      return 'grid-cols-[24px_minmax(200px,95%)_max-content]'
+      return 'grid-cols-[24px_minmax(200px,95%)_auto]'
     }
     if (variant === 'trackAndDescription') {
-      return 'grid-cols-[24px_minmax(200px,55%)_35%_max-content]'
+      return 'grid-cols-[24px_minmax(200px,55%)_35%_auto]'
     }
     if (variant === 'all') {
-      return 'grid-cols-[24px_minmax(200px,35%)_25%_22%_max-content]'
+      return 'grid-cols-[24px_minmax(200px,35%)_30%_20%_auto]'
     }
   }
 
@@ -113,7 +113,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
               <div>
                 {isoDateToMonthDayYear(added_at).month} {isoDateToMonthDayYear(added_at).day}, {isoDateToMonthDayYear(added_at).year}
               </div>
-              <div>
+              <div className="justify-self-end">
                 {convertMsToTimestamp(item.duration_ms)}
               </div>
             </>
