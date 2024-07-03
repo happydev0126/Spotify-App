@@ -4,7 +4,7 @@ import SearchInput from "../components/searchInput";
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SearchInput placeholder="Search" />
+      <SearchInput placeholder="What do you want to play?" />
       <div>{children}</div>
     </>
   )

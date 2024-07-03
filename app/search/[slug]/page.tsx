@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="flex flex-row gap-4">
-      <div className="flex flex-col gap-4 w-52">
+      <div className="flex flex-col gap-4 min-w-40">
         <h3 className="text-2xl font-bold">Top Result</h3>
         <div className="flex flex-col gap-4 bg-zinc-800/50 rounded p-4">
           {
