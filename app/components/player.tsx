@@ -1,17 +1,38 @@
 'use client'
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, DragEvent, useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../context/appContext";
 import Link from "next/link";
+import { convertMsToTimestamp } from "../lib/utils/convertMsToTimestamp";
 
 export default function Player({ className }: { className: string }) {
-  const { player, is_paused, current_track } = useContext(PlayerContext)
+  const { player, is_paused, current_track, position } = useContext(PlayerContext)
   const [volume, setVolume] = useState(0.5)
   const [prevVolume, setPrevVolume] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
+  const [trackPositionInMs, setTrackPositionInMs] = useState(position)
+
+  useEffect(() => {
+    const timeout = setInterval(() => {
+      setTrackPositionInMs(prev => prev + 1000)
+    }, 1000);
+
+    if (is_paused) { clearInterval(timeout) }
+
+    return () => {
+      clearInterval(timeout)
+    }
+  }, [is_paused])
+
+  useEffect(() => {
+    setTrackPositionInMs(position)
+  }, [position, current_track])
+
+
   const getId = (string: string) => {
     const id = string.split(':')
     return id[id.length - 1]
   }
+
 
   const handleVolume = (e: ChangeEvent<HTMLInputElement>) => {
     setIsMuted(false)
@@ -31,9 +52,17 @@ export default function Player({ className }: { className: string }) {
     }
   }
 
+  const handleTrackPosition = (e: ChangeEvent<HTMLInputElement>) => {
+    setTrackPositionInMs(+e.currentTarget.value)
+  }
+
+  const handleMouseUp = () => {
+    player?.seek(trackPositionInMs)
+  }
+
   return (
     <div className={`flex h-16 w-full items-center justify-between ${className}`} >
-      <div className="flex gap-2 items-center w-1/3">
+      <div className="flex gap-2 items-center w-[30%]">
         {current_track &&
           <>
             <img
@@ -54,81 +83,106 @@ export default function Player({ className }: { className: string }) {
           </>
         }
       </div>
-      <div className="flex items-center justify-center gap-4 w-1/3">
-        <button
-          className="btn-spotify"
-          onClick={() => { player?.previousTrack() }} >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            stroke="currentColor"
-            fill="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1"
-            viewBox="0 0 24 24"
-            data-icon="SvgSkipBack"
-            aria-hidden="true">
-            <path d="M17.767 19.664a1 1 0 001.633-.774V5.11a1 1 0 00-1.633-.774L13.9 7.5l-4.554 3.726a1 1 0 000 1.548L13.9 16.5zM4.6 21V3"></path>
-          </svg>
-        </button>
-
-        <button
-          className="btn-spotify"
-          onClick={() => { player?.togglePlay() }} >
-          {is_paused ?
+      <div className="flex flex-col gap-1 w-[40%] justify-center items-center">
+        <div className="flex items-center justify-center gap-4">
+          <button
+            className="btn-spotify"
+            onClick={() => { player?.previousTrack() }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              width="24"
+              height="24"
               stroke="currentColor"
               fill="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="2"
+              strokeWidth="1"
               viewBox="0 0 24 24"
-              data-icon="SvgPlayCircle"
+              data-icon="SvgSkipBack"
               aria-hidden="true">
-              <path d="M15.149 12.418a.582.582 0 000-.9L12.5 9.351l-2.247-1.839a.581.581 0 00-.949.45v8.012a.581.581 0 00.949.449l2.247-1.839zM21 12a9 9 0 11-9-9 9 9 0 019 9z"></path>
+              <path d="M17.767 19.664a1 1 0 001.633-.774V5.11a1 1 0 00-1.633-.774L13.9 7.5l-4.554 3.726a1 1 0 000 1.548L13.9 16.5zM4.6 21V3"></path>
             </svg>
-            :
+          </button>
+
+          <button
+            className="btn-spotify"
+            onClick={() => { player?.togglePlay() }} >
+            {is_paused ?
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                stroke="currentColor"
+                fill="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                data-icon="SvgPlayCircle"
+                aria-hidden="true">
+                <path d="M15.149 12.418a.582.582 0 000-.9L12.5 9.351l-2.247-1.839a.581.581 0 00-.949.45v8.012a.581.581 0 00.949.449l2.247-1.839zM21 12a9 9 0 11-9-9 9 9 0 019 9z"></path>
+              </svg>
+              :
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                stroke="#0a0a0a"
+                fill="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                data-icon="SvgPauseCircle"
+                aria-hidden="true">
+                <path d="M21 12a9 9 0 11-9-9 9 9 0 019 9zm-6.955 3.409V8.864m-3.818 6.545V8.864"></path>
+              </svg>
+            }
+          </button>
+          <button
+            className="btn-spotify"
+            onClick={() => { player?.nextTrack() }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              stroke="#0a0a0a"
+              width="24"
+              height="24"
+              stroke="currentColor"
               fill="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth="2"
+              strokeWidth="1"
               viewBox="0 0 24 24"
-              data-icon="SvgPauseCircle"
+              data-icon="SvgSkipForward"
               aria-hidden="true">
-              <path d="M21 12a9 9 0 11-9-9 9 9 0 019 9zm-6.955 3.409V8.864m-3.818 6.545V8.864"></path>
+              <path d="M14.4 12.524a1 1 0 000-1.548L9.85 7.25 5.983 4.086a1 1 0 00-1.633.774v13.78a1 1 0 001.633.774L9.85 16.25zm4.75-9.774v18"></path>
             </svg>
-          }
-        </button>
-        <button
-          className="btn-spotify"
-          onClick={() => { player?.nextTrack() }} >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            stroke="currentColor"
-            fill="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1"
-            viewBox="0 0 24 24"
-            data-icon="SvgSkipForward"
-            aria-hidden="true">
-            <path d="M14.4 12.524a1 1 0 000-1.548L9.85 7.25 5.983 4.086a1 1 0 00-1.633.774v13.78a1 1 0 001.633.774L9.85 16.25zm4.75-9.774v18"></path>
-          </svg>
-        </button>
+          </button>
+        </div>
+        <div className="w-full">
+          <div className="flex flex-row items-center gap-1 text-sm text-zinc-400">
+            <span>
+              {convertMsToTimestamp(trackPositionInMs)}
+            </span>
+            <input
+              id="default-range"
+              onChange={e => handleTrackPosition(e)}
+              onMouseUp={handleMouseUp}
+              type="range"
+              min={0}
+              max={current_track?.duration_ms}
+              step={1000}
+              value={trackPositionInMs}
+              className="w-full h-1.5 accent-green cursor-pointer "
+            />
+            {current_track &&
+              <span>
+                {convertMsToTimestamp(current_track?.duration_ms)}
+              </span>
+            }
+          </div>
+        </div>
       </div>
-      <div className="w-1/3 flex justify-end items-center gap-3">
+      <div className="w-[30%] flex justify-end items-center gap-3">
         {player &&
           <>
             <button onClick={handleMute}>
@@ -164,6 +218,7 @@ export default function Player({ className }: { className: string }) {
               value={volume}
               className="w-36 h-1.5  accent-green cursor-pointer "
             />
+
           </>
         }
       </div>

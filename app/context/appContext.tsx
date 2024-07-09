@@ -5,10 +5,11 @@ import { CurrentUser } from '../types/spotify'
 
 
 interface PlayerContextState {
-  player: Spotify.Player | undefined;
-  is_active: boolean;
-  is_paused: boolean;
-  current_track: Spotify.Track | undefined;
+  player: Spotify.Player | undefined
+  is_active: boolean
+  is_paused: boolean
+  current_track: Spotify.Track | undefined
+  position: number
 }
 
 interface DeviceContext {
@@ -17,7 +18,7 @@ interface DeviceContext {
 }
 
 export const DeviceContext = createContext<DeviceContext>({ deviceId: undefined, user: undefined });
-export const PlayerContext = createContext<PlayerContextState>({ player: undefined, is_active: false, is_paused: true, current_track: undefined });
+export const PlayerContext = createContext<PlayerContextState>({ player: undefined, is_active: false, is_paused: true, current_track: undefined, position: 0 });
 
 export default function Providers({ children, token, user }: { children: React.ReactNode, token: string, user: CurrentUser }) {
 
@@ -25,6 +26,7 @@ export default function Providers({ children, token, user }: { children: React.R
   const [currentUser] = useState<CurrentUser>(user)
   const [deviceId, setDeviceId] = useState<string | undefined>(undefined)
   const [current_track, setTrack] = useState<Spotify.Track>();
+  const [position, setPosition] = useState<number>(0);
   const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
   current_track?.album.images[current_track?.album.images.length - 1]
@@ -62,7 +64,9 @@ export default function Providers({ children, token, user }: { children: React.R
 
       player.addListener('player_state_changed', (state => {
         (!state) ? setActive(false) : setActive(true)
+        // console.log(state.position)
         setTrack(state.track_window.current_track);
+        setPosition(state.position)
         setPaused(state.paused);
       }));
 
@@ -90,9 +94,19 @@ export default function Providers({ children, token, user }: { children: React.R
     };
   }, []);
 
+  // useEffect(() => {
+  //   const timeout = setInterval(() => {
+  //     console.log('##############', player?.getCurrentState())
+  //   }, 1000);
+  //
+  //   return () => {
+  //     clearInterval(timeout)
+  //   }
+  // }, [])
+
   return (
     <DeviceContext.Provider value={{ deviceId: deviceId, user: currentUser }}>
-      <PlayerContext.Provider value={{ player, is_active, is_paused, current_track }}>
+      <PlayerContext.Provider value={{ player, is_active, is_paused, current_track, position }}>
         {children}
       </PlayerContext.Provider>
     </DeviceContext.Provider >

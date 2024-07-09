@@ -1,5 +1,6 @@
 import { Artist, Albums, CurrentUser, Artists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist } from "@/app/types/spotify";
 import { getToken } from "../clerk/getToken";
+import { getAuth } from "@clerk/nextjs/server";
 
 export const fetchWebApi = async (url: string) => {
   const token = await getToken()
@@ -30,6 +31,7 @@ export const fetchWebApi2 = async (url: string) => {
   const res = await fetch(url, requestOptions)
   return res
 };
+
 
 export const fetchPlayerApi = async (url: string, token: string, track_number: number, context_uri?: string, uris?: string[]) => {
   if (!token) {
@@ -71,6 +73,23 @@ export const fetchPlayerApi = async (url: string, token: string, track_number: n
   const res = await fetch(url, requestOptions)
   return res
 }
+
+export const seekPlayerApi = async (url: string) => {
+  const token = await getToken()
+  if (!token) {
+    return null;
+  }
+  const requestOptions = {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const res = await fetch(url, requestOptions)
+  return res
+}
+
 export const pausePlayerApi = async (url: string, token: string) => {
   if (!token) {
     return null
@@ -208,5 +227,11 @@ export async function search(query: string, type?: SearchType[], limit?: number,
 export async function setPlaybackVolume(volume_percent: number) {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/player/volume?volume_percent=${volume_percent}`
+  )
+}
+
+export async function setPlaybackPosition(position_ms: number) {
+  return seekPlayerApi(
+    `https://api.spotify.com/v1/me/player/seek?position_ms=${position_ms}`
   )
 }
