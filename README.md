@@ -30,7 +30,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Seek to track position functionality
 - [X] Volume slider
 - [ ] Disable navigation buttons when needed
-- [ ] Show currently playing album/playlist on user library
+- [X] Show currently playing album/playlist on user library
 - [ ] Different view options for playlists.
 - [ ] Filtering options for search page
 
