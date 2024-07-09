@@ -55,21 +55,21 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
             key={`${playlist.id}`}
             onClick={e => handleClick(e, playlist.type, playlist.id)}
             className='p-2 rounded hover:bg-gradient-to-r hover:cursor-pointer from-white/0 to-white/5'>
-            <div className='flex justify-between items-center'>
-              <div className='flex flex-row items-center gap-2'>
+            <div className='flex justify-between items-center overflow-hidden'>
+              <div className='w-full flex flex-row items-center gap-3 overflow-hidden'>
                 <img
                   src={playlist.images[playlist.images.length - 1].url}
                   alt='Image'
                   className='max-w-12 rounded'>
                 </img>
-                <div className='flex'>
-                  <div className='flex flex-col'>
-                    <div className={isCurrentlyPlaying(playlist.uri) ? `text-green` : ''}>
+                <div className='flex overflow-hidden'>
+                  <div className='flex flex-col overflow-hidden'>
+                    <div className={`${isCurrentlyPlaying(playlist.uri) ? `text-green` : ''} whitespace-nowrap text-ellipsis overflow-hidden`}>
                       {playlist.name}
                     </div>
-                    <span className='text-gray-400 text-sm capitalize'>
+                    <span className='text-gray-400 text-sm capitalize overflow-hidden'>
                       {playlist.type}
-                      {' - '}
+                      {' • '}
                       {'owner' in playlist && playlist.owner.display_name}
                       {
                         'artists' in playlist &&
