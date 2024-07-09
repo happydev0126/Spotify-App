@@ -28,7 +28,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Filtering to user library (tags)
 - [ ] Sort by options to user library
 - [ ] Seek to track position functionality
-- [ ] Volume slider
+- [X] Volume slider
 - [ ] Disable navigation buttons when needed
 - [ ] Show currently playing album/playlist on user library
 - [ ] Different view options for playlists.
