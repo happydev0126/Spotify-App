@@ -3,15 +3,9 @@ import { getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track/track";
 
 export default async function Page({ params }: { params: { slug: string } }) {
-
-
   const playlist = await getPlaylist(params.slug)
-  const owner = await getUser(playlist.owner.id)
   const token = await getToken()
-
-  if (!playlist) {
-    return <div>No playlist found</div>
-  }
+  const owner = await getUser(playlist.owner.id)
 
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">

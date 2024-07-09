@@ -7,6 +7,11 @@ export type Search = {
   playlists?: Playlists
 } | undefined
 
+export interface SpotifyError {
+  status: number
+  message: string
+}
+
 export interface Items {
   href: string;
   limit: number;
