@@ -1,10 +1,13 @@
 This app is currently on development mode on the Spotify API so in order to access the app via [`sclonetify`](https://sclonetify.jodarini.dev), i have to grant you access with your Spotify email/username or, alternatively, you can use these non-premium credentials:
 
 Test acc:
+
 ```
 sclonetifytest@gmail.com
 ```
-Test pwd: 
+
+Test pwd:
+
 ```
 test12345!
 ```
@@ -19,6 +22,17 @@ To run this locally, follow the documentation on [`Spotify`](api.spotify.com) an
 This app is desktop only.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## TODO
+
+- [ ] Filtering to user library (tags)
+- [ ] Sort by options to user library
+- [ ] Seek to track position functionality
+- [ ] Volume slider
+- [ ] Disable navigation buttons when needed
+- [ ] Show currently playing album/playlist on user library
+- [ ] Different view options for playlists.
+- [ ] Filtering options for search page
 
 ## Getting Started
 
