@@ -3,6 +3,7 @@ import { DeviceContext, PlayerContext } from "../../context/appContext"
 import { resumePlayback } from "../../api/spotify/spotify-api"
 
 export default function PlayTrackButton({ token, index, playlist_uri, uris, isPlaying }: { index: number, token: string, playlist_uri?: string, uris?: string[], isPlaying?: boolean }) {
+  console.log(token)
 
   const { deviceId, user } = useContext(DeviceContext)
   const { player } = useContext(PlayerContext)
@@ -12,8 +13,8 @@ export default function PlayTrackButton({ token, index, playlist_uri, uris, isPl
       alert('Get Spotify Premium to use the player')
       return
     }
-    if (isPlaying && player && deviceId) {
-      resumePlayback(token, deviceId)
+    if (isPlaying && player) {
+      player.resume()
       return
     }
     if (deviceId) {

@@ -1,5 +1,6 @@
 import { Artist, Albums, CurrentUser, Artists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist, GetCurrentlyPlayingTrackResponse } from "@/app/types/spotify";
 import { getToken } from "../clerk/getToken";
+import { getAuth } from "@clerk/nextjs/server";
 
 export const fetchWebApi = async (url: string) => {
   const token = await getToken()
