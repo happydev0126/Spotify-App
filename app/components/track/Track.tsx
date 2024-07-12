@@ -86,10 +86,10 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
           </div>
           {
             notOnArtist &&
-            <span>
+            <>
               {
                 item.artists.map((artist, index) => (
-                  <>
+                  <div key={artist.id}>
                     <Link href={`/artist/${item.artists[0].id}`} className="text-xs whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">
                       {artist.name}
                     </Link>
@@ -98,10 +98,10 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
                         {', '}
                       </>
                     }
-                  </>
+                  </div>
                 ))
               }
-            </span>
+            </>
           }
         </div>
       </div>

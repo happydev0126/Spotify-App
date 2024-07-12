@@ -21,7 +21,6 @@ export const DeviceContext = createContext<DeviceContext>({ deviceId: undefined,
 export const PlayerContext = createContext<PlayerContextState>({ player: undefined, is_active: false, is_paused: true, current_track: undefined, position: 0 });
 
 export default function Providers({ children, token, user }: { children: React.ReactNode, token: string, user: CurrentUser }) {
-
   const [player, setPlayer] = useState<Spotify.Player>();
   const [currentUser] = useState<CurrentUser>(user)
   const [deviceId, setDeviceId] = useState<string | undefined>(undefined)

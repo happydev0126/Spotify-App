@@ -103,7 +103,7 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
                         <span>
                           {
                             playlist.artists.map((artist, index) => (
-                              <>
+                              <div key={artist.id}>
                                 <Link href={`/artist/${playlist.artists[0].id}`} className="text-xs hover:underline hover:text-white">
                                   {artist.name}
                                 </Link>
@@ -112,7 +112,7 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
                                     {', '}
                                   </>
                                 }
-                              </>
+                              </div>
                             ))
                           }
                         </span>
