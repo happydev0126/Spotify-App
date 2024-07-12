@@ -11,8 +11,6 @@ export default function Player({ className }: { className: string }) {
   const [isMuted, setIsMuted] = useState(false)
   const [trackPositionInMs, setTrackPositionInMs] = useState(position)
 
-
-
   useEffect(() => {
     const timeout = setInterval(() => {
       setTrackPositionInMs(prev => prev + 1000)
@@ -88,7 +86,7 @@ export default function Player({ className }: { className: string }) {
       <div className="flex flex-col gap-1 w-[40%] justify-center items-center">
         <div className="flex items-center justify-center gap-4">
           <button
-            className="btn-spotify"
+            className=""
             onClick={() => { player?.previousTrack() }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -107,42 +105,16 @@ export default function Player({ className }: { className: string }) {
           </button>
 
           <button
-            className="btn-spotify"
+            className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
             onClick={() => { player?.togglePlay() }} >
             {is_paused ?
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                stroke="currentColor"
-                fill="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                data-icon="SvgPlayCircle"
-                aria-hidden="true">
-                <path d="M15.149 12.418a.582.582 0 000-.9L12.5 9.351l-2.247-1.839a.581.581 0 00-.949.45v8.012a.581.581 0 00.949.449l2.247-1.839zM21 12a9 9 0 11-9-9 9 9 0 019 9z"></path>
-              </svg>
+              <img src="/icons/track/playBlack.svg" alt="Play" />
               :
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                stroke="#0a0a0a"
-                fill="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                data-icon="SvgPauseCircle"
-                aria-hidden="true">
-                <path d="M21 12a9 9 0 11-9-9 9 9 0 019 9zm-6.955 3.409V8.864m-3.818 6.545V8.864"></path>
-              </svg>
+              <img src="/icons/track/pauseBlack.svg" alt="Pause" />
             }
           </button>
           <button
-            className="btn-spotify"
+            className=""
             onClick={() => { player?.nextTrack() }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"

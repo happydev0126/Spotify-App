@@ -71,7 +71,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       onMouseLeave={() => setIsHover(false)}
     >
       <div className="flex align-center justify-center w-full min-w-6 text-sm">
-        {<HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />}
+        <HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />
       </div>
       <div className="flex flex-row items-center gap-2">
         {/* ALBUM IMAGE */}

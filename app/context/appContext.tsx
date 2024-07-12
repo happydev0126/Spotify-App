@@ -3,7 +3,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { CurrentUser } from '../types/spotify'
 
-
 interface PlayerContextState {
   player: Spotify.Player | undefined
   is_active: boolean
@@ -32,6 +31,7 @@ export default function Providers({ children, token, user }: { children: React.R
 
   useEffect(() => {
     if (currentUser && currentUser.product !== 'premium') {
+      console.log('user is not premium!')
       return
     }
 
@@ -49,6 +49,7 @@ export default function Providers({ children, token, user }: { children: React.R
         },
         volume: 0.5,
       });
+      console.log(player)
 
       setPlayer(player);
 

@@ -11,8 +11,8 @@ export default function PauseTrackButton({ token }: { token: string }) {
   }
 
   return (
-    <div onClick={handlePauseTrack}>
+    <button className="" onClick={handlePauseTrack}>
       <img src="/icons/track/pause.svg" alt="Pause" />
-    </div>
+    </button>
   )
 }
