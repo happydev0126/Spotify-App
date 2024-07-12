@@ -1,6 +1,5 @@
 export type SearchType = "album" | "artist" | "playlist" | "track" | "show" | "episode" | "audiobook" | undefined
 
-
 export interface GetCurrentlyPlayingTrackResponse {
   repeat_state: string //off, track, context
   shuffle_state: boolean
@@ -8,7 +7,7 @@ export interface GetCurrentlyPlayingTrackResponse {
   timestamp: number
   progress_ms: number
   is_playing: boolean
-  item: Track | Episode
+  item: Track
   currently_playing_type: string
   actions: Actions
 }
@@ -24,12 +23,9 @@ export interface Actions {
   toggling_shuffle?: boolean
   toggling_repeat_track?: boolean
   transferring_playback?: boolean
-
 }
 
-export interface Episode {
-
-}
+export interface Episode { }
 
 export interface Device {
   id: string

@@ -8,16 +8,15 @@ import { getCurrentUser, getCurrentlyPlayingTrack } from './api/spotify/spotify-
 import Navigation from './components/navigation';
 import { getToken } from './api/clerk/getToken';
 
-
-export async function generateMetadata({ params }) {
-  console.log('hello world')
+export async function generateMetadata() {
   const { item } = await getCurrentlyPlayingTrack()
   let title = null
+
   if (item) {
     title = `${item.name} • ${item.artists[0].name}`
   }
   return {
-    title: title ? title : 'Sclonetify',
+    title: title ? title : 'Sclonetify by Jodarini',
     description: 'A spotify clone by Jodarini',
   }
 }

@@ -1,6 +1,5 @@
-import { Artist, Albums, CurrentUser, Artists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist } from "@/app/types/spotify";
+import { Artist, Albums, CurrentUser, Artists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist, GetCurrentlyPlayingTrackResponse } from "@/app/types/spotify";
 import { getToken } from "../clerk/getToken";
-import { generateMetadata } from "@/app/layout";
 
 export const fetchWebApi = async (url: string) => {
   const token = await getToken()
@@ -221,7 +220,7 @@ export async function getUsersAlbums(): Promise<SavedAlbums | undefined> {
   )
 }
 
-export async function getCurrentlyPlayingTrack(): Promise<SavedAlbums | undefined> {
+export async function getCurrentlyPlayingTrack(): Promise<GetCurrentlyPlayingTrackResponse> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/player/currently-playing`,
   )
