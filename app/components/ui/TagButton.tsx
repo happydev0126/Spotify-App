@@ -6,7 +6,7 @@ interface TagButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const TagButton: FC<TagButtonProps> = ({ title, ...props }) => {
   return (
-    <button className='px-2 py-1 rounded-full bg-zinc-800' {...props}>
+    <button className='px-3 py-1.5 text-sm text-zinc-300 rounded-full capitalize bg-zinc-800 hover:bg-zinc-700' {...props}>
       {title}
     </button>
   );

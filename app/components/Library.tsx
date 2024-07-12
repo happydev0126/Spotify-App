@@ -57,15 +57,8 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
   }
 
   return (
-    <div className='flex flex-col'>
-      <form>
-        <input
-          className='bg-stone-500/20 rounded mb-2 w-full px-2 placeholder-gray-300 text-sm p-1'
-          placeholder='Search in your library'
-          onChange={(e) => handleSearch(e)}
-          type="text"
-        />
-      </form>
+    <div className='flex flex-col gap-2'>
+
       <div className="flex gap-2">
         {filterLibraryType !== 'all' && <TagButton title='X' onClick={() => handleFilterTag('all')} />}
         {filterLibraryType === 'album' || 'all' &&
@@ -76,6 +69,14 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
         }
 
       </div>
+      <form>
+        <input
+          className='bg-stone-500/20 rounded mb-2 w-full px-2 placeholder-gray-300 text-sm p-1'
+          placeholder='Search in your library'
+          onChange={(e) => handleSearch(e)}
+          type="text"
+        />
+      </form>
       {filterLibrary(userLibrary)
         .map((playlist) => (
           <div
