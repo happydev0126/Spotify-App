@@ -12,12 +12,12 @@ export default function PlayTrackButton({ token, index, playlist_uri, uris, isPl
       alert('Get Spotify Premium to use the player')
       return
     }
-    if (deviceId) {
-      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
-    }
     if (isPlaying && player) {
       player.togglePlay()
       return
+    }
+    if (deviceId) {
+      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
     }
   }
   return (
