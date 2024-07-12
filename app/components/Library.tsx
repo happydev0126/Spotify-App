@@ -94,30 +94,22 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
                     <div className={`${isCurrentlyPlaying(playlist.uri) ? `text-green` : ''} whitespace-nowrap text-ellipsis overflow-hidden`}>
                       {playlist.name}
                     </div>
-                    <span className='text-gray-400 text-sm capitalize overflow-hidden'>
-                      {playlist.type}
-                      {' • '}
-                      {'owner' in playlist && playlist.owner.display_name}
-                      {
-                        'artists' in playlist &&
-                        <span>
-                          {
-                            playlist.artists.map((artist, index) => (
-                              <div key={artist.id}>
-                                <Link href={`/artist/${playlist.artists[0].id}`} className="text-xs hover:underline hover:text-white">
-                                  {artist.name}
-                                </Link>
-                                {playlist.artists.length > 1 && playlist.artists.length !== index + 1 &&
-                                  <>
-                                    {', '}
-                                  </>
-                                }
-                              </div>
-                            ))
-                          }
-                        </span>
-                      }
-                    </span>
+                    <div className='text-gray-400 text-sm capitalize overflow-hidden'>
+                      <span>
+                        {playlist.type}{' • '}{'owner' in playlist ? playlist.owner.display_name :
+                          playlist.artists.map((artist, index) => (
+                            <span key={artist.id}>
+                              {artist.name}
+                              {playlist.artists.length > 1 && playlist.artists.length !== index + 1 &&
+                                <>
+                                  {', '}
+                                </>
+                              }
+                            </span>
+                          ))
+                        }
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
