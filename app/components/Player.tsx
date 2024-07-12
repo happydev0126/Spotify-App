@@ -46,10 +46,10 @@ export default function Player({ className, token }: { className: string, token:
     if (!isMuted) {
       setPrevVolume(volume)
       setVolume(0)
-      player?.setVolume(0)
+      setPlaybackVolume(0, token)
     } else {
       setVolume(prevVolume)
-      player?.setVolume(prevVolume)
+      setPlaybackVolume(prevVolume, token)
     }
   }
 
