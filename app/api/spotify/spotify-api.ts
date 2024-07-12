@@ -37,7 +37,7 @@ export const fetchWebApi2 = async (url: string) => {
 };
 
 
-export const fetchPlayerApi = async (url: string, token: string, track_number: number, context_uri?: string, uris?: string[]) => {
+export const fetchPlayerApi = async (url: string, token: string, track_number?: number, context_uri?: string, uris?: string[]) => {
   if (!token) {
     return null
   }
@@ -115,7 +115,7 @@ export async function getDevice() {
   );
 }
 
-export async function resumePlayback(token: string, deviceId: string, track_number: number, context_uri?: string, uris?: string[]) {
+export async function resumePlayback(token: string, deviceId: string, track_number?: number, context_uri?: string, uris?: string[]) {
 
   return fetchPlayerApi(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
