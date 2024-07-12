@@ -13,7 +13,6 @@ export default function PlayTrackButton({ token, index, playlist_uri, uris, isPl
     }
     if (isPlaying && player && deviceId) {
       resumePlayback(token, deviceId)
-      // player.resume()
       return
     }
     if (deviceId) {

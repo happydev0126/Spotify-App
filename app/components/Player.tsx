@@ -1,11 +1,13 @@
 'use client'
 import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { PlayerContext } from "../context/appContext";
+import { DeviceContext, PlayerContext } from "../context/appContext";
 import Link from "next/link";
 import { convertMsToTimestamp } from "../lib/utils/convertMsToTimestamp";
+import { pausePlayback, resumePlayback, setPlaybackPosition, setPlaybackVolume, skipToNext, skipToPrev } from "../api/spotify/spotify-api";
 
-export default function Player({ className }: { className: string }) {
+export default function Player({ className, token }: { className: string, token: string }) {
   const { player, is_paused, current_track, position } = useContext(PlayerContext)
+  const { deviceId } = useContext(DeviceContext)
   const [volume, setVolume] = useState(0.5)
   const [prevVolume, setPrevVolume] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
@@ -33,11 +35,10 @@ export default function Player({ className }: { className: string }) {
     return id[id.length - 1]
   }
 
-
   const handleVolume = (e: ChangeEvent<HTMLInputElement>) => {
     setIsMuted(false)
     setVolume(() => +e.target.value)
-    player?.setVolume(+e.target.value)
+    setPlaybackVolume(+e.target.value, token)
   }
 
   const handleMute = () => {
@@ -57,7 +58,7 @@ export default function Player({ className }: { className: string }) {
   }
 
   const handleMouseUp = () => {
-    player?.seek(trackPositionInMs)
+    setPlaybackPosition(trackPositionInMs, token)
   }
 
   return (
@@ -87,7 +88,7 @@ export default function Player({ className }: { className: string }) {
         <div className="flex items-center justify-center gap-4">
           <button
             className=""
-            onClick={() => { player?.previousTrack() }} >
+            onClick={() => { skipToPrev(token) }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -104,18 +105,23 @@ export default function Player({ className }: { className: string }) {
             </svg>
           </button>
 
-          <button
-            className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
-            onClick={() => { player?.togglePlay() }} >
-            {is_paused ?
+          {is_paused ?
+            <button
+              className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
+              onClick={() => { resumePlayback(token, deviceId) }} >
               <img src="/icons/track/playBlack.svg" alt="Play" />
-              :
+            </button>
+            :
+
+            <button
+              className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
+              onClick={() => { pausePlayback(token, deviceId) }} >
               <img src="/icons/track/pauseBlack.svg" alt="Pause" />
-            }
-          </button>
+            </button>
+          }
           <button
             className=""
-            onClick={() => { player?.nextTrack() }} >
+            onClick={() => { skipToNext(token) }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -187,8 +193,8 @@ export default function Player({ className }: { className: string }) {
               onChange={handleVolume}
               type="range"
               min={0}
-              max={1}
-              step={0.01}
+              max={100}
+              step={1}
               value={volume}
               className="w-36 h-1.5  accent-green cursor-pointer "
             />

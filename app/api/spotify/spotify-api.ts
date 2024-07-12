@@ -38,6 +38,37 @@ export const fetchWebApi2 = async (url: string) => {
 };
 
 
+export async function skipToPrev(token: string) {
+  return postPlayerApi(
+    `https://api.spotify.com/v1/me/player/previous`,
+    token
+  );
+}
+export async function skipToNext(token: string) {
+  return postPlayerApi(
+    `https://api.spotify.com/v1/me/player/next`,
+    token
+  );
+}
+
+export const postPlayerApi = async (url: string, token: string) => {
+
+  if (!token) {
+    return alert('NO TOKEN FOUND')
+  }
+
+  let requestOptions = {}
+
+  requestOptions = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+  }
+  fetch(url, requestOptions)
+}
+
 export const fetchPlayerApi = async (url: string, token: string, track_number?: number, context_uri?: string, uris?: string[]) => {
   if (!token) {
     return null
@@ -86,12 +117,10 @@ export const fetchPlayerApi = async (url: string, token: string, track_number?: 
     };
   }
 
-  const res = await fetch(url, requestOptions)
-  return res
+  fetch(url, requestOptions)
 }
 
-export const seekPlayerApi = async (url: string) => {
-  const token = await getToken()
+export const seekPlayerApi = async (url: string, token: string) => {
   if (!token) {
     return null;
   }
@@ -102,8 +131,7 @@ export const seekPlayerApi = async (url: string) => {
     },
   };
 
-  const res = await fetch(url, requestOptions)
-  return res
+  fetch(url, requestOptions)
 }
 
 export const pausePlayerApi = async (url: string, token: string) => {
@@ -127,7 +155,10 @@ export async function getDevice() {
   );
 }
 
-export async function resumePlayback(token: string, deviceId: string, track_number?: number, context_uri?: string, uris?: string[]) {
+export async function resumePlayback(token: string, deviceId?: string, track_number?: number, context_uri?: string, uris?: string[]) {
+  if (deviceId === undefined) {
+    deviceId = ''
+  }
 
   return fetchPlayerApi(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
@@ -138,7 +169,7 @@ export async function resumePlayback(token: string, deviceId: string, track_numb
   );
 }
 
-export async function pausePlayback(token: string, deviceId: string) {
+export async function pausePlayback(token: string, deviceId?: string) {
   return pausePlayerApi(
     `https://api.spotify.com/v1/me/player/pause?${deviceId}`,
     token
@@ -247,14 +278,16 @@ export async function search(query: string, type?: SearchType[], limit?: number,
   )
 }
 
-export async function setPlaybackVolume(volume_percent: number) {
-  return fetchWebApi(
-    `https://api.spotify.com/v1/me/player/volume?volume_percent=${volume_percent}`
+export async function setPlaybackVolume(volume_percent: number, token: string) {
+  return seekPlayerApi(
+    `https://api.spotify.com/v1/me/player/volume?volume_percent=${volume_percent}`,
+    token
   )
 }
 
-export async function setPlaybackPosition(position_ms: number) {
+export async function setPlaybackPosition(position_ms: number, token: string) {
   return seekPlayerApi(
-    `https://api.spotify.com/v1/me/player/seek?position_ms=${position_ms}`
+    `https://api.spotify.com/v1/me/player/seek?position_ms=${position_ms}`,
+    token
   )
 }

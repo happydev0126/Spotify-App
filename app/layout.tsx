@@ -56,7 +56,7 @@ export default async function RootLayout({
                       </header>
                       {children}
                     </Card>
-                    <Player className='col-span-full' />
+                    <Player className='col-span-full' token={token} />
                   </div>
                 </Providers>
               }
