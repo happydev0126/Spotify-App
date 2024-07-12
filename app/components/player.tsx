@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, DragEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { PlayerContext } from "../context/appContext";
 import Link from "next/link";
 import { convertMsToTimestamp } from "../lib/utils/convertMsToTimestamp";
@@ -10,6 +10,8 @@ export default function Player({ className }: { className: string }) {
   const [prevVolume, setPrevVolume] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
   const [trackPositionInMs, setTrackPositionInMs] = useState(position)
+
+
 
   useEffect(() => {
     const timeout = setInterval(() => {

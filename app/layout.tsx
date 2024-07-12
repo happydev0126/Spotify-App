@@ -4,9 +4,23 @@ import Card from './components/ui/card';
 import Dashboard from './components/dashboard';
 import Player from './components/player';
 import Providers from './context/appContext';
-import { getCurrentUser } from './api/spotify/spotify-api';
+import { getCurrentUser, getCurrentlyPlayingTrack } from './api/spotify/spotify-api';
 import Navigation from './components/navigation';
 import { getToken } from './api/clerk/getToken';
+
+
+export async function generateMetadata({ params }) {
+  console.log('hello world')
+  const { item } = await getCurrentlyPlayingTrack()
+  let title = null
+  if (item) {
+    title = `${item.name} • ${item.artists[0].name}`
+  }
+  return {
+    title: title ? title : 'Sclonetify',
+    description: 'A spotify clone by Jodarini',
+  }
+}
 
 export default async function RootLayout({
   children,
@@ -43,7 +57,8 @@ export default async function RootLayout({
                       </header>
                       {children}
                     </Card>
-                    <Player className='col-span-full' /> </div>
+                    <Player className='col-span-full' />
+                  </div>
                 </Providers>
               }
             </SignedIn>

@@ -1,6 +1,6 @@
 import { Artist, Albums, CurrentUser, Artists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist } from "@/app/types/spotify";
 import { getToken } from "../clerk/getToken";
-import { getAuth } from "@clerk/nextjs/server";
+import { generateMetadata } from "@/app/layout";
 
 export const fetchWebApi = async (url: string) => {
   const token = await getToken()
@@ -12,9 +12,14 @@ export const fetchWebApi = async (url: string) => {
       'Authorization': `Bearer ${token}`,
     }
   }
-  const res = await fetch(url, requestOptions).then((res) => res.json());
+  try {
+    const res = await fetch(url, requestOptions).then((res) => res.json());
 
-  return res;
+    return res;
+  } catch (err) {
+    console.error(err)
+    return err
+  }
 };
 
 export const fetchWebApi2 = async (url: string) => {
@@ -112,6 +117,7 @@ export async function getDevice() {
 }
 
 export async function resumePlayback(token: string, deviceId: string, track_number: number, context_uri?: string, uris?: string[]) {
+
   return fetchPlayerApi(
     `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
     token,
@@ -212,6 +218,12 @@ export async function getAlbum(id: string): Promise<Album | undefined> {
 export async function getUsersAlbums(): Promise<SavedAlbums | undefined> {
   return fetchWebApi(
     `https://api.spotify.com/v1/me/albums`,
+  )
+}
+
+export async function getCurrentlyPlayingTrack(): Promise<SavedAlbums | undefined> {
+  return fetchWebApi(
+    `https://api.spotify.com/v1/me/player/currently-playing`,
   )
 }
 

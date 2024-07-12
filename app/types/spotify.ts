@@ -1,5 +1,47 @@
 export type SearchType = "album" | "artist" | "playlist" | "track" | "show" | "episode" | "audiobook" | undefined
 
+
+export interface GetCurrentlyPlayingTrackResponse {
+  repeat_state: string //off, track, context
+  shuffle_state: boolean
+  context: Context | null
+  timestamp: number
+  progress_ms: number
+  is_playing: boolean
+  item: Track | Episode
+  currently_playing_type: string
+  actions: Actions
+}
+
+export interface Actions {
+  interrupting_playback?: boolean
+  pausing?: boolean
+  resuming?: boolean
+  seeking?: boolean
+  skipping_next?: boolean
+  skipping_prev?: boolean
+  toggling_repeat_context?: boolean
+  toggling_shuffle?: boolean
+  toggling_repeat_track?: boolean
+  transferring_playback?: boolean
+
+}
+
+export interface Episode {
+
+}
+
+export interface Device {
+  id: string
+  is_active: boolean
+  is_private_session: boolean
+  is_restricted: boolean
+  name: string
+  type: string
+  volume_percent: string
+  supports_volume: boolean
+}
+
 export type Search = {
   artists?: Artists
   tracks?: Tracks

@@ -94,16 +94,6 @@ export default function Providers({ children, token, user }: { children: React.R
     };
   }, []);
 
-  // useEffect(() => {
-  //   const timeout = setInterval(() => {
-  //     console.log('##############', player?.getCurrentState())
-  //   }, 1000);
-  //
-  //   return () => {
-  //     clearInterval(timeout)
-  //   }
-  // }, [])
-
   return (
     <DeviceContext.Provider value={{ deviceId: deviceId, user: currentUser }}>
       <PlayerContext.Provider value={{ player, is_active, is_paused, current_track, position }}>

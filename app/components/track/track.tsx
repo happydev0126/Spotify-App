@@ -1,5 +1,5 @@
 'use client'
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { resumePlayback } from "../../api/spotify/spotify-api"
 import { DeviceContext, PlayerContext } from "../../context/appContext"
 import Link from "next/link"
@@ -23,6 +23,12 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
   const { current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
   const pathName = usePathname()
+
+  useEffect(() => {
+    if (current_track) {
+      document.title = `${current_track.name} • ${current_track.artists[0].name} `;
+    }
+  }, [current_track]);
 
   const handlePlayTrack = () => {
     if (user?.product !== 'premium') {
