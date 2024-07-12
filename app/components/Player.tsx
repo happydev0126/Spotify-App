@@ -141,7 +141,10 @@ export default function Player({ className, token }: { className: string, token:
         <div className="w-full">
           <div className="flex flex-row items-center gap-1 text-sm text-zinc-400">
             <span>
-              {convertMsToTimestamp(trackPositionInMs)}
+              {current_track && trackPositionInMs > current_track.duration_ms ?
+                convertMsToTimestamp(current_track.duration_ms) :
+                convertMsToTimestamp(trackPositionInMs)
+              }
             </span>
             <input
               id="default-range"
