@@ -3,8 +3,6 @@ import { DeviceContext, PlayerContext } from "../../context/appContext"
 import { resumePlayback } from "../../api/spotify/spotify-api"
 
 export default function PlayTrackButton({ token, index, playlist_uri, uris, isPlaying }: { index: number, token: string, playlist_uri?: string, uris?: string[], isPlaying?: boolean }) {
-  console.log(token)
-
   const { deviceId, user } = useContext(DeviceContext)
   const { player } = useContext(PlayerContext)
 
