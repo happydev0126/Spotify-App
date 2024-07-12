@@ -49,7 +49,6 @@ export default function Providers({ children, token, user }: { children: React.R
         },
         volume: 0.5,
       });
-      console.log(player)
 
       setPlayer(player);
 

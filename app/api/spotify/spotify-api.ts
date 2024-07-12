@@ -43,6 +43,18 @@ export const fetchPlayerApi = async (url: string, token: string, track_number?: 
     return null
   }
   let requestOptions = {}
+  if (context_uri === undefined && uris === undefined) {
+    requestOptions = {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "position_ms": 0
+      })
+    }
+  }
   if (context_uri !== undefined) {
     requestOptions = {
       method: 'PUT',
@@ -61,7 +73,6 @@ export const fetchPlayerApi = async (url: string, token: string, track_number?: 
   }
 
   if (uris !== undefined) {
-
     requestOptions = {
       method: 'PUT',
       headers: {
