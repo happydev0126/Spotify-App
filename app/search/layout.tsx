@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import SearchInput from "../components/searchInput";
+import SearchInput from "../components/SearchInput";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

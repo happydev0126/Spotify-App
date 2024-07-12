@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import Card from "./ui/card";
+import Card from "./ui/Card";
 import { CurrentUserPlaylist, CurrentUserPlaylists, TrackArtist } from "../types/spotify";
 
 export default function TopTracks({ topTracks }: { topTracks: CurrentUserPlaylists | undefined }) {

@@ -1,6 +1,6 @@
 import React from 'react'
-import Card from './ui/card'
-import UserLibrary from './library'
+import Card from './ui/Card'
+import UserLibrary from './Library'
 import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
 import { getCurrentUserPlaylists, getUsersAlbums } from '../api/spotify/spotify-api'

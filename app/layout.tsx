@@ -1,11 +1,11 @@
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import './globals.css';
-import Card from './components/ui/card';
-import Dashboard from './components/dashboard';
-import Player from './components/player';
+import Card from './components/ui/Card';
+import Dashboard from './components/Dashboard';
+import Player from './components/Player';
 import Providers from './context/appContext';
 import { getCurrentUser, getCurrentlyPlayingTrack } from './api/spotify/spotify-api';
-import Navigation from './components/navigation';
+import Navigation from './components/Navigation';
 import { getToken } from './api/clerk/getToken';
 
 export async function generateMetadata() {

@@ -1,7 +1,7 @@
 import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api/spotify/spotify-api";
 import { Artist, Item, Playlist } from "./types/spotify";
 import Link from "next/link";
-import Track from "./components/track/track";
+import Track from "./components/track/Track";
 import { getToken } from "./api/clerk/getToken";
 
 export default async function Page() {

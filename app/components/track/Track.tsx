@@ -7,7 +7,7 @@ import type { Track } from "../../types/spotify"
 import { usePathname } from "next/navigation"
 import { convertMsToTimestamp } from "../../lib/utils/convertMsToTimestamp"
 import { isoDateToMonthDayYear } from "../../lib/utils/isoDateToMonthDayYear"
-import HandleTrack from "./handleTrack"
+import HandleTrack from "./HandleTrack"
 
 interface TrackProps {
   item: Track,

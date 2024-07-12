@@ -25,7 +25,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## TODO
 
-- [ ] Filtering to user library (tags).
+- [X] Filtering to user library (tags).
 - [ ] Sort by options to user library.
 - [X] Seek to track position functionality.
 - [X] Volume slider.

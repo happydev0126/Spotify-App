@@ -1,6 +1,6 @@
 import { getToken } from "@/app/api/clerk/getToken";
 import { getPlaylist, getUser } from "@/app/api/spotify/spotify-api";
-import Track from "@/app/components/track/track";
+import Track from "@/app/components/track/Track";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const playlist = await getPlaylist(params.slug)

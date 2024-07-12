@@ -4,11 +4,13 @@ import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { PlayerContext } from '../context/appContext'
+import TagButton from './ui/TagButton'
 
 export default function UserLibrary({ library }: { library: Array<CurrentUserPlaylist | Album> }) {
-  const { is_active, is_paused, current_track } = useContext(PlayerContext)
+  const { current_track } = useContext(PlayerContext)
   const [userLibrary, setUserLibrary] = useState<Array<CurrentUserPlaylist | Album>>()
   const [searchInput, setSearchInput] = useState('')
+  const [filterLibraryType, setFilterLibraryType] = useState('all')
   const router = useRouter()
 
   useEffect(() => {
@@ -38,6 +40,22 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
     return false
   }
 
+  const handleFilterTag = (type: 'album' | 'playlist' | 'all') => {
+    if (type === filterLibraryType) {
+      setFilterLibraryType('all')
+    } else {
+      setFilterLibraryType(type)
+    }
+
+  }
+
+  const filterLibrary = (library: (CurrentUserPlaylist | Album)[]) => {
+    if (filterLibraryType === 'all') {
+      return library.filter(playlist => playlist.name.toLowerCase().includes(searchInput))
+    }
+    return library.filter(playlist => playlist.name.toLowerCase().includes(searchInput) && playlist.type === filterLibraryType)
+  }
+
   return (
     <div className='flex flex-col'>
       <form>
@@ -48,8 +66,17 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
           type="text"
         />
       </form>
-      {userLibrary
-        ?.filter(userPlaylist => userPlaylist.name.toLowerCase().includes(searchInput))
+      <div className="flex gap-2">
+        {filterLibraryType !== 'all' && <TagButton title='X' onClick={() => handleFilterTag('all')} />}
+        {filterLibraryType === 'album' || 'all' &&
+          <TagButton onClick={() => handleFilterTag('playlist')} title='playlists' />
+        }
+        {filterLibraryType === 'playlist' || 'all' &&
+          <TagButton onClick={() => handleFilterTag('album')} title='albums' />
+        }
+
+      </div>
+      {filterLibrary(userLibrary)
         .map((playlist) => (
           <div
             key={`${playlist.id}`}
