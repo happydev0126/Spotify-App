@@ -4,12 +4,12 @@ import { DeviceContext, PlayerContext } from "../../context/appContext"
 import { pausePlayback } from "../../api/spotify/spotify-api"
 
 export default function PauseTrackButton({ token }: { token: string }) {
-  // const { deviceId } = useContext(DeviceContext)
+  const { deviceId } = useContext(DeviceContext)
   const { player } = useContext(PlayerContext)
 
   const handlePauseTrack = () => {
     player?.pause()
-    // deviceId && pausePlayback(token, deviceId)
+    deviceId && pausePlayback(token, deviceId)
   }
 
   return (
