@@ -104,6 +104,9 @@ export const fetchPlayerApi = async (url: string, token: string, track_number?: 
   }
 
   if (uris !== undefined) {
+    if (track_number === undefined) {
+      track_number = 0
+    }
     requestOptions = {
       method: 'PUT',
       headers: {
@@ -111,7 +114,10 @@ export const fetchPlayerApi = async (url: string, token: string, track_number?: 
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "uris": [`${uris}`],
+        "uris": uris,
+        "offset": {
+          position: track_number
+        },
         "position_ms": 0
       })
     };

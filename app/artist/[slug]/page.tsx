@@ -10,6 +10,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const topTracks = await getArtistTopTracks(params.slug).then(data => data?.tracks)
   const albums = await getArtistAlbums(params.slug)
   const token = await getToken()
+  console.log(topTracks)
+
+  const uris = topTracks.map(track => track.uri)
+  console.log(uris)
 
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
@@ -28,7 +32,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <h3 className="text-4xl text-white font-bold">Popular</h3>
           {
             topTracks.map((track, index: number) => (
-              <Track variant="trackOnly" token={token} key={track.id} item={track} index={index} uris={[track.uri]} />
+              <Track variant="trackOnly" token={token} key={track.id} item={track} index={index} uris={uris} />
             ))
           }
         </div>
