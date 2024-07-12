@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <img className="shadow xs:order-2 max-w-56 rounded" src={playlist.images[0].url} alt={playlist.name} />
         <div className="flex flex-col xs:order-1 gap-4">
           <span className="capitalize xs:order-2">{playlist.type}</span>
-          <h2 className="text-6xl font-bold xs:order-1">{playlist.name}</h2>
+          <h2 className="sm:text:sm md:text-xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold xs:order-1">{playlist.name}</h2>
           <span className="italic text-gray-400 xs:order-3">{playlist.description}</span>
           <div className="flex flex-row gap-2">
             {owner?.images[0] &&

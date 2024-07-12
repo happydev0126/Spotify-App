@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <img className="shadow xs:order-2 max-w-56 rounded" src={album.images[0].url} alt={album.name} />
         <div className="flex flex-col xs:order-1 gap-4">
           <span className="capitalize xs:order-2">{album.type}</span>
-          <h2 className="sm:text:sm md:text-xl lg:text-3xl xl:text-4xl 2xl:text-6xl font-bold xs:order-1">{album.name}</h2>
+          <h2 className="sm:text:sm md:text-xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold xs:order-1">{album.name}</h2>
         </div>
       </div>
       <div className="flex flex-col w-full text-sm text-zinc-400">

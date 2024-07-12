@@ -8,7 +8,7 @@ import { pausePlayback, resumePlayback, setPlaybackPosition, setPlaybackVolume, 
 export default function Player({ className, token }: { className: string, token: string }) {
   const { player, is_paused, current_track, position } = useContext(PlayerContext)
   const { deviceId } = useContext(DeviceContext)
-  const [volume, setVolume] = useState(0.5)
+  const [volume, setVolume] = useState(50)
   const [prevVolume, setPrevVolume] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
   const [trackPositionInMs, setTrackPositionInMs] = useState(position)
