@@ -57,9 +57,9 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
   }
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col '>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-3">
         {filterLibraryType !== 'all' && <TagButton title='X' onClick={() => handleFilterTag('all')} />}
         {filterLibraryType === 'album' || 'all' &&
           <TagButton onClick={() => handleFilterTag('playlist')} title='playlists' />
