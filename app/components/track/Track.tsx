@@ -119,7 +119,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
               <div>
                 {isoDateToMonthDayYear(added_at).month} {isoDateToMonthDayYear(added_at).day}, {isoDateToMonthDayYear(added_at).year}
               </div>
-              <div className="justify-self-end pr-4">
+              <div className="justify-self-end pr-1">
                 {convertMsToTimestamp(item.duration_ms)}
               </div>
             </>
@@ -127,7 +127,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         </>
       }
       {!added_at && item.duration_ms &&
-        <div className="justify-self-end pr-4">
+        <div className="justify-self-end pr-1">
           {convertMsToTimestamp(item.duration_ms)}
         </div>
       }
