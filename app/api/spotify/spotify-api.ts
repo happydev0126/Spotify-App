@@ -1,6 +1,5 @@
 import { Artist, Albums, CurrentUser, Artists, Playlist, RecentlyPlayed, SearchType, User, Search, Album, TopTracks, SavedAlbums, CurrentUserPlaylists, FeaturedPlaylist, GetCurrentlyPlayingTrackResponse } from "@/app/types/spotify";
 import { getToken } from "../clerk/getToken";
-import { getAuth } from "@clerk/nextjs/server";
 
 export const fetchWebApi = async (url: string) => {
   const token = await getToken()
@@ -200,9 +199,9 @@ export async function getCurrentUserPlaylists(): Promise<CurrentUserPlaylists> {
   );
 }
 
-export async function getPlaylist(playlist_id: string): Promise<Playlist> {
+export async function getPlaylist(playlist_id: string, market: string): Promise<Playlist> {
   return fetchWebApi(
-    `https://api.spotify.com/v1/playlists/${playlist_id}`,
+    `https://api.spotify.com/v1/playlists/${playlist_id}?market=${market}`,
   );
 }
 

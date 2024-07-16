@@ -22,7 +22,6 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
   const { deviceId, user } = useContext(DeviceContext)
   const { current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
-  // const [disabled, isDisabled] = useState(false)
   const pathName = usePathname()
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       return
     }
     if (deviceId) {
-      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
+      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined, user.country)
     }
   }
 
@@ -61,6 +60,8 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     }
   }
 
+  const notAvailableOnUsersCountry = item.restrictions
+
   const notOnArtist = !(pathName.includes('/artist/'))
 
   return (
@@ -68,13 +69,15 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       role="button"
       key={item.id}
       className={
-        `text-zinc-400 grid ${compVariant()} max-w-full text-sm overflow-hidden gap-x-3 items-center text-left select-none hover:bg-gray-50/10 py-1 px-2 rounded max-h-16 hover:cursor-default`}
+        `text-zinc-400 ${notAvailableOnUsersCountry && 'opacity-50'} grid ${compVariant()} max-w-full text-sm overflow-hidden gap-x-3 items-center text-left select-none hover:bg-gray-50/10 py-1 px-2 rounded max-h-16 hover:cursor-default`}
       onDoubleClick={handlePlayTrack}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
       <div className="flex align-center justify-center w-full min-w-6 text-sm">
-        <HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />
+        {notAvailableOnUsersCountry ? <span>{index + 1}</span> :
+          <HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />
+        }
       </div>
       <div className="flex flex-row items-center gap-2">
         <Link
