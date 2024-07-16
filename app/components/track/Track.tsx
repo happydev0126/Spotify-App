@@ -32,7 +32,9 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
   }, [current_track]);
 
   const handlePlayTrack = () => {
-    if (user?.product !== 'premium') {
+    if (!user) return
+    if (!item.available_markets.includes(user.country)) return
+    if (user.product !== 'premium') {
       alert('Get Spotify Premium to use the player')
       return
     }
@@ -58,9 +60,6 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       return 'grid-cols-[24px_minmax(200px,35%)_30%_20%_auto]'
     }
   }
-  console.log(user)
-
-  const disabled = item.available_markets.includes(user?.country)
 
   const notOnArtist = !(pathName.includes('/artist/'))
 
