@@ -37,7 +37,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       return
     }
     if (deviceId) {
-      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined, user.country)
+      resumePlayback(token, deviceId, index, playlist_uri ?? undefined, uris ?? undefined)
     }
   }
 
