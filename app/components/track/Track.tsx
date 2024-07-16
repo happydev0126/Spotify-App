@@ -68,7 +68,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       role="button"
       key={item.id}
       className={
-        `text-zinc-400 grid ${compVariant()} max-w-full text-sm overflow-hidden gap-x-3 items-center text-left hover:bg-gray-50/10 py-1 px-2 rounded max-h-16`}
+        `text-zinc-400 grid ${compVariant()} max-w-full text-sm overflow-hidden gap-x-3 items-center text-left select-none hover:bg-gray-50/10 py-1 px-2 rounded max-h-16 hover:cursor-default`}
       onDoubleClick={handlePlayTrack}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
