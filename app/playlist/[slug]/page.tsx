@@ -5,7 +5,6 @@ import Track from "@/app/components/track/Track";
 export default async function Page({ params }: { params: { slug: string } }) {
   const currentUser = await getCurrentUser()
   const playlist = await getPlaylist(params.slug, currentUser!.country)
-  console.log(playlist)
   const token = await getToken()
   const owner = await getUser(playlist.owner.id)
 

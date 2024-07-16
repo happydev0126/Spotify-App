@@ -256,9 +256,9 @@ export async function getArtistTopTracks(id: string): Promise<TopTracks> {
   )
 }
 
-export async function getAlbum(id: string): Promise<Album | undefined> {
+export async function getAlbum(id: string, country: string): Promise<Album | undefined> {
   return fetchWebApi(
-    `https://api.spotify.com/v1/albums/${id}`,
+    `https://api.spotify.com/v1/albums/${id}?market=${country}`,
   )
 }
 

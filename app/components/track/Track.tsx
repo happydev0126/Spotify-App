@@ -32,7 +32,6 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
 
   const handlePlayTrack = () => {
     if (!user) return
-    if (!item.available_markets.includes(user.country)) return
     if (user.product !== 'premium') {
       alert('Get Spotify Premium to use the player')
       return
@@ -63,13 +62,14 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
   const notAvailableOnUsersCountry = item.restrictions
 
   const notOnArtist = !(pathName.includes('/artist/'))
+  const notOnAlbum = !(pathName.includes('/album/'))
 
   return (
     <div
       role="button"
       key={item.id}
       className={
-        `text-zinc-400 ${notAvailableOnUsersCountry && 'opacity-50'} grid ${compVariant()} max-w-full text-sm overflow-hidden gap-x-3 items-center text-left select-none hover:bg-gray-50/10 py-1 px-2 rounded max-h-16 hover:cursor-default`}
+        `text-zinc-400 ${notAvailableOnUsersCountry && 'opacity-50'} grid ${compVariant()} max-w-full min-h-14 text-sm overflow-hidden gap-x-3 items-center text-left select-none hover:bg-gray-50/10 py-1 px-2 rounded max-h-16 hover:cursor-default`}
       onDoubleClick={handlePlayTrack}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
@@ -80,45 +80,48 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         }
       </div>
       <div className="flex flex-row items-center gap-2">
-        <Link
-          href={`/album/${item.album?.id}`} className="text-xs w-12 h-12 flex items-center justify-center rounded bg-zinc-800">
-          {item.album.images.length > 0 ?
-            <img src={item.album?.images[item.album?.images.length - 1].url} className="rounded" alt={item.album?.name} /> :
-            <svg
-              data-encore-id="icon"
-              role="img"
-              aria-hidden="true"
-              viewBox="0 0 16 16"
-              fill="white"
-              width={16}
-            >
-              <path d="M10 2v9.5a2.75 2.75 0 1 1-2.75-2.75H8.5V2H10zm-1.5 8.25H7.25A1.25 1.25 0 1 0 8.5 11.5v-1.25z"></path></svg>
-          }
-        </Link>
+        {notOnAlbum &&
+          <Link
+            href={`/album/${item.album?.id}`} className="text-xs min-w-12 min-h-12 flex items-center justify-center rounded bg-zinc-800">
+            {item.album.images.length > 0 ?
+              <img src={item.album?.images[item.album?.images.length - 1].url} className="rounded w-12" alt={item.album?.name} /> :
+              <svg
+                data-encore-id="icon"
+                role="img"
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                fill="white"
+                width={16}
+              >
+                <path d="M10 2v9.5a2.75 2.75 0 1 1-2.75-2.75H8.5V2H10zm-1.5 8.25H7.25A1.25 1.25 0 1 0 8.5 11.5v-1.25z"></path></svg>
+            }
+          </Link>
+        }
         <div className="overflow-hidden">
           {/* TRACK NAME */}
-          <div className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '} whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>
+          <span className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '}block whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>
             {item.name}
+          </span>
+          <div className="text-xs whitespace-nowrap text-ellipsis overflow-hidden">
+            {
+              notOnArtist &&
+              item.artists.map((artist, index) => (
+                <>
+                  <Link
+                    key={artist.id}
+                    className="text-xs whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white inline"
+                    href={`/artist/${artist.id}`}>
+                    {artist.name}
+                  </Link>
+                  {item.artists.length > 1 && item.artists.length !== index + 1 &&
+                    <>
+                      {', '}
+                    </>
+                  }
+                </>
+              ))
+            }
           </div>
-          {
-            notOnArtist &&
-            <span>
-              {
-                item.artists.map((artist, index) => (
-                  <span key={artist.id}>
-                    <Link href={`/artist/${item.artists[0].id}`} className="text-xs whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">
-                      {artist.name}
-                    </Link>
-                    {item.artists.length > 1 && item.artists.length !== index + 1 &&
-                      <>
-                        {', '}
-                      </>
-                    }
-                  </span>
-                ))
-              }
-            </span>
-          }
         </div>
       </div>
 
