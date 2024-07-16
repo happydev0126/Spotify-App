@@ -34,6 +34,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Different view options for playlists.
 - [ ] Filtering options for search page.
 - [X] Currently playing track tab title.
+- [ ] Play button for playlists.
+- [ ] Background color based on item's image.
+- [ ] Liked songs playlist on library.
 
 ## Getting Started
 

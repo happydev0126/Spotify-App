@@ -22,6 +22,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
   const { deviceId, user } = useContext(DeviceContext)
   const { current_track } = useContext(PlayerContext)
   const [isHover, setIsHover] = useState(false)
+  // const [disabled, isDisabled] = useState(false)
   const pathName = usePathname()
 
   useEffect(() => {
@@ -57,6 +58,9 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
       return 'grid-cols-[24px_minmax(200px,35%)_30%_20%_auto]'
     }
   }
+  console.log(user)
+
+  const disabled = item.available_markets.includes(user?.country)
 
   const notOnArtist = !(pathName.includes('/artist/'))
 
@@ -74,10 +78,20 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         <HandleTrack token={token} playlist_uri={playlist_uri} index={index} uris={uris} isHover={isHover} item={item} />
       </div>
       <div className="flex flex-row items-center gap-2">
-        {/* ALBUM IMAGE */}
         <Link
-          href={`/album/${item.album?.id}`} className="text-xs">
-          <img src={item.album?.images[item.album?.images.length - 1].url} className="max-w-12 rounded" alt={item.album?.name} />
+          href={`/album/${item.album?.id}`} className="text-xs w-12 h-12 flex items-center justify-center rounded bg-zinc-800">
+          {item.album.images.length > 0 ?
+            <img src={item.album?.images[item.album?.images.length - 1].url} className="rounded" alt={item.album?.name} /> :
+            <svg
+              data-encore-id="icon"
+              role="img"
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              fill="white"
+              width={16}
+            >
+              <path d="M10 2v9.5a2.75 2.75 0 1 1-2.75-2.75H8.5V2H10zm-1.5 8.25H7.25A1.25 1.25 0 1 0 8.5 11.5v-1.25z"></path></svg>
+          }
         </Link>
         <div className="overflow-hidden">
           {/* TRACK NAME */}
@@ -126,7 +140,8 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
           }
         </>
       }
-      {!added_at && item.duration_ms &&
+      {
+        !added_at && item.duration_ms &&
         <div className="justify-self-end pr-1">
           {convertMsToTimestamp(item.duration_ms)}
         </div>
