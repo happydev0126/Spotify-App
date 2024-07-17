@@ -5,9 +5,12 @@ import PlayTrackButton from "./track/PlayTrackButton";
 import { Album, Artist, Playlist } from "../types/spotify";
 import { useContext } from "react";
 import { PlayerContext } from "../context/appContext";
+import isCurrentlyPlaying from "../lib/utils/isCurrentlyPlaying";
+import PauseTrackButton from "./track/PauseTrackButton";
 
 type MusicSource = Album | Artist | Playlist
 export default function TrackListCard({ listItem, token }: { listItem: Artist | Playlist | Album, token: string }) {
+  const { currentTrackContext } = useContext(PlayerContext)
   if (listItem.images.length === 0) return
   const getItemSource = (item: MusicSource): string => {
     if (item.type === 'artist') return 'artist';
@@ -19,9 +22,19 @@ export default function TrackListCard({ listItem, token }: { listItem: Artist | 
   const itemSource = getItemSource(listItem);
 
   return (
-    <div>
-      <Link href={`/${itemSource}/${listItem.id}`} key={listItem.id} className="flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10">
-        <img src={listItem.images[0]?.url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={listItem.name} />
+    <div >
+      <Link href={`/${itemSource}/${listItem.id}`} key={listItem.id} className="group flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10">
+        <div className="relative">
+          <img src={listItem.images[0]?.url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={listItem.name} />
+          {itemSource !== 'artist' &&
+            <div className="hidden group-hover:block">
+              {isCurrentlyPlaying(currentTrackContext, listItem.uri) ?
+                <PauseTrackButton token={token} variant="green" /> :
+                <PlayTrackButton index={0} token={token} playlist_uri={listItem.uri} variant="green" />
+              }
+            </div>
+          }
+        </div>
         <div className="flex flex-col">
           <p className="w-full font-bold text-sm">
             {listItem.name}
@@ -31,7 +44,6 @@ export default function TrackListCard({ listItem, token }: { listItem: Artist | 
           </p>
         </div>
       </Link>
-      <PlayTrackButton index={0} token={token} playlist_uri={listItem.uri} />
     </div>
   )
 }
