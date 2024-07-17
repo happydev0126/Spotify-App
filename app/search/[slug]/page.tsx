@@ -1,5 +1,6 @@
 import { getToken } from "@/app/api/clerk/getToken";
 import { search } from "@/app/api/spotify/spotify-api";
+import TrackList from "@/app/components/MusicSourceCard";
 import Track from "@/app/components/track/Track"
 import { Album } from "@/app/types/spotify";
 import Link from "next/link";
@@ -46,38 +47,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
       </div>
 
       <h3 className="text-2xl font-bold">Albums</h3>
-      <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 w-full overflow-x-scroll">
-        {searchQuery.albums?.items.map((album: Album) => (
-          <Link href={`/album/${album.id}`} key={album.id} className="flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10">
-            <img src={album.images[0].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={album.name} />
-            <div className="flex flex-col">
-              <p className="w-full font-bold text-sm whitespace-nowrap text-ellipsis">
-                {album.name}
-              </p>
-              <p className="w-full text-sm text-zinc-400">
-                {album.type}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
+      {searchQuery.albums &&
+        <TrackList list={searchQuery.albums.items} />
+      }
 
       <h3 className="text-2xl font-bold">Artists</h3>
-      <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 w-full overflow-x-scroll">
-        {searchQuery.artists?.items.map((artist) => (
-          <Link href={`/artist/${artist.id}`} key={artist.id} className="flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10">
-            <img src={artist.images[1]?.url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={artist.name} />
-            <div className="flex flex-col">
-              <p className="w-full font-bold text-sm whitespace-nowrap text-ellipsis">
-                {artist.name}
-              </p>
-              <p className="w-full text-sm text-zinc-400">
-                {artist.type}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
+
+      {searchQuery.artists &&
+        <TrackList list={searchQuery.artists.items} />
+      }
     </>
   )
 }

@@ -1,8 +1,8 @@
 import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api/spotify/spotify-api";
-import { Artist, Item, Playlist } from "./types/spotify";
-import Link from "next/link";
+import { Item } from "./types/spotify";
 import Track from "./components/track/Track";
 import { getToken } from "./api/clerk/getToken";
+import TrackList from "./components/MusicSourceCard";
 
 export default async function Page() {
   const recentlyPlayed = await getRecentlyPlayed(6).then(data => data.items)
@@ -38,40 +38,12 @@ export default async function Page() {
       <section className="flex flex-col gap-4 ">
         <h3 className="text-2xl font-bold">Your favorite artists</h3>
         {(usersTopArtists.length < 1) ? <div className="text-xs italic">You dont have favorite artists yet</div> :
-          <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 overflow-x-scroll">
-            {usersTopArtists.map((artist: Artist) => (
-              <Link href={`/artist/${artist.id}`} key={artist.id} className="flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10">
-                <img src={artist.images[1].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={artist.name} />
-                <div className="flex flex-col">
-                  <p className="w-full font-bold text-sm">
-                    {artist.name}
-                  </p>
-                  <p className="w-full text-sm text-zinc-400">
-                    {artist.type}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <TrackList list={usersTopArtists} />
         }
       </section>
       <section className="flex flex-col gap-4">
         <h3 className="text-2xl font-bold">Featured playlists</h3>
-        <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 w-full overflow-x-scroll">
-          {featuredPlaylist.items.map((playlist: Playlist) => (
-            <Link href={`/playlist/${playlist.id}`} key={playlist.id} className="flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10">
-              <img src={playlist.images[0].url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={playlist.name} />
-              <div className="flex flex-col">
-                <p className="w-full font-bold text-sm whitespace-nowrap text-ellipsis">
-                  {playlist.name}
-                </p>
-                <p className="w-full text-sm text-zinc-400">
-                  {playlist.type}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <TrackList list={featuredPlaylist.items} />
       </section>
     </div>
   );

@@ -1,7 +1,6 @@
 'use client'
 import { useContext, useEffect, useState } from 'react'
 import { Album, CurrentUserPlaylist } from '../types/spotify'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { PlayerContext } from '../context/appContext'
 import TagButton from './ui/TagButton'
@@ -46,7 +45,6 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
     } else {
       setFilterLibraryType(type)
     }
-
   }
 
   const filterLibrary = (library: (CurrentUserPlaylist | Album)[]) => {
@@ -80,7 +78,7 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
       {filterLibrary(userLibrary)
         .map((playlist) => (
           <div
-            key={`${playlist.id}`}
+            key={playlist.id}
             onClick={e => handleClick(e, playlist.type, playlist.id)}
             className='p-2 rounded hover:bg-gradient-to-r hover:cursor-pointer from-white/0 to-white/5'>
             <div className='flex justify-between items-center overflow-hidden'>
