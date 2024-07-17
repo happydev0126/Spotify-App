@@ -1,6 +1,6 @@
 import { getToken } from "@/app/api/clerk/getToken";
 import { getArtist, getArtistAlbums, getArtistTopTracks } from "@/app/api/spotify/spotify-api";
-import TrackList from "@/app/components/MusicSourceCard";
+import TrackList from "@/app/components/TrackSourceCard";
 import Track from "@/app/components/track/Track";
 
 export default async function Page({ params }: { params: { slug: string } }) {

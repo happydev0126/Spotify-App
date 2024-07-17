@@ -2,7 +2,7 @@ import { getFeaturedPlaylists, getRecentlyPlayed, getUsersTopItems } from "./api
 import { Item } from "./types/spotify";
 import Track from "./components/track/Track";
 import { getToken } from "./api/clerk/getToken";
-import TrackList from "./components/MusicSourceCard";
+import TrackList from "./components/TrackSourceCard";
 
 export default async function Page() {
   const recentlyPlayed = await getRecentlyPlayed(6).then(data => data.items)
