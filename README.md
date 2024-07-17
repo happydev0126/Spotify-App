@@ -11,6 +11,7 @@ Test pwd:
 ```
 test12345!
 ```
+
 [![Watch the video](https://img.youtube.com/vi/GvJ5nk6481g/maxresdefault.jpg)](https://www.youtube.com/watch?v=GvJ5nk6481g)
 ![Playlist view](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_1.png)
 ![Playlist view](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_2.png)
@@ -26,17 +27,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## TODO
 
 - [X] Filtering to user library (tags).
-- [ ] Sort by options to user library.
 - [X] Seek to track position functionality.
 - [X] Volume slider.
-- [ ] Disable navigation buttons when needed.
 - [X] Show currently playing album/playlist on user library.
-- [ ] Different view options for playlists.
-- [ ] Filtering options for search page.
 - [X] Currently playing track tab title.
-- [ ] Play button for playlists.
-- [ ] Background color based on item's image.
+- [ ] Play button for playlist page.
+- [ ] Play button for playlist component.
+- [ ] Sort by options to user library.
+- [ ] Filtering options for search page.
 - [ ] Liked songs playlist on library.
+- [ ] Different view options for playlists.
+- [ ] Background color based on item's image.
+- [ ] Disable navigation buttons when needed.
 
 ## Getting Started
 
