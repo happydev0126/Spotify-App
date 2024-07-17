@@ -2,7 +2,6 @@ import { getToken } from "@/app/api/clerk/getToken";
 import { search } from "@/app/api/spotify/spotify-api";
 import TrackList from "@/app/components/MusicSourceCard";
 import Track from "@/app/components/track/Track"
-import { Album } from "@/app/types/spotify";
 import Link from "next/link";
 
 
