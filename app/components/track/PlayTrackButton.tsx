@@ -20,7 +20,7 @@ export default function PlayTrackButton({ token, index, playlist_uri, uris, isPl
     }
   }
   return (
-    <button className="" onClick={handlePlayTrack}>
+    <button onClick={handlePlayTrack}>
       <img src="/icons/track/play.svg" alt="Play" />
     </button>
   )
