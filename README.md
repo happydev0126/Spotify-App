@@ -11,7 +11,7 @@ Test pwd:
 ```
 test12345!
 ```
-
+[![Watch the video](https://img.youtube.com/vi/GvJ5nk6481g/maxresdefault.jpg)](https://www.youtube.com/watch?v=GvJ5nk6481g)
 ![Playlist view](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_1.png)
 ![Playlist view](https://github.com/Jodarini/spotify-clone/blob/main/public/screenshots/Screenshot_2.png)
 
