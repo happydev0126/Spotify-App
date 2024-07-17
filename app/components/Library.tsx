@@ -4,9 +4,10 @@ import { Album, CurrentUserPlaylist } from '../types/spotify'
 import { useRouter } from 'next/navigation'
 import { PlayerContext } from '../context/appContext'
 import TagButton from './ui/TagButton'
+import isCurrentlyPlaying from '../lib/utils/isCurrentlyPlaying'
 
 export default function UserLibrary({ library }: { library: Array<CurrentUserPlaylist | Album> }) {
-  const { current_track } = useContext(PlayerContext)
+  const { currentTrackContext } = useContext(PlayerContext)
   const [userLibrary, setUserLibrary] = useState<Array<CurrentUserPlaylist | Album>>()
   const [searchInput, setSearchInput] = useState('')
   const [filterLibraryType, setFilterLibraryType] = useState('all')
@@ -30,13 +31,6 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
     router.push(
       type === 'playlist' ? `/playlist/${id}` : `/album/${id}`
     )
-  }
-
-  const isCurrentlyPlaying = (contextUri: string) => {
-    if (current_track?.album.uri === contextUri) {
-      return true
-    }
-    return false
   }
 
   const handleFilterTag = (type: 'album' | 'playlist' | 'all') => {
@@ -90,7 +84,7 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
                 </img>
                 <div className='flex overflow-hidden'>
                   <div className='flex flex-col overflow-hidden'>
-                    <div className={`${isCurrentlyPlaying(playlist.uri) ? `text-green` : ''} whitespace-nowrap text-ellipsis overflow-hidden`}>
+                    <div className={`${isCurrentlyPlaying(currentTrackContext, playlist.uri) ? `text-green` : ''} whitespace-nowrap text-ellipsis overflow-hidden`}>
                       {playlist.name}
                     </div>
                     <div className='text-gray-400 text-sm capitalize overflow-hidden'>
@@ -113,7 +107,7 @@ export default function UserLibrary({ library }: { library: Array<CurrentUserPla
                 </div>
               </div>
               <div>
-                {isCurrentlyPlaying(playlist.uri) &&
+                {isCurrentlyPlaying(currentTrackContext, playlist.uri) &&
                   <svg
                     data-encore-id="icon"
                     role="img"

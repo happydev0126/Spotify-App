@@ -1,6 +1,6 @@
 
 import { useContext } from "react"
-import { DeviceContext, PlayerContext } from "../../context/appContext"
+import { DeviceContext } from "../../context/appContext"
 import { pausePlayback } from "../../api/spotify/spotify-api"
 
 export default function PauseTrackButton({ token }: { token: string }) {

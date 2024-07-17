@@ -37,7 +37,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <hr className="mt-2 mb-4 opacity-20" />
         {playlist.tracks.items.map((item, index) => (
-          <Track variant={'all'} token={token} key={item.track.id} item={item.track} added_at={item.added_at} index={index} playlist_uri={playlist.uri} />
+          <Track
+            variant={'all'}
+            token={token}
+            key={item.track.id}
+            item={item.track}
+            added_at={item.added_at}
+            index={index}
+            playlist_uri={playlist.uri} />
         ))}
       </div>
     </div >

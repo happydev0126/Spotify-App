@@ -296,3 +296,10 @@ export async function setPlaybackPosition(position_ms: number, token: string) {
     token
   )
 }
+
+export async function getPlaybackState(): Promise<GetCurrentlyPlayingTrackResponse> {
+  return fetchWebApi(
+    `https://api.spotify.com/v1/me/player`,
+  )
+}
+

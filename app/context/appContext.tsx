@@ -1,7 +1,7 @@
 'use client';
 
-import { createContext, useEffect, useState } from 'react';
-import { CurrentUser } from '../types/spotify'
+import { Dispatch, SetStateAction, createContext, useEffect, useState } from 'react';
+import { Context, CurrentUser } from '../types/spotify'
 
 interface PlayerContextState {
   player: Spotify.Player | undefined
@@ -9,6 +9,7 @@ interface PlayerContextState {
   is_paused: boolean
   current_track: Spotify.Track | undefined
   position: number
+  currentTrackContext: string | null
 }
 
 interface DeviceContext {
@@ -17,13 +18,14 @@ interface DeviceContext {
 }
 
 export const DeviceContext = createContext<DeviceContext>({ deviceId: undefined, user: undefined });
-export const PlayerContext = createContext<PlayerContextState>({ player: undefined, is_active: false, is_paused: true, current_track: undefined, position: 0 });
+export const PlayerContext = createContext<PlayerContextState>({ player: undefined, is_active: false, is_paused: true, current_track: undefined, position: 0, currentTrackContext: null });
 
 export default function Providers({ children, token, user }: { children: React.ReactNode, token: string, user: CurrentUser }) {
   const [player, setPlayer] = useState<Spotify.Player>();
   const [currentUser] = useState<CurrentUser>(user)
   const [deviceId, setDeviceId] = useState<string | undefined>(undefined)
   const [current_track, setTrack] = useState<Spotify.Track>();
+  const [currentTrackContext, setCurrentTrackContext] = useState<string | null>(null)
   const [position, setPosition] = useState<number>(0);
   const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
@@ -63,7 +65,7 @@ export default function Providers({ children, token, user }: { children: React.R
 
       player.addListener('player_state_changed', (state => {
         (!state) ? setActive(false) : setActive(true)
-        // console.log(state.position)
+        setCurrentTrackContext(state.context.uri)
         setTrack(state.track_window.current_track);
         setPosition(state.position)
         setPaused(state.paused);
@@ -95,7 +97,7 @@ export default function Providers({ children, token, user }: { children: React.R
 
   return (
     <DeviceContext.Provider value={{ deviceId: deviceId, user: currentUser }}>
-      <PlayerContext.Provider value={{ player, is_active, is_paused, current_track, position }}>
+      <PlayerContext.Provider value={{ player, is_active, is_paused, current_track, position, currentTrackContext }}>
         {children}
       </PlayerContext.Provider>
     </DeviceContext.Provider >

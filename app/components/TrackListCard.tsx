@@ -7,9 +7,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../context/appContext";
 
 type MusicSource = Album | Artist | Playlist
-export default function ListCard({ listItem, token }: { listItem: Artist | Playlist | Album, token: string }) {
-  const { current_track } = useContext(PlayerContext)
-  console.log({ current_track })
+export default function TrackListCard({ listItem, token }: { listItem: Artist | Playlist | Album, token: string }) {
   if (listItem.images.length === 0) return
   const getItemSource = (item: MusicSource): string => {
     if (item.type === 'artist') return 'artist';

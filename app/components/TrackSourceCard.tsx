@@ -1,6 +1,6 @@
 import { Album, Artist, Playlist } from "../types/spotify";
 import { getToken } from "../api/clerk/getToken";
-import ListCard from "./ListCard";
+import TrackListCard from "./TrackListCard";
 
 export default async function TrackList({ list }: { list: Artist[] | Playlist[] | Album[] }) {
   const token = await getToken()
@@ -14,7 +14,7 @@ export default async function TrackList({ list }: { list: Artist[] | Playlist[] 
   return (
     <div style={{ scrollbarWidth: 'none' }} className="flex flex-row gap-4 overflow-x-scroll">
       {list.map((item) => (
-        <ListCard key={item.id} listItem={item} token={token} />
+        <TrackListCard key={item.id} listItem={item} token={token} />
       ))}
     </div>
   )

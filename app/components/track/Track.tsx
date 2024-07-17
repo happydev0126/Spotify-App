@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation"
 import { convertMsToTimestamp } from "../../lib/utils/convertMsToTimestamp"
 import { isoDateToMonthDayYear } from "../../lib/utils/isoDateToMonthDayYear"
 import HandleTrack from "./HandleTrack"
+import isCurrentlyPlaying from "@/app/lib/utils/isCurrentlyPlaying"
 
 interface TrackProps {
   item: Track,
@@ -41,12 +42,6 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
     }
   }
 
-  const isCurrentlyPlaying = (trackid: string) => {
-    if (current_track?.id === trackid) {
-      return true
-    }
-    return false
-  }
   const compVariant = () => {
     if (variant === 'trackOnly') {
       return 'grid-cols-[24px_minmax(200px,95%)_auto]'
@@ -99,7 +94,7 @@ export default function Track({ item, index, token, playlist_uri, uris, added_at
         }
         <div className="overflow-hidden">
           {/* TRACK NAME */}
-          <span className={`${isCurrentlyPlaying(item.id) ? ' text-green ' : ' text-white '}block whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>
+          <span className={`${isCurrentlyPlaying(current_track?.uri, item.uri) ? ' text-green ' : ' text-white '}block whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}>
             {item.name}
           </span>
           <div className="text-xs whitespace-nowrap text-ellipsis overflow-hidden">
