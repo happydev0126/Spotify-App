@@ -30,7 +30,7 @@ export default function TrackListCard({ listItem, token }: { listItem: Artist | 
             <div className="hidden group-hover:block">
               {isCurrentlyPlaying(currentTrackContext, listItem.uri) && !is_paused ?
                 <PauseTrackButton token={token} variant="green" /> :
-                <PlayTrackButton index={0} token={token} playlist_uri={listItem.uri} variant="green" />
+                <PlayTrackButton index={0} token={token} playlist_uri={listItem.uri} variant="green" isPlaying={isCurrentlyPlaying(currentTrackContext, listItem.uri)} />
               }
             </div>
           }
