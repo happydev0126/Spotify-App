@@ -25,7 +25,7 @@ export default function PlayTrackButton({ token, index, playlist_uri, uris, isPl
   }
 
   return (
-    <button className={variant === 'green' ? 'flex items-center justify-center w-12 h-12 absolute bg-green z-50 bottom-2 right-2 rounded-full text-black shadow-2xl' : ''} onClick={e => handlePlayTrack(e)}>
+    <button className={variant === 'green' ? 'flex items-center justify-center w-12 h-12 absolute bg-green z-50 bottom-2 right-2 rounded-full shadow-lg shadow-zinc-900/50 text-black hover:scale-110' : ''} onClick={e => handlePlayTrack(e)}>
       <img src="/icons/track/play.svg" alt="Play" />
     </button>
   )
