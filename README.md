@@ -31,8 +31,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [X] Volume slider.
 - [X] Show currently playing album/playlist on user library.
 - [X] Currently playing track tab title.
+- [X] Play button for playlist component.
 - [ ] Play button for playlist page.
-- [ ] Play button for playlist component.
 - [ ] Sort by options to user library.
 - [ ] Filtering options for search page.
 - [ ] Liked songs playlist on library.

@@ -10,7 +10,7 @@ import PauseTrackButton from "./track/PauseTrackButton";
 
 type MusicSource = Album | Artist | Playlist
 export default function TrackListCard({ listItem, token }: { listItem: Artist | Playlist | Album, token: string }) {
-  const { currentTrackContext } = useContext(PlayerContext)
+  const { currentTrackContext, is_paused } = useContext(PlayerContext)
   if (listItem.images.length === 0) return
   const getItemSource = (item: MusicSource): string => {
     if (item.type === 'artist') return 'artist';
@@ -28,7 +28,7 @@ export default function TrackListCard({ listItem, token }: { listItem: Artist | 
           <img src={listItem.images[0]?.url} className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded" alt={listItem.name} />
           {itemSource !== 'artist' &&
             <div className="hidden group-hover:block">
-              {isCurrentlyPlaying(currentTrackContext, listItem.uri) ?
+              {isCurrentlyPlaying(currentTrackContext, listItem.uri) && !is_paused ?
                 <PauseTrackButton token={token} variant="green" /> :
                 <PlayTrackButton index={0} token={token} playlist_uri={listItem.uri} variant="green" />
               }
