@@ -20,8 +20,6 @@ In order to use the player, you'll need Spotify Premium.
 
 To run this locally, follow the documentation on [`Spotify`](api.spotify.com) and [`Clerk`](www.clerk.com), you need your own .env variables.
 
-This app is desktop only.
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## TODO
