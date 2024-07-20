@@ -4,6 +4,7 @@ import UserLibrary from './Library'
 import { Album, CurrentUserPlaylist } from '../types/spotify'
 import Link from 'next/link'
 import { getCurrentUserPlaylists, getUsersAlbums } from '../api/spotify/spotify-api'
+import YourLibraryExpandButton from './YourLibraryExpandButton'
 
 export default async function Dashboard() {
   let playlists = await getCurrentUserPlaylists().then(data => data.items)
@@ -15,8 +16,8 @@ export default async function Dashboard() {
   })
 
   return (
-    <div className='flex flex-col gap-2 w-full'>
-      <Card className='overflow-clip'>
+    <div className='flex flex-col gap-2 w-full md:h-full mb-2 md:mb-0'>
+      <Card className='overflow-clip '>
         <Link href='/'>
           <div className='flex items-center gap-2 text-gray-400'>
             <svg
@@ -56,32 +57,7 @@ export default async function Dashboard() {
           </div>
         </Link>
       </Card>
-      <Card className='flex flex-col overflow-y-scroll h-full'>
-        <div className='flex items-center gap-2 text-gray-400'>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeMiterlimit="10"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            data-icon="SvgLibrary"
-            aria-hidden="true">
-            <path d="M20.332 20L16.844 4M12 20V4M6 20V4"></path>
-          </svg>
-          Your library
-        </div>
-        {/* TODO 
-          Add library filters
-        */}
-        <div>
-          <UserLibrary library={library} />
-        </div>
-      </Card>
+      <YourLibraryExpandButton library={library} />
     </div>
   )
 }

@@ -1,17 +1,36 @@
 'use client'
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useContext, useEffect, useState } from "react";
 import { DeviceContext, PlayerContext } from "../context/appContext";
 import Link from "next/link";
 import { convertMsToTimestamp } from "../lib/utils/convertMsToTimestamp";
 import { pausePlayback, resumePlayback, setPlaybackPosition, setPlaybackVolume, skipToNext, skipToPrev } from "../api/spotify/spotify-api";
 
-export default function Player({ className, token }: { className: string, token: string }) {
+export default function Player({ token }: { token: string }) {
   const { player, is_paused, current_track, position } = useContext(PlayerContext)
   const { deviceId } = useContext(DeviceContext)
   const [volume, setVolume] = useState(50)
   const [prevVolume, setPrevVolume] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
+  const [fullScreen, setFullScreen] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
   const [trackPositionInMs, setTrackPositionInMs] = useState(position)
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+      if (current_track !== undefined) {
+        setFullScreen(window.innerWidth <= 768)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
 
   useEffect(() => {
     const timeout = setInterval(() => {
@@ -61,9 +80,29 @@ export default function Player({ className, token }: { className: string, token:
     setPlaybackPosition(trackPositionInMs, token)
   }
 
-  return (
-    <div className={`flex h-16 w-full items-center justify-between ${className}`} >
-      <div className="flex gap-2 items-center w-[30%]">
+  const handleFullScreen = (e: MouseEvent<HTMLDivElement>) => {
+    if (current_track === undefined) return
+    if (!isMobile) return
+    setFullScreen(true)
+    if (!fullScreen) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  const handleSetFullScreen = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    setFullScreen(false)
+  }
+
+  const fullScreenPlayer = fullScreen ?
+    `flex flex-col md:h-16 w-full items-center justify-between col-span-full h-screen absolute left-0 top-0 bg-background p-4` :
+    `flex h-16 w-full items-center justify-between `
+
+  const floatingPlayer = !fullScreen && isMobile && `fixed bottom-0 left-0 bg-background p-2`
+
+  if (!fullScreen) return (
+    <div onClick={handleFullScreen} className={`flex h-16 w-full items-center justify-between col-span-full ${floatingPlayer}`} >
+      <div className="flex gap-2 items-center md:w-[30%]">
         {current_track &&
           <>
             <img
@@ -84,11 +123,11 @@ export default function Player({ className, token }: { className: string, token:
           </>
         }
       </div>
-      <div className="flex flex-col gap-1 w-[40%] justify-center items-center">
+      <div className="flex flex-col gap-1 md:w-[40%] justify-center items-center">
         <div className="flex items-center justify-center gap-4">
           <button
             className=""
-            onClick={() => { skipToPrev(token) }} >
+            onClick={(e) => { skipToPrev(token); e.stopPropagation() }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -108,20 +147,20 @@ export default function Player({ className, token }: { className: string, token:
           {is_paused ?
             <button
               className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
-              onClick={() => { resumePlayback(token, deviceId) }} >
+              onClick={(e) => { resumePlayback(token, deviceId); e.stopPropagation() }} >
               <img src="/icons/track/playBlack.svg" alt="Play" />
             </button>
             :
 
             <button
               className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
-              onClick={() => { pausePlayback(token, deviceId) }} >
+              onClick={(e) => { pausePlayback(token, deviceId); e.stopPropagation() }} >
               <img src="/icons/track/pauseBlack.svg" alt="Pause" />
             </button>
           }
           <button
-            className=""
-            onClick={() => { skipToNext(token) }} >
+            className="mr-2 md:mr-0"
+            onClick={(e) => { skipToNext(token); e.stopPropagation() }} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -138,35 +177,37 @@ export default function Player({ className, token }: { className: string, token:
             </svg>
           </button>
         </div>
-        <div className="w-full">
-          <div className="flex flex-row items-center gap-1 text-sm text-zinc-400">
-            <span>
-              {current_track && trackPositionInMs > current_track.duration_ms ?
-                convertMsToTimestamp(current_track.duration_ms) :
-                convertMsToTimestamp(trackPositionInMs)
-              }
-            </span>
-            <input
-              id="default-range"
-              onChange={e => handleTrackPosition(e)}
-              onMouseUp={handleMouseUp}
-              type="range"
-              min={0}
-              max={current_track?.duration_ms}
-              step={1000}
-              value={trackPositionInMs}
-              className="w-full h-1.5 accent-green cursor-pointer "
-            />
-            {current_track &&
+        {!isMobile &&
+          <div className="w-full">
+            <div className="flex flex-row items-center gap-1 text-sm text-zinc-400">
               <span>
-                {convertMsToTimestamp(current_track?.duration_ms)}
+                {current_track && trackPositionInMs > current_track.duration_ms ?
+                  convertMsToTimestamp(current_track.duration_ms) :
+                  convertMsToTimestamp(trackPositionInMs)
+                }
               </span>
-            }
+              <input
+                id="default-range"
+                onChange={e => handleTrackPosition(e)}
+                onMouseUp={handleMouseUp}
+                type="range"
+                min={0}
+                max={current_track?.duration_ms}
+                step={1000}
+                value={trackPositionInMs}
+                className="w-full h-1.5 accent-green cursor-pointer "
+              />
+              {current_track &&
+                <span>
+                  {convertMsToTimestamp(current_track?.duration_ms)}
+                </span>
+              }
+            </div>
           </div>
-        </div>
+        }
       </div>
-      <div className="w-[30%] flex justify-end items-center gap-3">
-        {player &&
+      {player && !isMobile &&
+        <div className="w-[30%] flex justify-end items-center gap-3">
           <>
             <button onClick={handleMute}>
               {isMuted || volume == 0 ?
@@ -201,11 +242,141 @@ export default function Player({ className, token }: { className: string, token:
               value={volume}
               className="w-36 h-1.5  accent-green cursor-pointer "
             />
-
           </>
-        }
-      </div>
+        </div>
+      }
     </div >
+  )
+
+
+  return (
+    <div onClick={handleFullScreen} className="w-full col-span-full" >
+      <div className={fullScreenPlayer} >
+        {fullScreen &&
+          <button
+            onClick={e => handleSetFullScreen(e)}
+            className="mr-auto"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              data-icon="SvgChevronDown"
+              aria-hidden="true">
+              <path d="M6 9.1L9 12l3 2.9 3-2.9 3-2.9"></path>
+            </svg>
+          </button>}
+        <div className="flex flex-col gap-2 items-center justify-center w-full ">
+          {current_track &&
+            <>
+              <img
+                src={current_track.album.images[0].url}
+                className="size-full rounded"
+                alt={current_track.album.name} />
+              <div className="w-full text-left">
+                <Link
+                  className="w-fit block"
+                  href={`../artist/${getId(current_track.artists[0].uri)}`}>
+                  <div className="">
+                    {current_track.name}
+                  </div>
+
+                  <div className="text-zinc-400">
+                    {current_track.artists[0].name}
+                  </div>
+                </Link>
+              </div>
+            </>
+          }
+        </div>
+        <div className="flex flex-col gap-6 w-full justify-center items-center overflow-hidden">
+
+          <div className="w-full">
+            <div className="flex flex-row items-center gap-1 text-sm text-zinc-400">
+              <span>
+                {current_track && trackPositionInMs > current_track.duration_ms ?
+                  convertMsToTimestamp(current_track.duration_ms) :
+                  convertMsToTimestamp(trackPositionInMs)
+                }
+              </span>
+              <input
+                id="default-range"
+                onChange={e => handleTrackPosition(e)}
+                onMouseUp={handleMouseUp}
+                type="range"
+                min={0}
+                max={current_track?.duration_ms}
+                step={1000}
+                value={trackPositionInMs}
+                className="w-full h-1.5 accent-green cursor-pointer "
+              />
+              {current_track &&
+                <span>
+                  {convertMsToTimestamp(current_track?.duration_ms)}
+                </span>
+              }
+            </div>
+          </div>
+          <div className="w-full flex gap-16 justify-between">
+            <div></div>
+            <button
+              className="w-12"
+              onClick={() => { skipToPrev(token) }} >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
+                fill="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1"
+                viewBox="0 0 24 24"
+                data-icon="SvgSkipBack"
+                aria-hidden="true">
+                <path d="M17.767 19.664a1 1 0 001.633-.774V5.11a1 1 0 00-1.633-.774L13.9 7.5l-4.554 3.726a1 1 0 000 1.548L13.9 16.5zM4.6 21V3"></path>
+              </svg>
+            </button>
+
+            {is_paused ?
+              <button
+                className="bg-white rounded-full text-black w-12 flex justify-center items-center"
+                onClick={() => { resumePlayback(token, deviceId) }} >
+                <img src="/icons/track/playBlack.svg" alt="Play" />
+              </button>
+              :
+
+              <button
+                className="bg-white rounded-full text-black w-12 flex justify-center items-center"
+                onClick={() => { pausePlayback(token, deviceId) }} >
+                <img src="/icons/track/pauseBlack.svg" alt="Pause" />
+              </button>
+            }
+            <button
+              className="w-12"
+              onClick={() => { skipToNext(token) }} >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
+                fill="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1"
+                viewBox="0 0 24 24"
+                data-icon="SvgSkipForward"
+                aria-hidden="true">
+                <path d="M14.4 12.524a1 1 0 000-1.548L9.85 7.25 5.983 4.086a1 1 0 00-1.633.774v13.78a1 1 0 001.633.774L9.85 16.25zm4.75-9.774v18"></path>
+              </svg>
+            </button>
+            <div></div>
+          </div>
+        </div>
+      </div >
+    </div>
   )
 }
 
