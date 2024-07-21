@@ -1,53 +1,63 @@
-export type SearchType = "album" | "artist" | "playlist" | "track" | "show" | "episode" | "audiobook" | undefined
+export type SearchType =
+  | "album"
+  | "artist"
+  | "playlist"
+  | "track"
+  | "show"
+  | "episode"
+  | "audiobook"
+  | undefined;
 
 export interface GetCurrentlyPlayingTrackResponse {
-  repeat_state: string //off, track, context
-  shuffle_state: boolean
-  context: Context | null
-  timestamp: number
-  progress_ms: number
-  is_playing: boolean
-  item: Track
-  currently_playing_type: string
-  actions: Actions
+  repeat_state: string; //off, track, context
+  shuffle_state: boolean;
+  context: Context | null;
+  timestamp: number;
+  progress_ms: number;
+  is_playing: boolean;
+  item: Track;
+  currently_playing_type: string;
+  actions: Actions;
 }
 
 export interface Actions {
-  interrupting_playback?: boolean
-  pausing?: boolean
-  resuming?: boolean
-  seeking?: boolean
-  skipping_next?: boolean
-  skipping_prev?: boolean
-  toggling_repeat_context?: boolean
-  toggling_shuffle?: boolean
-  toggling_repeat_track?: boolean
-  transferring_playback?: boolean
+  interrupting_playback?: boolean;
+  pausing?: boolean;
+  resuming?: boolean;
+  seeking?: boolean;
+  skipping_next?: boolean;
+  skipping_prev?: boolean;
+  toggling_repeat_context?: boolean;
+  toggling_shuffle?: boolean;
+  toggling_repeat_track?: boolean;
+  transferring_playback?: boolean;
 }
 
-export interface Episode { }
+export interface Episode {}
 
 export interface Device {
-  id: string
-  is_active: boolean
-  is_private_session: boolean
-  is_restricted: boolean
-  name: string
-  type: string
-  volume_percent: string
-  supports_volume: boolean
+  id: string;
+  is_active: boolean;
+  is_private_session: boolean;
+  is_restricted: boolean;
+  name: string;
+  type: string;
+  volume_percent: string;
+  supports_volume: boolean;
 }
 
-export type Search = {
-  artists?: Artists
-  tracks?: Tracks
-  albums?: Albums
-  playlists?: Playlists
-} | undefined
+export type Search =
+  | {
+      artists?: Artists;
+      tracks?: Tracks;
+      albums?: Albums;
+      playlists?: Playlists;
+    }
+  | undefined;
 
 export interface SpotifyError {
-  status: number
-  message: string
+  status: number;
+  message: string;
 }
 
 export interface Items {
@@ -61,7 +71,7 @@ export interface Items {
 
 export interface Track {
   album: Album;
-  artists: Artist[]
+  artists: Artist[];
   available_markets: string[];
   disc_number: number;
   duration_ms: number;
@@ -83,7 +93,7 @@ export interface Track {
 }
 
 export interface Tracks extends Items {
-  items: Track[]
+  items: Track[];
 }
 
 export interface PlaylistTrack {
@@ -94,7 +104,7 @@ export interface PlaylistTrack {
 }
 
 export interface TopTracks {
-  tracks: Track[]
+  tracks: Track[];
 }
 
 export interface Album {
@@ -111,29 +121,31 @@ export interface Album {
   restrictions: Restrictions;
   type: string;
   uri: string;
-  artists: Artist[]
-  tracks: Tracks
-  copyrights: Copyright[]
-  external_ids: ExternalIDS
-  genres: string[]
-  label: string
-  popularity: number
+  artists: Artist[];
+  tracks: Tracks;
+  copyrights: Copyright[];
+  external_ids: ExternalIDS;
+  genres: string[];
+  label: string;
+  popularity: number;
 }
 
 export interface Copyright {
-  text: string
-  type: string
+  text: string;
+  type: string;
 }
 
 export interface Albums extends Items {
-  items: Album[]
+  items: Album[];
 }
 
 export interface SavedAlbums extends Items {
-  items: [{
-    added_at: string,
-    album: Album
-  }]
+  items: [
+    {
+      added_at: string;
+      album: Album;
+    },
+  ];
 }
 
 export interface Artist {
@@ -150,7 +162,7 @@ export interface Artist {
 }
 
 export interface Artists extends Items {
-  items: Artist[]
+  items: Artist[];
 }
 
 export interface Playlist {
@@ -171,24 +183,22 @@ export interface Playlist {
 }
 
 export interface PlaylistTracks extends Items {
-  items: PlaylistTrack[]
-
+  items: PlaylistTrack[];
 }
 
-export interface SimplifiedPlaylist extends Omit<Playlist, 'followers'> { }
-
+export interface SimplifiedPlaylist extends Omit<Playlist, "followers"> {}
 
 export interface Playlists extends Items {
-  items: Playlist[]
+  items: Playlist[];
 }
 
 export interface FeaturedPlaylist {
-  message: string
-  playlists: Playlists
+  message: string;
+  playlists: Playlists;
 }
 
 export interface CurrentUserPlaylist extends Items {
-  items: SimplifiedPlaylist[]
+  items: SimplifiedPlaylist[];
 }
 
 export interface CurrentUser {
@@ -210,7 +220,6 @@ export interface ExplicitContent {
   filter_enabled: boolean;
   filter_locked: boolean;
 }
-
 
 export interface RecentlyPlayed {
   href: string;
@@ -287,8 +296,7 @@ export interface ExternalIDS {
   upc: string;
 }
 
-export interface LinkedFrom {
-}
+export interface LinkedFrom {}
 
 export interface CurrentUserPlaylists {
   href: string;
@@ -336,4 +344,3 @@ export interface User {
   type: string;
   uri: string;
 }
-

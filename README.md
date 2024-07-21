@@ -1,12 +1,12 @@
 This app is currently on development mode on the Spotify API so in order to access the app via [`sclonetify`](https://sclonetify.jodarini.dev), i have to grant you access with your Spotify email/username or, alternatively, you can use these non-premium credentials:
 
-Test acc:
+Test account:
 
 ```
 sclonetifytest@gmail.com
 ```
 
-Test pwd:
+Test password:
 
 ```
 test12345!
@@ -26,12 +26,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## TODO
 
-- [X] Filtering to user library (tags).
-- [X] Seek to track position functionality.
-- [X] Volume slider.
-- [X] Show currently playing album/playlist on user library.
-- [X] Currently playing track tab title.
-- [X] Play button for playlist component.
+- [x] Filtering to user library (tags).
+- [x] Seek to track position functionality.
+- [x] Volume slider.
+- [x] Show currently playing album/playlist on user library.
+- [x] Currently playing track tab title.
+- [x] Play button for playlist component.
 - [ ] Play button for playlist page.
 - [ ] Sort by options to user library.
 - [ ] Filtering options for search page.

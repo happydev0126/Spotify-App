@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -15,7 +14,6 @@
   /* .scrollbar-shown::-webkit-scrollbar { */
   /*   width: 55px; */
   /* } */
-
 }
 
 ::-webkit-scrollbar {
@@ -58,7 +56,7 @@ select {
 }
 
 p {
-  text-wrap: pretty
+  text-wrap: pretty;
 }
 
 h1,
@@ -72,7 +70,6 @@ h6 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -99,10 +96,14 @@ h6 {
 }
 
 body {
-  font: CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva;
+  font: CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl,
+    CircularSp-Grek, CircularSp-Deva;
   font-family: Roboto, sans-serif;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
+  background: linear-gradient(
+      to bottom,
       transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
