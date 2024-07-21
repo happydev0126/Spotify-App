@@ -94,7 +94,7 @@ export default function Player({ token }: { token: string }) {
     setPlaybackPosition(trackPositionInMs, token);
   };
 
-  const handleFullScreen = (e: MouseEvent<HTMLDivElement>) => {
+  const handleFullScreen = () => {
     if (current_track === undefined) return;
     if (!isMobile) return;
     setFullScreen(true);
