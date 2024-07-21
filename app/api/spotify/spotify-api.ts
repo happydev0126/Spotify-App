@@ -293,7 +293,6 @@ export async function search(
   query: string,
   type?: SearchType[],
   limit?: number,
-  offset?: number,
 ): Promise<Search> {
   if (type === undefined) {
     type = ["playlist", "track", "album", "artist"];
