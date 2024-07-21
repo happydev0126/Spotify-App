@@ -9,6 +9,7 @@ import { convertMsToTimestamp } from "../../lib/utils/convertMsToTimestamp";
 import { isoDateToMonthDayYear } from "../../lib/utils/isoDateToMonthDayYear";
 import HandleTrack from "./HandleTrack";
 import isCurrentlyPlaying from "@/app/lib/utils/isCurrentlyPlaying";
+import Image from "next/image";
 
 interface TrackProps {
   item: Track;
@@ -103,8 +104,10 @@ export default function Track({
             className="text-xs min-w-12 min-h-12 flex items-center justify-center rounded bg-zinc-800"
           >
             {item.album.images.length > 0 ? (
-              <img
+              <Image
                 src={item.album?.images[item.album?.images.length - 1].url}
+                width={48}
+                height={48}
                 className="rounded w-12"
                 alt={item.album?.name}
               />

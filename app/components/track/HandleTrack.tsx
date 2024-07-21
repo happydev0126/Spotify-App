@@ -4,6 +4,7 @@ import type { Track } from "../../types/spotify";
 import PlayTrackButton from "./PlayTrackButton";
 import PauseTrackButton from "./PauseTrackButton";
 import isCurrentlyPlaying from "@/app/lib/utils/isCurrentlyPlaying";
+import Image from "next/image";
 
 export default function HandleTrack({
   token,
@@ -45,7 +46,14 @@ export default function HandleTrack({
         />
       )}
       {showPause && <PauseTrackButton token={token} />}
-      {showPlaying && <img src="/icons/track/playing.svg" alt="Playing" />}
+      {showPlaying && (
+        <Image
+          width={24}
+          height={24}
+          src="/icons/track/playing.svg"
+          alt="Playing"
+        />
+      )}
       {showActive && <span className="text-green">{index + 1}</span>}
       {showNumber && <span>{index + 1}</span>}
     </>

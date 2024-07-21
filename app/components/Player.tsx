@@ -17,6 +17,7 @@ import {
   skipToNext,
   skipToPrev,
 } from "../api/spotify/spotify-api";
+import Image from "next/image";
 
 export default function Player({ token }: { token: string }) {
   const { player, is_paused, current_track, position } =
@@ -123,12 +124,14 @@ export default function Player({ token }: { token: string }) {
         <div className="flex gap-2 items-center md:w-[30%]">
           {current_track && (
             <>
-              <img
+              <Image
                 src={
                   current_track.album.images[
                     current_track.album.images.length - 1
                   ].url
                 }
+                width={48}
+                height={48}
                 className="now-playing__cover size-12 rounded"
                 alt={current_track.album.name}
               />
@@ -179,7 +182,12 @@ export default function Player({ token }: { token: string }) {
                   e.stopPropagation();
                 }}
               >
-                <img src="/icons/track/playBlack.svg" alt="Play" />
+                <Image
+                  width={48}
+                  height={48}
+                  src="/icons/track/playBlack.svg"
+                  alt="Play"
+                />
               </button>
             ) : (
               <button
@@ -189,7 +197,12 @@ export default function Player({ token }: { token: string }) {
                   e.stopPropagation();
                 }}
               >
-                <img src="/icons/track/pauseBlack.svg" alt="Pause" />
+                <Image
+                  width={32}
+                  height={32}
+                  src="/icons/track/pauseBlack.svg"
+                  alt="Pause"
+                />
               </button>
             )}
             <button
@@ -314,8 +327,10 @@ export default function Player({ token }: { token: string }) {
         <div className="flex flex-col gap-2 items-center justify-center w-full ">
           {current_track && (
             <>
-              <img
+              <Image
                 src={current_track.album.images[0].url}
+                width={500}
+                height={500}
                 className="size-full rounded"
                 alt={current_track.album.name}
               />
@@ -388,7 +403,12 @@ export default function Player({ token }: { token: string }) {
                   resumePlayback(token, deviceId);
                 }}
               >
-                <img src="/icons/track/playBlack.svg" alt="Play" />
+                <Image
+                  width={48}
+                  height={48}
+                  src="/icons/track/playBlack.svg"
+                  alt="Play"
+                />
               </button>
             ) : (
               <button
@@ -397,7 +417,12 @@ export default function Player({ token }: { token: string }) {
                   pausePlayback(token, deviceId);
                 }}
               >
-                <img src="/icons/track/pauseBlack.svg" alt="Pause" />
+                <Image
+                  width={48}
+                  height={48}
+                  src="/icons/track/pauseBlack.svg"
+                  alt="Pause"
+                />
               </button>
             )}
             <button

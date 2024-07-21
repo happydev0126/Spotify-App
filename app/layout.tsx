@@ -16,6 +16,8 @@ import {
 } from "./api/spotify/spotify-api";
 import Navigation from "./components/Navigation";
 import { getToken } from "./api/clerk/getToken";
+import Image from "next/image";
+import { ReactNode } from "react";
 
 export async function generateMetadata() {
   const { item } = await getCurrentlyPlayingTrack();
@@ -33,7 +35,7 @@ export async function generateMetadata() {
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const token = await getToken();
   const user = await getCurrentUser();
@@ -61,9 +63,10 @@ export default async function RootLayout({
                     <Card className="w-full h-full pb-20 md:pb-0">
                       <header className="flex justify-between">
                         <Navigation />
-                        <img
+                        <Image
                           src="/logos/01_RGB/02_PNG/Spotify_Logo_RGB_White.png"
-                          className="w-24"
+                          width={96}
+                          height={96}
                           alt="Spotify_Logo_RGB_White"
                         />
                         <UserButton />

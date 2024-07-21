@@ -1,6 +1,7 @@
 import { MouseEvent, useContext } from "react";
 import { DeviceContext, PlayerContext } from "../../context/appContext";
 import { resumePlayback } from "../../api/spotify/spotify-api";
+import Image from "next/image";
 
 type Variant = "green";
 
@@ -53,9 +54,15 @@ export default function PlayTrackButton({
       onClick={(e) => handlePlayTrack(e)}
     >
       {variant === "green" ? (
-        <img className="w-8" src="/icons/track/playBlack.svg" alt="Play" />
+        <Image
+          className="w-8"
+          width={32}
+          height={32}
+          src="/icons/track/playBlack.svg"
+          alt="Play"
+        />
       ) : (
-        <img src="/icons/track/play.svg" alt="Pause" />
+        <Image width={32} height={32} src="/icons/track/play.svg" alt="Pause" />
       )}
     </button>
   );

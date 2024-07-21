@@ -1,10 +1,11 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Album, CurrentUserPlaylist } from "../types/spotify";
 import { useRouter } from "next/navigation";
 import { PlayerContext } from "../context/appContext";
 import TagButton from "./ui/TagButton";
 import isCurrentlyPlaying from "../lib/utils/isCurrentlyPlaying";
+import Image from "next/image";
 
 export default function UserLibrary({
   library,
@@ -22,7 +23,7 @@ export default function UserLibrary({
     setUserLibrary(library);
   }, [library]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSearchInput(e.target.value.toLowerCase());
   };
@@ -94,11 +95,13 @@ export default function UserLibrary({
         >
           <div className="flex justify-between items-center overflow-hidden">
             <div className="w-full flex flex-row items-center gap-3 overflow-hidden">
-              <img
+              <Image
                 src={playlist.images[playlist.images.length - 1].url}
                 alt="Image"
+                width={48}
+                height={48}
                 className="max-w-12 rounded"
-              ></img>
+              />
               <div className="flex overflow-hidden">
                 <div className="flex flex-col overflow-hidden">
                   <div

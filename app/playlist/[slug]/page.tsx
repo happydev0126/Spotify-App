@@ -5,6 +5,7 @@ import {
   getUser,
 } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track/Track";
+import Image from "next/image";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const currentUser = await getCurrentUser();
@@ -15,10 +16,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
       <div className="flex flex-col items-center md:flex-row md:items-end w-full gap-4">
-        <img
-          className="shadow xs:order-2 max-w-56 rounded"
+        <Image
+          className="shadow xs:order-2 rounded"
+          width={224}
+          height={224}
           src={playlist.images[0].url}
           alt={playlist.name}
+          priority={true}
         />
         <div className="flex flex-col xs:order-1 gap-4">
           <span className="capitalize xs:order-2">{playlist.type}</span>
@@ -30,7 +34,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </span>
           <div className="flex flex-row gap-2">
             {owner?.images[0] && (
-              <img
+              <Image
+                width={24}
+                height={24}
                 src={owner?.images[0].url}
                 alt={playlist.owner.display_name}
                 className="max-w-6 rounded-2xl"

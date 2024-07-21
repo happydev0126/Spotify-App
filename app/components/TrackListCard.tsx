@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { PlayerContext } from "../context/appContext";
 import isCurrentlyPlaying from "../lib/utils/isCurrentlyPlaying";
 import PauseTrackButton from "./track/PauseTrackButton";
+import Image from "next/image";
 
 type MusicSource = Album | Artist | Playlist;
 export default function TrackListCard({
@@ -35,9 +36,11 @@ export default function TrackListCard({
         className="group flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10"
       >
         <div className="relative">
-          <img
+          <Image
             src={listItem.images[0]?.url}
             className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded"
+            width={156}
+            height={156}
             alt={listItem.name}
           />
           {itemSource !== "artist" && (

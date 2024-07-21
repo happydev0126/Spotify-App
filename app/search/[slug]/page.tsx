@@ -3,6 +3,7 @@ import { search } from "@/app/api/spotify/spotify-api";
 import TrackList from "@/app/components/TrackSourceCard";
 import Track from "@/app/components/track/Track";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const searchQuery = await search(params.slug, undefined, 4);
@@ -22,8 +23,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
               href={`/artist/${searchQuery.artists.items[0].id}`}
               className="flex flex-col gap-4 bg-zinc-800/50 rounded p-4 h-full items-stretch justify-around"
             >
-              <img
-                className="rounded-full w-28 h-28"
+              <Image
+                className="rounded-full"
+                width={112}
+                height={112}
                 src={searchQuery.artists.items[0].images[0].url}
                 alt={searchQuery.artists.items[0].name}
               />

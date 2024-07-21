@@ -1,6 +1,7 @@
 import { getToken } from "@/app/api/clerk/getToken";
 import { getAlbum, getCurrentUser } from "@/app/api/spotify/spotify-api";
 import Track from "@/app/components/track/Track";
+import Image from "next/image";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const currentUser = await getCurrentUser();
@@ -15,8 +16,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
       <div className="flex flex-col items-center md:flex-row md:items-end w-full gap-4">
         {album.images.length > 0 ? (
-          <img
-            className="shadow xs:order-2 w-56 h-56 rounded"
+          <Image
+            className="shadow xs:order-2 rounded"
+            width={224}
+            height={224}
             src={album.images[0].url}
             alt={album.name}
           />
