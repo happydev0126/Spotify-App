@@ -2,7 +2,7 @@ import { setupClerkTestingToken } from "@clerk/testing/playwright";
 import { test, expect } from "@playwright/test";
 
 test.describe("app", () => {
-  test("sign in and search by filling input and hit enter", async ({
+  test("E2E: sign in and search by filling input and hit enter", async ({
     page,
   }) => {
     await setupClerkTestingToken({ page });
@@ -14,15 +14,17 @@ test.describe("app", () => {
     });
     await page
       .locator("text=Sign in with Clerk")
-      .screenshot({ path: "Clerk.png" });
+      .screenshot({ path: "./test-screenshots/Clerk.png" });
     await page.click("text=Sign in with Clerk");
     await page.waitForSelector(".cl-socialButtonsBlockButton", {
       state: "attached",
     });
-    await page.screenshot({ path: "Continue with spotify.png" });
+    await page.screenshot({
+      path: "./test-screenshots/Continue with spotify.png",
+    });
     await page.click("text=Continue with Spotify");
     await page.waitForSelector("data-testid=login-button");
-    await page.screenshot({ path: "log-in.png" });
+    await page.screenshot({ path: "./test-screenshots/log-in.png" });
     await page
       .locator("data-testid=login-username")
       .fill(process.env.E2E_CLERK_USER_USERNAME!);
@@ -34,7 +36,7 @@ test.describe("app", () => {
     await page.click("data-testid=login-button");
     await page.waitForURL("http://localhost:3000");
     await page.waitForSelector("text=Recently played tracks");
-    await page.screenshot({ path: "home.png" });
+    await page.screenshot({ path: "./test-screenshots/home.png" });
 
     await page.click("text=Search");
     await page.waitForURL("/search");
@@ -48,6 +50,6 @@ test.describe("app", () => {
     await page.waitForURL("/search/radiohead");
     const inRainbowsAlbum = page.getByText("In Rainbows");
     await expect(inRainbowsAlbum).toBeVisible();
-    await page.screenshot({ path: "search.png" });
+    await page.screenshot({ path: "./test-screenshots/search.png" });
   });
 });
