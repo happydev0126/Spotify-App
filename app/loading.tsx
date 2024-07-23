@@ -4,6 +4,7 @@ export default function Loading() {
     <div
       role="status"
       className="w-full h-full flex items-center justify-center"
+      data-testid="loadingSpinner"
     >
       <svg
         aria-hidden="true"
