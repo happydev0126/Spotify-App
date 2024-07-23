@@ -76,7 +76,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <Track
             variant={"all"}
             token={token}
-            key={item.track.id}
+            key={item.track.id + item.track.album.id}
             item={item.track}
             added_at={item.added_at}
             index={index}
