@@ -42,7 +42,7 @@ export const BottomScreenPlayer = ({
   return (
     <div
       onClick={handleFullScreen}
-      className={`flex h-16 w-full items-center justify-between col-span-full fixed bottom-0 left-0 bg-background p-2`}
+      className={`flex h-16 w-full items-center justify-between col-span-full fixed md:static bottom-0 left-0 bg-background p-2`}
     >
       <div className="flex gap-2 items-center md:w-[30%]">
         {current_track && (
