@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const uris = searchQuery.tracks?.items.map((item) => item.uri);
 
   return (
-    <>
+    <div className="flex flex-col gap-4 pb-16">
       <div className="flex flex-col gap-4 lg:flex-row">
         <div className="flex flex-col gap-4 min-w-[40%]">
           <h3 className="text-2xl font-bold">Top Result</h3>
@@ -59,12 +59,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
       </div>
 
-      <h3 className="text-2xl font-bold">Albums</h3>
-      {searchQuery.albums && <TrackList list={searchQuery.albums.items} />}
+      <section>
+        <h3 className="text-2xl font-bold">Albums</h3>
+        {searchQuery.albums && <TrackList list={searchQuery.albums.items} />}
+      </section>
 
-      <h3 className="text-2xl font-bold">Artists</h3>
-
-      {searchQuery.artists && <TrackList list={searchQuery.artists.items} />}
-    </>
+      <section>
+        <h3 className="text-2xl font-bold">Artists</h3>
+        {searchQuery.artists && <TrackList list={searchQuery.artists.items} />}
+      </section>
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+"use server";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
 export const getToken = async () => {

@@ -20,11 +20,12 @@ import Image from "next/image";
 import { ReactNode } from "react";
 
 export async function generateMetadata() {
-  const { item } = await getCurrentlyPlayingTrack();
+  const data = await getCurrentlyPlayingTrack();
+  const currentlyPlayingTrack = data.item;
   let title = null;
 
-  if (item) {
-    title = `${item.name} • ${item.artists[0].name}`;
+  if (currentlyPlayingTrack) {
+    title = `${currentlyPlayingTrack.name} • ${currentlyPlayingTrack.artists[0].name}`;
   }
   return {
     title: title ? title : "Sclonetify by Jodarini",
@@ -60,7 +61,7 @@ export default async function RootLayout({
                 <Providers token={token} user={user}>
                   <div className="relative md:grid md:h-screen w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 md:overflow-hidden bg-background p-2">
                     <Dashboard />
-                    <Card className="w-full h-full pb-20 md:pb-0">
+                    <Card className="h-full pb-20 md:pb-0">
                       <header className="flex justify-between">
                         <Navigation />
                         <Image
