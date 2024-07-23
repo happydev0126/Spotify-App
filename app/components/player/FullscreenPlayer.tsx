@@ -18,6 +18,7 @@ import React, {
 
 export const FullscreenPlayer = ({
   fullScreen,
+  getId,
   setFullScreen,
   handleFullScreen,
   trackPositionInMs,
@@ -26,6 +27,7 @@ export const FullscreenPlayer = ({
   token,
 }: {
   handleFullScreen: () => void;
+  getId: (string: string) => string;
   setFullScreen: Dispatch<SetStateAction<boolean>>;
   token: string;
   isMobile: boolean;
@@ -45,11 +47,6 @@ export const FullscreenPlayer = ({
   const handleSetFullScreen = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setFullScreen(false);
-  };
-
-  const getId = (string: string) => {
-    const id = string.split(":");
-    return id[id.length - 1];
   };
 
   const fullScreenPlayer = fullScreen
@@ -127,8 +124,7 @@ export const FullscreenPlayer = ({
               )}
             </div>
           </div>
-          <div className="w-full flex gap-16 justify-between mb-16">
-            <div></div>
+          <div className="w-full flex gap-16 justify-center mb-16">
             <button
               className="w-12"
               onClick={() => {
@@ -184,7 +180,6 @@ export const FullscreenPlayer = ({
                 alt="Next track"
               />
             </button>
-            <div></div>
           </div>
         </div>
       </div>

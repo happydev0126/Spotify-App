@@ -85,14 +85,21 @@ export default function Player({ token }: { token: string }) {
     setTrackPositionInMs(+e.currentTarget.value);
   };
 
+  const getId = (string: string) => {
+    const id = string.split(":");
+    return id[id.length - 1];
+  };
+
   if (!fullScreen)
     return (
       <BottomScreenPlayer
+        getId={getId}
         handleMouseUp={handleMouseUp}
         handleMute={handleMute}
         handleVolume={handleVolume}
         fullScreen={fullScreen}
         trackPositionInMs={trackPositionInMs}
+        handleTrackPosition={handleTrackPosition}
         isMobile={isMobile}
         handleFullScreen={handleFullScreen}
         volume={volume}
@@ -103,6 +110,7 @@ export default function Player({ token }: { token: string }) {
 
   return (
     <FullscreenPlayer
+      getId={getId}
       setFullScreen={setFullScreen}
       handleFullScreen={handleFullScreen}
       fullScreen={fullScreen}

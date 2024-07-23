@@ -12,9 +12,11 @@ import { ChangeEvent, useContext } from "react";
 
 export const BottomScreenPlayer = ({
   handleFullScreen,
+  getId,
   token,
   isMobile,
   trackPositionInMs,
+  handleTrackPosition,
   handleVolume,
   handleMute,
   handleMouseUp,
@@ -22,9 +24,11 @@ export const BottomScreenPlayer = ({
   isMuted,
 }: {
   handleFullScreen: () => void;
+  getId: (string: string) => string;
   token: string;
   isMobile: boolean;
   trackPositionInMs: number;
+  handleTrackPosition: (e: ChangeEvent<HTMLInputElement>) => void;
   fullScreen: boolean;
   handleVolume: (e: ChangeEvent<HTMLInputElement>) => void;
   handleMute: () => void;
@@ -34,11 +38,6 @@ export const BottomScreenPlayer = ({
 }) => {
   const { deviceId } = useContext(DeviceContext);
   const { player, is_paused, current_track } = useContext(PlayerContext);
-
-  const getId = (string: string) => {
-    const id = string.split(":");
-    return id[id.length - 1];
-  };
 
   return (
     <div
