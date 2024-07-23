@@ -9,19 +9,14 @@ import { getToken } from "./api/clerk/getToken";
 import TrackList from "./components/TrackSourceCard";
 
 export default async function Page() {
-  const recentlyPlayed = await getRecentlyPlayed(6).then((data) => data.items);
-  const usersTopArtists = await getUsersTopItems("artists", 6).then(
-    (data) => data.items,
-  );
-  const featuredPlaylist = await getFeaturedPlaylists(6).then(
-    (data) => data.playlists,
-  );
+  const { items: recentlyPlayed } = await getRecentlyPlayed(6);
+  const { items: usersTopArtists } = await getUsersTopItems("artists", 6);
+  const { playlists: featuredPlaylists } = await getFeaturedPlaylists(6);
   const token = await getToken();
-  let uris = [""];
 
   const removeDuplicates = (items: Item[]) => {
     const seenItems = new Set();
-    const itemsNoDup = items.filter((item) => {
+    const itemsWithoutDuplicates = items.filter((item) => {
       const value = item.track.id;
       if (seenItems.has(value)) {
         return false;
@@ -29,9 +24,11 @@ export default async function Page() {
       seenItems.add(value);
       return true;
     });
-    uris = itemsNoDup.map((item) => item.track.uri);
-    return itemsNoDup;
+    return itemsWithoutDuplicates;
   };
+
+  let recentTracks = removeDuplicates(recentlyPlayed);
+  let recentTracksUris = recentTracks.map(({ track }) => track.uri);
 
   return (
     <div className="overflow-y-scroll overflow-x-hidden gap-8 flex flex-col">
@@ -44,7 +41,7 @@ export default async function Page() {
               key={item.track.id}
               item={item.track}
               index={index}
-              uris={uris}
+              uris={recentTracksUris}
               variant="trackOnly"
             />
           ))}
@@ -62,7 +59,7 @@ export default async function Page() {
       </section>
       <section className="flex flex-col gap-4">
         <h3 className="text-2xl font-bold">Featured playlists</h3>
-        <TrackList list={featuredPlaylist.items} />
+        <TrackList list={featuredPlaylists.items} />
       </section>
     </div>
   );
