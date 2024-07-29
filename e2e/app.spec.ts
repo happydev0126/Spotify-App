@@ -42,7 +42,7 @@ test.describe("app", () => {
     await page.waitForURL("/search");
     await page.waitForSelector("data-testid=loadingSpinner", {
       state: "hidden",
-    }); // Replace '.spinner-selector' with the actual selector for the spinner
+    });
     const searchInput = page.getByPlaceholder("What do you want to play?");
     await searchInput.waitFor({ state: "attached" });
     await searchInput.fill("radiohead");
