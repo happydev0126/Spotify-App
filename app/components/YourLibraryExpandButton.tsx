@@ -16,7 +16,7 @@ export default function YourLibraryExpandButton({
 
   return (
     <Card
-      className={`flex h-screen-minus-5rem md:h-full flex-col overflow-y-scroll ${!isExpanded ? "h-fit" : ""}`}
+      className={`flex h-screen-minus-5rem flex-col overflow-y-scroll md:h-full ${!isExpanded ? "h-fit" : ""}`}
     >
       <div className="flex items-center gap-2 text-gray-400">
         <svg

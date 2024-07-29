@@ -18,7 +18,7 @@ export default async function Dashboard() {
   });
 
   return (
-    <div className="flex flex-col gap-2 w-full md:h-full mb-2 md:mb-0">
+    <div className="mb-2 flex w-full flex-col gap-2 md:mb-0 md:h-full">
       <Card className="overflow-clip ">
         <Link href="/">
           <div className="flex items-center gap-2 text-gray-400">

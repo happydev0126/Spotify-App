@@ -18,20 +18,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const uris = topTracks.map((track) => track.uri);
 
   return (
-    <div className="overflow-y-scroll overflow-x-hidden gap-6 flex flex-col">
+    <div className="flex flex-col gap-6 overflow-x-hidden overflow-y-scroll">
       {artist && (
-        <div className="flex flex-col items-center md:flex-row md:items-end w-full gap-4">
+        <div className="flex w-full flex-col items-center gap-4 md:flex-row md:items-end">
           <Image
-            className="shadow xs:order-2 max-w-56 rounded"
+            className="xs:order-2 max-w-56 rounded shadow"
             width={224}
             height={224}
             src={artist.images[0].url}
             alt={artist.name}
             priority={false}
           />
-          <div className="flex flex-col xs:order-1 gap-4">
-            <span className="capitalize xs:order-2">{artist.type}</span>
-            <h2 className="sm:text:sm md:text-xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold xs:order-1">
+          <div className="xs:order-1 flex flex-col gap-4">
+            <span className="xs:order-2 capitalize">{artist.type}</span>
+            <h2 className="sm:text:sm xs:order-1 font-bold md:text-xl lg:text-4xl xl:text-5xl 2xl:text-6xl">
               {artist.name}
             </h2>
           </div>
@@ -39,8 +39,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
       )}
 
       {topTracks && (
-        <div className="flex flex-col w-full text-sm text-zinc-400">
-          <h3 className="text-4xl text-white font-bold">Popular</h3>
+        <div className="flex w-full flex-col text-sm text-zinc-400">
+          <h3 className="text-4xl font-bold text-white">Popular</h3>
           {topTracks.map((track, index: number) => (
             <Track
               variant="trackOnly"

@@ -54,7 +54,7 @@ export const FullscreenPlayer = ({
     : `flex h-16 w-full items-center justify-between `;
 
   return (
-    <div onClick={handleFullScreen} className="w-full col-span-full">
+    <div onClick={handleFullScreen} className="col-span-full w-full">
       <div className={fullScreenPlayer}>
         {fullScreen && (
           <button onClick={(e) => handleSetFullScreen(e)} className="mr-auto">
@@ -75,7 +75,7 @@ export const FullscreenPlayer = ({
             </svg>
           </button>
         )}
-        <div className="flex flex-col gap-2 items-center justify-center w-full ">
+        <div className="flex w-full flex-col items-center justify-center gap-2 ">
           {current_track && (
             <>
               <Image
@@ -87,7 +87,7 @@ export const FullscreenPlayer = ({
               />
               <div className="w-full text-left">
                 <Link
-                  className="w-fit block"
+                  className="block w-fit"
                   href={`../artist/${getId(current_track.artists[0].uri)}`}
                 >
                   <div className="">{current_track.name}</div>
@@ -100,7 +100,7 @@ export const FullscreenPlayer = ({
             </>
           )}
         </div>
-        <div className="flex flex-col gap-6 w-full justify-center items-center overflow-hidden">
+        <div className="flex w-full flex-col items-center justify-center gap-6 overflow-hidden">
           <div className="w-full">
             <div className="flex flex-row items-center gap-1 text-sm text-zinc-400">
               <span>
@@ -117,14 +117,14 @@ export const FullscreenPlayer = ({
                 max={current_track?.duration_ms}
                 step={1000}
                 value={trackPositionInMs}
-                className="w-full h-1.5 accent-green cursor-pointer "
+                className="h-1.5 w-full cursor-pointer accent-green "
               />
               {current_track && (
                 <span>{convertMsToTimestamp(current_track?.duration_ms)}</span>
               )}
             </div>
           </div>
-          <div className="w-full flex gap-16 justify-center mb-16">
+          <div className="mb-16 flex w-full justify-center gap-16">
             <button
               className="w-12"
               onClick={() => {
@@ -140,7 +140,7 @@ export const FullscreenPlayer = ({
             </button>
             {is_paused ? (
               <button
-                className="bg-white rounded-full text-black w-12 flex justify-center items-center"
+                className="flex w-12 items-center justify-center rounded-full bg-white text-black"
                 onClick={() => {
                   resumePlayback(token, deviceId);
                 }}
@@ -154,7 +154,7 @@ export const FullscreenPlayer = ({
               </button>
             ) : (
               <button
-                className="bg-white rounded-full text-black w-12 flex justify-center items-center"
+                className="flex w-12 items-center justify-center rounded-full bg-white text-black"
                 onClick={() => {
                   pausePlayback(token, deviceId);
                 }}

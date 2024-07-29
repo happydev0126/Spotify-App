@@ -42,9 +42,9 @@ export const BottomScreenPlayer = ({
   return (
     <div
       onClick={handleFullScreen}
-      className={`flex h-16 w-full items-center justify-between col-span-full fixed md:static bottom-0 left-0 bg-background p-2`}
+      className={`fixed bottom-0 left-0 col-span-full flex h-16 w-full items-center justify-between bg-background p-2 md:static`}
     >
-      <div className="flex gap-2 items-center md:w-[30%]">
+      <div className="flex items-center gap-2 md:w-[30%]">
         {current_track && (
           <>
             <Image
@@ -70,7 +70,7 @@ export const BottomScreenPlayer = ({
           </>
         )}
       </div>
-      <div className="flex flex-col gap-1 md:w-[40%] justify-center items-center">
+      <div className="flex flex-col items-center justify-center gap-1 md:w-[40%]">
         <div className="flex items-center justify-center gap-4">
           <button
             className=""
@@ -97,7 +97,7 @@ export const BottomScreenPlayer = ({
           </button>
           {is_paused ? (
             <button
-              className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black"
               onClick={(e) => {
                 resumePlayback(token, deviceId);
                 e.stopPropagation();
@@ -112,7 +112,7 @@ export const BottomScreenPlayer = ({
             </button>
           ) : (
             <button
-              className="bg-white rounded-full text-black w-8 h-8 flex justify-center items-center"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black"
               onClick={(e) => {
                 pausePlayback(token, deviceId);
                 e.stopPropagation();
@@ -167,7 +167,7 @@ export const BottomScreenPlayer = ({
                 max={current_track?.duration_ms}
                 step={1000}
                 value={trackPositionInMs}
-                className="w-full h-1.5 accent-green cursor-pointer "
+                className="h-1.5 w-full cursor-pointer accent-green "
               />
               {current_track && (
                 <span>{convertMsToTimestamp(current_track?.duration_ms)}</span>
@@ -177,7 +177,7 @@ export const BottomScreenPlayer = ({
         )}
       </div>
       {player && !isMobile && (
-        <div className="w-[30%] flex justify-end items-center gap-3">
+        <div className="flex w-[30%] items-center justify-end gap-3">
           <>
             <button onClick={handleMute}>
               {isMuted || volume == 0 ? (
@@ -187,7 +187,7 @@ export const BottomScreenPlayer = ({
                   aria-label="Volume off"
                   aria-hidden="true"
                   viewBox="0 0 16 16"
-                  className="inline text-gray-50/10 fill-gray-50/50 w-5"
+                  className="inline w-5 fill-gray-50/50 text-gray-50/10"
                 >
                   <path d="M13.86 5.47a.75.75 0 0 0-1.061 0l-1.47 1.47-1.47-1.47A.75.75 0 0 0 8.8 6.53L10.269 8l-1.47 1.47a.75.75 0 1 0 1.06 1.06l1.47-1.47 1.47 1.47a.75.75 0 0 0 1.06-1.06L12.39 8l1.47-1.47a.75.75 0 0 0 0-1.06z"></path>
                   <path d="M10.116 1.5A.75.75 0 0 0 8.991.85l-6.925 4a3.642 3.642 0 0 0-1.33 4.967 3.639 3.639 0 0 0 1.33 1.332l6.925 4a.75.75 0 0 0 1.125-.649v-1.906a4.73 4.73 0 0 1-1.5-.694v1.3L2.817 9.852a2.141 2.141 0 0 1-.781-2.92c.187-.324.456-.594.78-.782l5.8-3.35v1.3c.45-.313.956-.55 1.5-.694V1.5z"></path>
@@ -198,7 +198,7 @@ export const BottomScreenPlayer = ({
                   role="presentation"
                   aria-hidden="true"
                   viewBox="0 0 16 16"
-                  className="inline text-gray-50/10 fill-gray-50/50 w-5"
+                  className="inline w-5 fill-gray-50/50 text-gray-50/10"
                 >
                   <path d="M9.741.85a.75.75 0 0 1 .375.65v13a.75.75 0 0 1-1.125.65l-6.925-4a3.642 3.642 0 0 1-1.33-4.967 3.639 3.639 0 0 1 1.33-1.332l6.925-4a.75.75 0 0 1 .75 0zm-6.924 5.3a2.139 2.139 0 0 0 0 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 6.087a4.502 4.502 0 0 0 0-8.474v1.65a2.999 2.999 0 0 1 0 5.175v1.649z"></path>
                 </svg>
@@ -212,7 +212,7 @@ export const BottomScreenPlayer = ({
               max={100}
               step={1}
               value={volume}
-              className="w-36 h-1.5  accent-green cursor-pointer "
+              className="h-1.5 w-36  cursor-pointer accent-green "
             />
           </>
         </div>

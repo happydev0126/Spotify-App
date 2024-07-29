@@ -6,7 +6,7 @@ export default function NotFound() {
       <h2>Could not find requested resource</h2>
       <Link
         href="/"
-        className="bg-green/80 px-4 py-2 rounded-full hover:bg-green w-max"
+        className="w-max rounded-full bg-green/80 px-4 py-2 hover:bg-green"
       >
         Return Home
       </Link>

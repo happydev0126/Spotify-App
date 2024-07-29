@@ -78,12 +78,12 @@ export default function Track({
     <div
       role="button"
       key={item.id}
-      className={`text-zinc-400 ${notAvailableOnUsersCountry && "opacity-50"} grid ${compVariant()} max-w-full min-h-14 text-sm overflow-hidden gap-x-3 items-center text-left select-none hover:bg-gray-50/10 py-1 px-2 rounded max-h-16 hover:cursor-default`}
+      className={`text-zinc-400 ${notAvailableOnUsersCountry && "opacity-50"} grid ${compVariant()} max-h-16 min-h-14 max-w-full select-none items-center gap-x-3 overflow-hidden rounded px-2 py-1 text-left text-sm hover:cursor-default hover:bg-gray-50/10`}
       onDoubleClick={handlePlayTrack}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <div className="flex align-center justify-center w-full min-w-6 text-sm">
+      <div className="align-center flex w-full min-w-6 justify-center text-sm">
         {notAvailableOnUsersCountry ? (
           <span>{index + 1}</span>
         ) : (
@@ -101,14 +101,14 @@ export default function Track({
         {notOnAlbum && (
           <Link
             href={`/album/${item.album?.id}`}
-            className="text-xs min-w-12 min-h-12 flex items-center justify-center rounded bg-zinc-800"
+            className="flex min-h-12 min-w-12 items-center justify-center rounded bg-zinc-800 text-xs"
           >
             {item.album.images.length > 0 ? (
               <Image
                 src={item.album?.images[item.album?.images.length - 1].url}
                 width={48}
                 height={48}
-                className="rounded w-12"
+                className="w-12 rounded"
                 alt={item.album?.name}
               />
             ) : (
@@ -128,19 +128,19 @@ export default function Track({
         <div className="overflow-hidden">
           {/* TRACK NAME */}
           <span
-            className={`${isCurrentlyPlaying(current_track?.uri, item.uri) ? " text-green " : " text-white "}block whitespace-nowrap text-ellipsis overflow-hidden text-md font-bold`}
+            className={`${isCurrentlyPlaying(current_track?.uri, item.uri) ? " text-green " : " text-white "}text-md block overflow-hidden text-ellipsis whitespace-nowrap font-bold`}
           >
             {item.name}
           </span>
-          <div className="text-xs whitespace-nowrap text-ellipsis overflow-hidden">
+          <div className="overflow-hidden text-ellipsis whitespace-nowrap text-xs">
             {notOnArtist &&
               item.artists.map((artist, index) => (
                 <div
                   key={artist.id}
-                  className="text-xs whitespace-nowrap text-ellipsis overflow-hidden inline"
+                  className="inline overflow-hidden text-ellipsis whitespace-nowrap text-xs"
                 >
                   <Link
-                    className="text-xs whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white inline"
+                    className="inline overflow-hidden text-ellipsis whitespace-nowrap text-xs hover:text-white hover:underline"
                     href={`/artist/${artist.id}`}
                   >
                     {artist.name}
@@ -156,7 +156,7 @@ export default function Track({
       {!(variant === "trackOnly") && (
         <>
           <Link href={`/album/${item.album?.id}`} className="text-xs">
-            <div className="text-zinc-400 whitespace-nowrap text-ellipsis overflow-hidden hover:underline hover:text-white">
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap text-zinc-400 hover:text-white hover:underline">
               {item.album?.name}
             </div>
           </Link>

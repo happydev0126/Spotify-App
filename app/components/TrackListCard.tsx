@@ -33,12 +33,12 @@ export default function TrackListCard({
       <Link
         href={`/${itemSource}/${listItem.id}`}
         key={listItem.id}
-        className="group flex flex-col items-start gap-2 p-2 rounded hover:bg-gray-50/10"
+        className="group flex flex-col items-start gap-2 rounded p-2 hover:bg-gray-50/10"
       >
         <div className="relative">
           <Image
             src={listItem.images[0]?.url}
-            className="min-w-[11rem] max-w-[11rem] ratio aspect-square rounded"
+            className="ratio aspect-square min-w-[11rem] max-w-[11rem] rounded"
             width={156}
             height={156}
             alt={listItem.name}
@@ -64,7 +64,7 @@ export default function TrackListCard({
           )}
         </div>
         <div className="flex flex-col">
-          <p className="w-full font-bold text-sm">{listItem.name}</p>
+          <p className="w-full text-sm font-bold">{listItem.name}</p>
           <p className="w-full text-sm text-zinc-400">{listItem.type}</p>
         </div>
       </Link>

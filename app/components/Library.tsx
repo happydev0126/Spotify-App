@@ -60,7 +60,7 @@ export default function UserLibrary({
 
   return (
     <div className="flex flex-col ">
-      <div className="flex gap-2 mb-3">
+      <div className="mb-3 flex gap-2">
         {filterLibraryType !== "all" && (
           <TagButton title="X" onClick={() => handleFilterTag("all")} />
         )}
@@ -81,7 +81,7 @@ export default function UserLibrary({
       </div>
       <form>
         <input
-          className="bg-stone-500/20 rounded mb-2 w-full px-2 placeholder-gray-300 text-sm p-1"
+          className="mb-2 w-full rounded bg-stone-500/20 p-1 px-2 text-sm placeholder-gray-300"
           placeholder="Search in your library"
           onChange={(e) => handleSearch(e)}
           type="text"
@@ -91,10 +91,10 @@ export default function UserLibrary({
         <div
           key={playlist.id}
           onClick={(e) => handleClick(e, playlist.type, playlist.id)}
-          className="p-2 rounded hover:bg-gradient-to-r hover:cursor-pointer from-white/0 to-white/5"
+          className="rounded from-white/0 to-white/5 p-2 hover:cursor-pointer hover:bg-gradient-to-r"
         >
-          <div className="flex justify-between items-center overflow-hidden">
-            <div className="w-full flex flex-row items-center gap-3 overflow-hidden">
+          <div className="flex items-center justify-between overflow-hidden">
+            <div className="flex w-full flex-row items-center gap-3 overflow-hidden">
               <Image
                 src={playlist.images[playlist.images.length - 1].url}
                 alt="Image"
@@ -105,11 +105,11 @@ export default function UserLibrary({
               <div className="flex overflow-hidden">
                 <div className="flex flex-col overflow-hidden">
                   <div
-                    className={`${isCurrentlyPlaying(currentTrackContext, playlist.uri) ? `text-green` : ""} whitespace-nowrap text-ellipsis overflow-hidden`}
+                    className={`${isCurrentlyPlaying(currentTrackContext, playlist.uri) ? `text-green` : ""} overflow-hidden text-ellipsis whitespace-nowrap`}
                   >
                     {playlist.name}
                   </div>
-                  <div className="text-gray-400 text-sm capitalize overflow-hidden">
+                  <div className="overflow-hidden text-sm capitalize text-gray-400">
                     <span>
                       {playlist.type}
                       {" • "}
@@ -135,7 +135,7 @@ export default function UserLibrary({
                   data-encore-id="icon"
                   role="img"
                   aria-hidden="true"
-                  className="inline text-gray-50/10 fill-green w-4"
+                  className="inline w-4 fill-green text-gray-50/10"
                   viewBox="0 0 16 16"
                 >
                   <path d="M10.016 1.125A.75.75 0 0 0 8.99.85l-6.925 4a3.639 3.639 0 0 0 0 6.299l6.925 4a.75.75 0 0 0 1.125-.65v-13a.75.75 0 0 0-.1-.375zM11.5 5.56a2.75 2.75 0 0 1 0 4.88V5.56z"></path>
