@@ -31,7 +31,7 @@ export default async function Page() {
   let recentTracksUris = recentTracks.map(({ track }) => track.uri);
 
   return (
-    <div className="overflow-y-scroll overflow-x-hidden gap-8 flex flex-col">
+    <div className="flex flex-col gap-8 overflow-x-hidden overflow-y-scroll">
       <section className="flex flex-col gap-4 ">
         <h3 className="text-2xl font-bold">Recently played tracks</h3>
         <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">

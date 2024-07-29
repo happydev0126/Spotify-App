@@ -9,7 +9,7 @@ export default function Card({
 }) {
   return (
     <div
-      className={`flex w-full flex-col gap-5 rounded bg-background-alt p-5 overflow-hidden ${className}`}
+      className={`flex w-full flex-col gap-5 overflow-hidden rounded bg-background-alt p-5 ${className}`}
     >
       {children}
     </div>

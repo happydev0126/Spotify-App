@@ -16,12 +16,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <>
       <div className="flex flex-col gap-4 lg:flex-row">
-        <div className="flex flex-col gap-4 min-w-[40%]">
+        <div className="flex min-w-[40%] flex-col gap-4">
           <h3 className="text-2xl font-bold">Top Result</h3>
           {searchQuery.artists && (
             <Link
               href={`/artist/${searchQuery.artists.items[0].id}`}
-              className="flex flex-col gap-4 bg-zinc-800/50 rounded p-4 h-full items-stretch justify-around"
+              className="flex h-full flex-col items-stretch justify-around gap-4 rounded bg-zinc-800/50 p-4"
             >
               <Image
                 className="rounded-full"
@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 alt={searchQuery.artists.items[0].name}
               />
               <div className="flex flex-col gap-1">
-                <span className="text-2xl font-bold whitespace-nowrap text-ellipsis overflow-hidden">
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap text-2xl font-bold">
                   {searchQuery.artists.items[0].name}
                 </span>
                 <span className="text-gray-400">
@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </Link>
           )}
         </div>
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex w-full flex-col gap-4">
           <h3 className="text-2xl font-bold">Songs</h3>
           <div className="flex flex-col gap-2">
             {searchQuery.tracks &&

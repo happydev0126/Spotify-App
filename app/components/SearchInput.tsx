@@ -18,7 +18,7 @@ export default function SearchInput({ placeholder }: { placeholder?: string }) {
   return (
     <form onSubmit={(e) => handleSearch(e)}>
       <input
-        className="bg-stone-500/20 rounded-full mb-2 w-full px-2 placeholder-gray-300 text-sm p-1"
+        className="mb-2 w-full rounded-full bg-stone-500/20 p-1 px-2 text-sm placeholder-gray-300"
         placeholder={placeholder}
         onChange={(e) => setQuery(e.target.value.toLowerCase())}
         type="text"

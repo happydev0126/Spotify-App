@@ -44,7 +44,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <main className="flex w-screen h-screen flex-row justify-between bg-background">
+          <main className="flex h-screen w-screen flex-row justify-between bg-background">
             <SignedOut>
               <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
                 <h1 className="text-2xl">Spotify clone</h1>
@@ -58,7 +58,7 @@ export default async function RootLayout({
             <SignedIn>
               {user && (
                 <Providers token={token} user={user}>
-                  <div className="relative md:grid md:h-screen w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 md:overflow-hidden bg-background p-2">
+                  <div className="relative w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background p-2 md:grid md:h-screen md:overflow-hidden">
                     <Dashboard />
                     <Card className="w-full h-full pb-20 md:pb-0">
                       <header className="flex justify-between">
