@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@clerk/nextjs':
-        specifier: ^5.2.5
+        specifier: ^5.1.4
         version: 5.2.5(next@14.2.3(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.7.2
@@ -21,44 +21,44 @@ importers:
         specifier: ^4.24.7
         version: 4.24.7(next@14.2.3(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: ^18.3.1
+        specifier: ^18
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: ^18
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@clerk/testing':
-        specifier: ^1.2.0
+        specifier: ^1.1.11
         version: 1.2.0(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@playwright/test':
         specifier: ^1.45.3
         version: 1.45.3
       '@types/node':
-        specifier: ^20.14.12
+        specifier: ^20
         version: 20.14.12
       '@types/react':
-        specifier: ^18.3.3
+        specifier: ^18
         version: 18.3.3
       '@types/react-dom':
-        specifier: ^18.3.0
+        specifier: ^18
         version: 18.3.0
       '@types/spotify-web-playback-sdk':
         specifier: ^0.1.19
         version: 0.1.19
       eslint:
-        specifier: ^8.57.0
+        specifier: ^8
         version: 8.57.0
       eslint-config-next:
         specifier: 14.2.3
         version: 14.2.3(eslint@8.57.0)(typescript@5.5.4)
       postcss:
-        specifier: ^8.4.39
+        specifier: ^8
         version: 8.4.39
       tailwindcss:
-        specifier: ^3.4.6
+        specifier: ^3.4.1
         version: 3.4.6
       typescript:
-        specifier: ^5.5.4
+        specifier: ^5
         version: 5.5.4
 
 packages:
@@ -2316,7 +2316,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.6.3
 
   dotenv@16.4.5: {}
 
@@ -3018,7 +3018,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.3
 
   lru-cache@10.4.3: {}
 
@@ -3115,7 +3115,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.4.1
+      tslib: 2.6.3
 
   normalize-path@3.0.0: {}
 
@@ -3429,7 +3429,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.6.3
 
   snakecase-keys@5.4.4:
     dependencies:
