@@ -14,7 +14,7 @@ export default function Player({ token }: { token: string }) {
   const [prevVolume, setPrevVolume] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(false);
   const [trackPositionInMs, setTrackPositionInMs] = useState(position);
 
   useEffect(() => {
