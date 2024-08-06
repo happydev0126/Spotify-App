@@ -14,7 +14,7 @@ function PauseTrackButton({
 
   return (
     <button
-      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green" : "bg-white"} text-black`}
+      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green" : "bg-white"} text-black`}
       onClick={(e) => {
         pausePlayback(token, deviceId);
         e.stopPropagation();
@@ -42,7 +42,7 @@ function PlayTrackButton({
   const { deviceId } = useContext(DeviceContext);
   return (
     <button
-      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green" : "bg-white"} text-black`}
+      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green" : "bg-white"} text-black`}
       onClick={(e) => {
         !pagePlaylistURI
           ? resumePlayback(token, deviceId)
@@ -98,7 +98,6 @@ export default function ResumePausePlaybackButton({
     );
   }
 
-  //check if its paused and the playlist is not the same => show PLAY new button
   if (playlistIsPlaying) {
     return <PauseTrackButton token={token} variant={variant} />;
   }
