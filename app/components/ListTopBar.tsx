@@ -11,12 +11,11 @@ export default function ListTopBar({
 }) {
   return (
     <div className="flex justify-between items-center py-4">
-      <div>
-        <ResumePausePlaybackButton
-          token={token}
-          pagePlaylistURI={playlistUri}
-        />
-      </div>
+      <ResumePausePlaybackButton
+        token={token}
+        pagePlaylistURI={playlistUri}
+        variant="GREEN"
+      />
       {/* <div>Right</div> */}
     </div>
   );

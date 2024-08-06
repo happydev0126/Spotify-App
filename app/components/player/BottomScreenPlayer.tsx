@@ -1,10 +1,5 @@
-import {
-  pausePlayback,
-  resumePlayback,
-  skipToNext,
-  skipToPrev,
-} from "@/app/api/spotify/spotify-api";
-import { DeviceContext, PlayerContext } from "@/app/context/appContext";
+import { skipToNext, skipToPrev } from "@/app/api/spotify/spotify-api";
+import { PlayerContext } from "@/app/context/appContext";
 import { convertMsToTimestamp } from "@/app/lib/utils/convertMsToTimestamp";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,8 +32,7 @@ export const BottomScreenPlayer = ({
   volume: number;
   isMuted: boolean;
 }) => {
-  const { deviceId } = useContext(DeviceContext);
-  const { player, is_paused, current_track } = useContext(PlayerContext);
+  const { player, current_track } = useContext(PlayerContext);
 
   return (
     <div
