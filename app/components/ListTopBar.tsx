@@ -10,7 +10,7 @@ export default function ListTopBar({
   token: string;
 }) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between items-center py-4">
       <div>
         <ResumePausePlaybackButton
           token={token}

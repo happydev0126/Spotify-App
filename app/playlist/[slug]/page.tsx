@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const owner = await getUser(playlist.owner.id);
 
   return (
-    <div className="flex flex-col gap-6 overflow-x-hidden overflow-y-scroll">
+    <div className="flex flex-col overflow-x-hidden overflow-y-scroll">
       <div className="flex w-full flex-col items-center gap-4 md:flex-row md:items-end">
         <Image
           className="xs:order-2 rounded shadow"
