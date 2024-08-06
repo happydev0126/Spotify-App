@@ -18,6 +18,7 @@ import Navigation from "./components/Navigation";
 import { getToken } from "./api/clerk/getToken";
 import Image from "next/image";
 import { ReactNode } from "react";
+import { Track } from "./types/spotify";
 
 export async function generateMetadata() {
   const { item } = await getCurrentlyPlayingTrack();
