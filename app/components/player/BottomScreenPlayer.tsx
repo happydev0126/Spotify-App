@@ -9,6 +9,7 @@ import { convertMsToTimestamp } from "@/app/lib/utils/convertMsToTimestamp";
 import Image from "next/image";
 import Link from "next/link";
 import { ChangeEvent, useContext } from "react";
+import ResumePausePlaybackButton from "../track/ResumePausePlaybackButton";
 
 export const BottomScreenPlayer = ({
   handleFullScreen,
@@ -95,37 +96,7 @@ export const BottomScreenPlayer = ({
               <path d="M17.767 19.664a1 1 0 001.633-.774V5.11a1 1 0 00-1.633-.774L13.9 7.5l-4.554 3.726a1 1 0 000 1.548L13.9 16.5zM4.6 21V3"></path>
             </svg>
           </button>
-          {is_paused ? (
-            <button
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black"
-              onClick={(e) => {
-                resumePlayback(token, deviceId);
-                e.stopPropagation();
-              }}
-            >
-              <Image
-                width={48}
-                height={48}
-                src="/icons/track/playBlack.svg"
-                alt="Play"
-              />
-            </button>
-          ) : (
-            <button
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black"
-              onClick={(e) => {
-                pausePlayback(token, deviceId);
-                e.stopPropagation();
-              }}
-            >
-              <Image
-                width={32}
-                height={32}
-                src="/icons/track/pauseBlack.svg"
-                alt="Pause"
-              />
-            </button>
-          )}
+          <ResumePausePlaybackButton token={token} />
           <button
             className="mr-2 md:mr-0"
             onClick={(e) => {
