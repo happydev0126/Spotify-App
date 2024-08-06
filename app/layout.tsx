@@ -23,6 +23,9 @@ import { Track } from "./types/spotify";
 export async function generateMetadata() {
   const { item } = await getCurrentlyPlayingTrack();
   let title = null;
+  if (currentlyPlayingTrack === undefined) {
+    title = "Sclonetify by Jodarini";
+  }
 
   if (item) {
     title = `${item.name} • ${item.artists[0].name}`;
