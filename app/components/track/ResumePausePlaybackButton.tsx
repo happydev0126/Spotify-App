@@ -1,4 +1,3 @@
-"use client";
 import { pausePlayback, resumePlayback } from "@/app/api/spotify/spotify-api";
 import { DeviceContext, PlayerContext } from "@/app/context/appContext";
 import Image from "next/image";

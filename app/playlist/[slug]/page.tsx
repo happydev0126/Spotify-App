@@ -4,7 +4,7 @@ import {
   getPlaylist,
   getUser,
 } from "@/app/api/spotify/spotify-api";
-import ResumePausePlaybackButton from "@/app/components/track/ResumePausePlaybackButton";
+import ListTopBar from "@/app/components/ListTopBar";
 import Track from "@/app/components/track/Track";
 import Image from "next/image";
 
@@ -49,13 +49,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="flex flex-col w-full text-sm text-zinc-400">
-        <div>
-          <ResumePausePlaybackButton
-            token={token}
-            variant="GREEN"
-            pagePlaylistURI={playlist.uri}
-          />
-        </div>
+        <ListTopBar token={token} playlistUri={playlist.uri} />
         <div className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_30%_20%_auto] max-w-full text-sm overflow-hidden gap-x-3 items-center text-left py-1 px-2 rounded max-h-16">
           <span className="w-full text-center">#</span>
           <span>Title</span>
