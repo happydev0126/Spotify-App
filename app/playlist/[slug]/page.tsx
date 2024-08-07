@@ -48,9 +48,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <div className="flex w-full flex-col text-sm text-zinc-400">
-        <ListTopBar playlistUri={playlist.uri} token={token} />
-        <div className="grid max-h-16 max-w-full grid-cols-[24px_minmax(200px,35%)_30%_20%_auto] items-center gap-x-3 overflow-hidden rounded px-2 py-1 text-left text-sm text-zinc-400">
+      <div className="flex flex-col w-full text-sm text-zinc-400">
+        <ListTopBar token={token} playlistUri={playlist.uri} />
+        <div className="text-zinc-400 grid grid-cols-[24px_minmax(200px,35%)_30%_20%_auto] max-w-full text-sm overflow-hidden gap-x-3 items-center text-left py-1 px-2 rounded max-h-16">
           <span className="w-full text-center">#</span>
           <span>Title</span>
           <span>Album</span>

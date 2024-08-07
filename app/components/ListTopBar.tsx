@@ -16,7 +16,6 @@ export default function ListTopBar({
         pagePlaylistURI={playlistUri}
         variant="GREEN"
       />
-      {/* <div>Right</div> */}
     </div>
   );
 }
