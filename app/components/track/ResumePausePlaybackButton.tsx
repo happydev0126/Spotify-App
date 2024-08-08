@@ -45,7 +45,6 @@ function PlayTrackButton({
     <button
       className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green" : "bg-white"} text-black`}
       onClick={(e) => {
-        console.log({ pagePlaylistURI });
         !pagePlaylistURI
           ? resumePlayback(token, deviceId)
           : resumePlayback(token, deviceId, 0, pagePlaylistURI);
