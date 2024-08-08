@@ -1,6 +1,7 @@
 import { pausePlayback, resumePlayback } from "@/app/api/spotify/spotify-api";
 import { DeviceContext, PlayerContext } from "@/app/context/appContext";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useContext } from "react";
 
 function PauseTrackButton({
@@ -63,24 +64,20 @@ function PlayTrackButton({
 export default function ResumePausePlaybackButton({
   token,
   pagePlaylistURI,
-  variant,
+  variant = "DEFAULT",
 }: {
   token: string;
   pagePlaylistURI?: string;
   variant?: "GREEN" | "DEFAULT";
 }) {
+  let pathname = usePathname();
+  pathname = `spotify` + pathname.replaceAll("/", ":");
+
   const { is_paused, currentTrackContext } = useContext(PlayerContext);
-  if (variant === undefined) {
-    variant === "DEFAULT";
-  }
 
-  const playlistIsNotPlaying =
-    !is_paused && pagePlaylistURI !== currentTrackContext;
+  const isPlayingCurrentPlaylist = pathname === currentTrackContext;
 
-  const playlistIsPlaying =
-    !is_paused && pagePlaylistURI === currentTrackContext;
-
-  if (pagePlaylistURI === undefined) {
+  if (!pagePlaylistURI) {
     return is_paused ? (
       <PlayTrackButton token={token} variant={variant} />
     ) : (
@@ -88,37 +85,19 @@ export default function ResumePausePlaybackButton({
     );
   }
 
-  if (is_paused && pagePlaylistURI !== currentTrackContext) {
+  if (!is_paused && !isPlayingCurrentPlaylist) {
     return (
       <PlayTrackButton
         token={token}
-        pagePlaylistURI={pagePlaylistURI}
         variant={variant}
+        pagePlaylistURI={pagePlaylistURI}
       />
     );
   }
 
-  if (playlistIsPlaying) {
-    return <PauseTrackButton token={token} variant={variant} />;
-  }
-
-  if (playlistIsNotPlaying) {
-    return (
-      <PlayTrackButton
-        token={token}
-        pagePlaylistURI={pagePlaylistURI}
-        variant={variant}
-      />
-    );
-  }
-
-  return (
-    <div>
-      {is_paused ? (
-        <PlayTrackButton token={token} variant={variant} />
-      ) : (
-        <PauseTrackButton token={token} variant={variant} />
-      )}
-    </div>
+  return is_paused ? (
+    <PlayTrackButton token={token} variant={variant} />
+  ) : (
+    <PauseTrackButton token={token} variant={variant} />
   );
 }
