@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@clerk/nextjs':
         specifier: ^5.1.4
-        version: 5.2.5(next@14.2.3(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 5.1.4(next@14.2.3(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.7.2
         version: 1.7.2
@@ -29,13 +29,13 @@ importers:
     devDependencies:
       '@clerk/testing':
         specifier: ^1.1.11
-        version: 1.2.0(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.1.11(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@playwright/test':
         specifier: ^1.45.3
         version: 1.45.3
       '@types/node':
         specifier: ^20
-        version: 20.14.12
+        version: 20.14.2
       '@types/react':
         specifier: ^18
         version: 18.3.3
@@ -53,13 +53,13 @@ importers:
         version: 14.2.3(eslint@8.57.0)(typescript@5.4.5)
       postcss:
         specifier: ^8
-        version: 8.4.39
+        version: 8.4.38
       tailwindcss:
         specifier: ^3.4.1
-        version: 3.4.6
+        version: 3.4.4
       typescript:
         specifier: ^5
-        version: 5.5.4
+        version: 5.4.5
 
 packages:
 
