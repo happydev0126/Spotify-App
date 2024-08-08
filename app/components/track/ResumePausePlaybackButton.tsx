@@ -45,6 +45,7 @@ function PlayTrackButton({
     <button
       className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green" : "bg-white"} text-black`}
       onClick={(e) => {
+        console.log({ pagePlaylistURI });
         !pagePlaylistURI
           ? resumePlayback(token, deviceId)
           : resumePlayback(token, deviceId, 0, pagePlaylistURI);
@@ -75,17 +76,18 @@ export default function ResumePausePlaybackButton({
 
   const { is_paused, currentTrackContext } = useContext(PlayerContext);
 
-  const isPlayingCurrentPlaylist = pathname === currentTrackContext;
+  const pageAndContextURIMatch = pathname === currentTrackContext;
 
-  if (!pagePlaylistURI) {
-    return is_paused ? (
-      <PlayTrackButton token={token} variant={variant} />
-    ) : (
-      <PauseTrackButton token={token} variant={variant} />
-    );
+  const showResumeButton =
+    is_paused && (pageAndContextURIMatch || !pagePlaylistURI);
+
+  const showPlayButton = pagePlaylistURI && !pageAndContextURIMatch;
+
+  if (showResumeButton) {
+    return <PlayTrackButton token={token} variant={variant} />;
   }
 
-  if (!is_paused && !isPlayingCurrentPlaylist) {
+  if (showPlayButton) {
     return (
       <PlayTrackButton
         token={token}
@@ -95,9 +97,5 @@ export default function ResumePausePlaybackButton({
     );
   }
 
-  return is_paused ? (
-    <PlayTrackButton token={token} variant={variant} />
-  ) : (
-    <PauseTrackButton token={token} variant={variant} />
-  );
+  return <PauseTrackButton token={token} variant={variant} />;
 }
