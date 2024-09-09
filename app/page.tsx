@@ -17,9 +17,9 @@ export default async function Page() {
   // const response = await fetch(
   //   `/api/color?url=${encodeURIComponent("https://www.google.com/imgres?q=the%20strokes&imgurl=https%3A%2F%2Fi.scdn.co%2Fimage%2Fab67616d0000b27313f2466b83507515291acce4&imgrefurl=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F7hm4HTk9encxT0LYC0J6oI&docid=ZHt5nyumpPmTuM&tbnid=3ntSjcnOibHNiM&w=640&h=639&hcb=2")}`,
   // );
-  const response = await fetch(`/api/color`);
-
-  console.log(response);
+  // const response = await fetch(`/api/color`);
+  //
+  // console.log(response);
 
   const removeDuplicates = (items: Item[]) => {
     const seenItems = new Set();
