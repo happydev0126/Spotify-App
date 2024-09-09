@@ -335,3 +335,14 @@ export async function togglePlaybackShuffle(
     token,
   );
 }
+
+export async function setRepeatMode(
+  is_repeat: "track" | "context" | "off",
+  token: string,
+) {
+  console.log(is_repeat);
+  return seekPlayerApi(
+    `https://api.spotify.com/v1/me/player/repeat?state=${is_repeat}`,
+    token,
+  );
+}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ChangeEvent, useContext } from "react";
 import ResumePausePlaybackButton from "../track/ResumePausePlaybackButton";
 import PlaybackShuffleButton from "../track/PlaybackShuffleButton";
+import SetRepeatModeButton from "../track/SetRepeatModeButton";
 
 export const BottomScreenPlayer = ({
   handleFullScreen,
@@ -67,7 +68,7 @@ export const BottomScreenPlayer = ({
         )}
       </div>
       <div className="flex flex-col items-center justify-center gap-1 md:w-[40%]">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 w-full">
           <PlaybackShuffleButton token={token} />
           <button
             className=""
@@ -116,6 +117,7 @@ export const BottomScreenPlayer = ({
               <path d="M14.4 12.524a1 1 0 000-1.548L9.85 7.25 5.983 4.086a1 1 0 00-1.633.774v13.78a1 1 0 001.633.774L9.85 16.25zm4.75-9.774v18"></path>
             </svg>
           </button>
+          <SetRepeatModeButton token={token} />
         </div>
         {!isMobile && (
           <div className="w-full">

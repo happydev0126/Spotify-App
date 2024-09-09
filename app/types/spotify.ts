@@ -8,6 +8,8 @@ export type SearchType =
   | "audiobook"
   | undefined;
 
+export type Repeat_state = 0 | 1 | 2;
+
 export interface GetCurrentlyPlayingTrackResponse {
   repeat_state: string; //off, track, context
   shuffle_state: boolean;

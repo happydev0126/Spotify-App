@@ -2,12 +2,14 @@
 
 import { createContext, useEffect, useState } from "react";
 import { CurrentUser } from "../types/spotify";
+import type { Repeat_state } from "../types/spotify";
 
 interface PlayerContextState {
   player: Spotify.Player | undefined;
   is_active: boolean;
   is_paused: boolean;
   is_shuffle: boolean;
+  is_repeat: Repeat_state;
   current_track: Spotify.Track | undefined;
   position: number;
   currentTrackContext: string | null;
@@ -27,6 +29,7 @@ export const PlayerContext = createContext<PlayerContextState>({
   is_active: false,
   is_paused: true,
   is_shuffle: false,
+  is_repeat: 0,
   current_track: undefined,
   position: 0,
   currentTrackContext: null,
@@ -52,6 +55,7 @@ export default function Providers({
   const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
   const [is_shuffle, setShuffle] = useState(false);
+  const [is_repeat, setRepeat] = useState<Repeat_state>(0);
   current_track?.album.images[current_track?.album.images.length - 1];
 
   useEffect(() => {
@@ -96,6 +100,7 @@ export default function Providers({
         setPosition(state.position);
         setPaused(state.paused);
         setShuffle(state.shuffle);
+        setRepeat(state.repeat_mode);
       });
 
       player.addListener("account_error", () => {
@@ -129,10 +134,11 @@ export default function Providers({
           player,
           is_active,
           is_paused,
+          is_shuffle,
+          is_repeat,
           current_track,
           position,
           currentTrackContext,
-          is_shuffle,
         }}
       >
         {children}
