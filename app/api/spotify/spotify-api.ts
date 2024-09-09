@@ -18,21 +18,27 @@ import {
 import { getToken } from "../clerk/getToken";
 
 export const fetchWebApi = async (url: string) => {
-  const token = await getToken();
-  if (!token) {
-    return null;
-  }
-  const requestOptions = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
   try {
-    const res = await fetch(url, requestOptions).then((res) => res.json());
-
-    return res;
+    const token = await getToken();
+    if (!token) {
+      console.error("No token available for API request");
+      return null;
+    }
+    const requestOptions = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, requestOptions);
+    if (!response.ok) {
+      const errorMessage = `API request to ${url} failed with status code ${response.status}: ${response.statusText}`;
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching data from API: ", err);
     return err;
   }
 };
@@ -318,4 +324,8 @@ export async function setPlaybackPosition(position_ms: number, token: string) {
 
 export async function getPlaybackState(): Promise<GetCurrentlyPlayingTrackResponse> {
   return fetchWebApi(`https://api.spotify.com/v1/me/player`);
+}
+
+export async function togglePlaybackShuffle() {
+  return fetchWebApi(`https://api.spotify.com/v1/me/player/shuffle`);
 }
