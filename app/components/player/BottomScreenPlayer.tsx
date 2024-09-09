@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChangeEvent, useContext } from "react";
 import ResumePausePlaybackButton from "../track/ResumePausePlaybackButton";
+import PlaybackShuffleButton from "../track/PlaybackShuffleButton";
 
 export const BottomScreenPlayer = ({
   handleFullScreen,
@@ -67,6 +68,7 @@ export const BottomScreenPlayer = ({
       </div>
       <div className="flex flex-col items-center justify-center gap-1 md:w-[40%]">
         <div className="flex items-center justify-center gap-4">
+          <PlaybackShuffleButton token={token} />
           <button
             className=""
             onClick={(e) => {

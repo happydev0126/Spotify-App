@@ -326,6 +326,12 @@ export async function getPlaybackState(): Promise<GetCurrentlyPlayingTrackRespon
   return fetchWebApi(`https://api.spotify.com/v1/me/player`);
 }
 
-export async function togglePlaybackShuffle() {
-  return fetchWebApi(`https://api.spotify.com/v1/me/player/shuffle`);
+export async function togglePlaybackShuffle(
+  is_shuffle: boolean,
+  token: string,
+) {
+  return seekPlayerApi(
+    `https://api.spotify.com/v1/me/player/shuffle?state=${is_shuffle}`,
+    token,
+  );
 }

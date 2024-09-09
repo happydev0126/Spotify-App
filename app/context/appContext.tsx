@@ -7,6 +7,7 @@ interface PlayerContextState {
   player: Spotify.Player | undefined;
   is_active: boolean;
   is_paused: boolean;
+  is_shuffle: boolean;
   current_track: Spotify.Track | undefined;
   position: number;
   currentTrackContext: string | null;
@@ -25,6 +26,7 @@ export const PlayerContext = createContext<PlayerContextState>({
   player: undefined,
   is_active: false,
   is_paused: true,
+  is_shuffle: false,
   current_track: undefined,
   position: 0,
   currentTrackContext: null,
@@ -49,6 +51,7 @@ export default function Providers({
   const [position, setPosition] = useState<number>(0);
   const [is_paused, setPaused] = useState(true);
   const [is_active, setActive] = useState(false);
+  const [is_shuffle, setShuffle] = useState(false);
   current_track?.album.images[current_track?.album.images.length - 1];
 
   useEffect(() => {
@@ -92,6 +95,7 @@ export default function Providers({
         setTrack(state.track_window.current_track);
         setPosition(state.position);
         setPaused(state.paused);
+        setShuffle(state.shuffle);
       });
 
       player.addListener("account_error", () => {
@@ -128,6 +132,7 @@ export default function Providers({
           current_track,
           position,
           currentTrackContext,
+          is_shuffle,
         }}
       >
         {children}
