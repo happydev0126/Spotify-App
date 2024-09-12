@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.4",
+    "@types/jimp": "^0.2.28",
     "axios": "^1.7.2",
+    "jimp": "^1.6.0",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
     "react": "^18",

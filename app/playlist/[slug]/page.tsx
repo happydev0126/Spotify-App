@@ -6,6 +6,7 @@ import {
 } from "@/app/api/spotify/spotify-api";
 import ListTopBar from "@/app/components/ListTopBar";
 import Track from "@/app/components/track/Track";
+import { getMostCommonColor } from "@/app/lib/utils/getCommonColor";
 import Image from "next/image";
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -14,8 +15,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const token = await getToken();
   const owner = await getUser(playlist.owner.id);
 
+  const response = await getMostCommonColor(
+    "https://i.scdn.co/image/ab67616d0000b27313f2466b83507515291acce4",
+  );
+
   return (
-    <div className="flex flex-col overflow-x-hidden overflow-y-scroll">
+    <div
+      className={`flex flex-col overflow-x-hidden overflow-y-scroll`}
+      // style={{
+      //   background: `linear-gradient(to bottom, ${response} 0%, ${response}80 20%, transparent 100%)`,
+      // }}
+    >
       <div className="flex w-full flex-col items-center gap-4 md:flex-row md:items-end">
         <Image
           className="xs:order-2 rounded shadow"

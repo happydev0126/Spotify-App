@@ -18,6 +18,9 @@ import Navigation from "./components/Navigation";
 import { getToken } from "./api/clerk/getToken";
 // import Image from "next/image";
 import { ReactNode } from "react";
+import { getMostCommonColor } from "./lib/utils/getCommonColor";
+import SearchInput from "./components/SearchInput";
+import Link from "next/link";
 
 export async function generateMetadata() {
   const { item } = await getCurrentlyPlayingTrack();
@@ -40,6 +43,10 @@ export default async function RootLayout({
   const token = await getToken();
   const user = await getCurrentUser();
 
+  const response = await getMostCommonColor(
+    "https://i.scdn.co/image/ab67616d0000b27313f2466b83507515291acce4",
+  );
+
   return (
     <ClerkProvider>
       <html lang="en">
@@ -58,22 +65,55 @@ export default async function RootLayout({
             <SignedIn>
               {user && (
                 <Providers token={token} user={user}>
-                  <div className="relative w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background p-2 md:grid md:h-screen md:overflow-hidden">
-                    <Dashboard />
-                    <Card className="w-full h-full pb-20 md:pb-0">
-                      <header className="flex justify-between">
-                        <Navigation />
+                  <div className="flex flex-col w-full">
+                    <header className="h-16 flex justify-between px-2 pt-2 items-center align-center">
+                      <div className="flex-1 justify-start">
+                        <Link href="/">
+                          <div className="h-full w-fit flex items-center gap-2 text-gray-400 rounded-full bg-tag p-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              stroke="currentColor"
+                              fill="none"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1"
+                              viewBox="0 0 24 24"
+                              data-icon="SvgHome"
+                              aria-hidden="true"
+                            >
+                              <path d="M4.75 10.75v9a1.16 1.16 0 00.213.725.717.717 0 00.587.275h12.4a.737.737 0 00.55-.275 1.1 1.1 0 00.25-.725v-9m-16 2l4.5-5 4.5-5 4.5 5 4.5 5m-11.5 8v-5a.945.945 0 011-1h3a.945.945 0 011 1v5"></path>
+                            </svg>
+                          </div>
+                        </Link>
+                      </div>
+                      <div className="flex flex-1 justify-center gap-2 items-center h-full">
+                        <SearchInput placeholder="What do you want to play?" />
+                        {/* <Navigation /> */}
                         {/* <Image */}
                         {/*   src="/logos/01_RGB/02_PNG/Spotify_Logo_RGB_White.png" */}
                         {/*   width={96} */}
                         {/*   height={96} */}
                         {/*   alt="Spotify_Logo_RGB_White" */}
                         {/* /> */}
+                      </div>
+                      <div className="flex-1 justify-end flex">
                         <UserButton />
-                      </header>
-                      {children}
-                    </Card>
-                    <Player token={token} />
+                      </div>
+                    </header>
+                    <div className="relative w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background p-2 md:grid md:h-screen md:overflow-hidden">
+                      <Dashboard />
+                      <Card
+                        className="w-full h-full pb-20 md:pb-0"
+                        style={{
+                          background: `linear-gradient(to bottom, ${response} 0%, ${response}80 20%, transparent 100%)`,
+                        }}
+                      >
+                        {children}
+                      </Card>
+                      <Player token={token} />
+                    </div>
                   </div>
                 </Providers>
               )}
