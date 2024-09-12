@@ -41,10 +41,6 @@ export default async function RootLayout({
   const token = await getToken();
   const user = await getCurrentUser();
 
-  const response = await getMostCommonColor(
-    "https://i.scdn.co/image/ab67616d0000b27313f2466b83507515291acce4",
-  );
-
   return (
     <ClerkProvider>
       <html lang="en">
@@ -95,12 +91,7 @@ export default async function RootLayout({
                     </header>
                     <div className="relative w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background px-2 pb-2 md:grid md:h-screen md:overflow-hidden">
                       <Dashboard />
-                      <Card
-                        className="w-full h-full pb-20 md:pb-0"
-                        style={{
-                          background: `linear-gradient(to bottom, ${response} 0%, ${response}80 20%, transparent 100%)`,
-                        }}
-                      >
+                      <Card className="w-full h-full pb-20 md:pb-0 md:p-0">
                         {children}
                       </Card>
                       <Player token={token} />
