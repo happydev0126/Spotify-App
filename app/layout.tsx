@@ -14,9 +14,7 @@ import {
   getCurrentUser,
   getCurrentlyPlayingTrack,
 } from "./api/spotify/spotify-api";
-import Navigation from "./components/Navigation";
 import { getToken } from "./api/clerk/getToken";
-// import Image from "next/image";
 import { ReactNode } from "react";
 import { getMostCommonColor } from "./lib/utils/getCommonColor";
 import SearchInput from "./components/SearchInput";
@@ -66,7 +64,7 @@ export default async function RootLayout({
               {user && (
                 <Providers token={token} user={user}>
                   <div className="flex flex-col w-full">
-                    <header className="h-16 flex justify-between px-2 pt-2 items-center align-center">
+                    <header className="h-16 flex justify-between p-2 items-center align-center">
                       <div className="flex-1 justify-start">
                         <Link href="/">
                           <div className="h-full w-fit flex items-center gap-2 text-gray-400 rounded-full bg-tag p-2">
@@ -90,19 +88,12 @@ export default async function RootLayout({
                       </div>
                       <div className="flex flex-1 justify-center gap-2 items-center h-full">
                         <SearchInput placeholder="What do you want to play?" />
-                        {/* <Navigation /> */}
-                        {/* <Image */}
-                        {/*   src="/logos/01_RGB/02_PNG/Spotify_Logo_RGB_White.png" */}
-                        {/*   width={96} */}
-                        {/*   height={96} */}
-                        {/*   alt="Spotify_Logo_RGB_White" */}
-                        {/* /> */}
                       </div>
                       <div className="flex-1 justify-end flex">
                         <UserButton />
                       </div>
                     </header>
-                    <div className="relative w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background p-2 md:grid md:h-screen md:overflow-hidden">
+                    <div className="relative w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background px-2 pb-2 md:grid md:h-screen md:overflow-hidden">
                       <Dashboard />
                       <Card
                         className="w-full h-full pb-20 md:pb-0"
