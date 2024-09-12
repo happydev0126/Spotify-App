@@ -6,7 +6,7 @@ export default function Card({
 }: {
   children: ReactNode;
   className?: string;
-  style: CSSProperties;
+  style?: CSSProperties;
 }) {
   return (
     <div
