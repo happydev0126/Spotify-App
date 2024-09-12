@@ -25,12 +25,12 @@ export async function getMostCommonColor(imagePath: string): Promise<string> {
     let maxCount = 0;
     let mostCommonColor = "";
 
-    for (const [color, count] of colorMap.entries()) {
+    Array.from(colorMap.entries()).forEach(([color, count]) => {
       if (count > maxCount) {
         maxCount = count;
         mostCommonColor = color;
       }
-    }
+    });
 
     // Convert the color to hex format
     const [r, g, b] = mostCommonColor.split(",").map(Number);
