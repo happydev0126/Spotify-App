@@ -7,19 +7,13 @@ import { Item } from "./types/spotify";
 import Track from "./components/track/Track";
 import { getToken } from "./api/clerk/getToken";
 import TrackList from "./components/TrackSourceCard";
+import { getMostCommonColor } from "./lib/utils/getCommonColor";
 
 export default async function Page() {
   const { items: recentlyPlayed } = await getRecentlyPlayed(6);
   const { items: usersTopArtists } = await getUsersTopItems("artists", 6);
   const { playlists: featuredPlaylists } = await getFeaturedPlaylists(6);
   const token = await getToken();
-
-  // const response = await fetch(
-  //   `/api/color?url=${encodeURIComponent("https://www.google.com/imgres?q=the%20strokes&imgurl=https%3A%2F%2Fi.scdn.co%2Fimage%2Fab67616d0000b27313f2466b83507515291acce4&imgrefurl=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F7hm4HTk9encxT0LYC0J6oI&docid=ZHt5nyumpPmTuM&tbnid=3ntSjcnOibHNiM&w=640&h=639&hcb=2")}`,
-  // );
-  // const response = await fetch(`/api/color`);
-  //
-  // console.log(response);
 
   const removeDuplicates = (items: Item[]) => {
     const seenItems = new Set();
