@@ -16,7 +16,6 @@ import {
 } from "./api/spotify/spotify-api";
 import { getToken } from "./api/clerk/getToken";
 import { ReactNode } from "react";
-import { getMostCommonColor } from "./lib/utils/getCommonColor";
 import SearchInput from "./components/SearchInput";
 import Link from "next/link";
 
@@ -89,13 +88,13 @@ export default async function RootLayout({
                         <UserButton />
                       </div>
                     </header>
-                    <div className="relative w-full columns-auto grid-cols-[minmax(300px,400px),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background px-2 pb-2 md:grid md:h-screen md:overflow-hidden">
+                    <div className="relative w-full columns-auto grid-cols-[minmax(0,auto),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background px-2 pb-2 md:flex md:h-screen md:overflow-hidden">
                       <Dashboard />
                       <Card className="w-full h-full pb-20 md:pb-0 md:p-0">
                         {children}
                       </Card>
-                      <Player token={token} />
                     </div>
+                    <Player token={token} />
                   </div>
                 </Providers>
               )}

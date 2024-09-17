@@ -9,8 +9,10 @@ import Image from "next/image";
 
 export default function UserLibrary({
   library,
+  isExpanded,
 }: {
   library: Array<CurrentUserPlaylist | Album>;
+  isExpanded: boolean;
 }) {
   const { currentTrackContext } = useContext(PlayerContext);
   const [userLibrary, setUserLibrary] =
@@ -60,33 +62,37 @@ export default function UserLibrary({
 
   return (
     <div className="flex flex-col ">
-      <div className="mb-3 flex gap-2">
-        {filterLibraryType !== "all" && (
-          <TagButton title="X" onClick={() => handleFilterTag("all")} />
-        )}
-        {filterLibraryType === "album" ||
-          ("all" && (
-            <TagButton
-              onClick={() => handleFilterTag("playlist")}
-              title="playlists"
+      {isExpanded && (
+        <>
+          <div className="mb-3 flex gap-2">
+            {filterLibraryType !== "all" && (
+              <TagButton title="X" onClick={() => handleFilterTag("all")} />
+            )}
+            {filterLibraryType === "album" ||
+              ("all" && (
+                <TagButton
+                  onClick={() => handleFilterTag("playlist")}
+                  title="playlists"
+                />
+              ))}
+            {filterLibraryType === "playlist" ||
+              ("all" && (
+                <TagButton
+                  onClick={() => handleFilterTag("album")}
+                  title="albums"
+                />
+              ))}
+          </div>
+          <form>
+            <input
+              className="mb-2 w-full rounded bg-stone-500/20 p-1 px-2 text-sm placeholder-gray-300"
+              placeholder="Search in your library"
+              onChange={(e) => handleSearch(e)}
+              type="text"
             />
-          ))}
-        {filterLibraryType === "playlist" ||
-          ("all" && (
-            <TagButton
-              onClick={() => handleFilterTag("album")}
-              title="albums"
-            />
-          ))}
-      </div>
-      <form>
-        <input
-          className="mb-2 w-full rounded bg-stone-500/20 p-1 px-2 text-sm placeholder-gray-300"
-          placeholder="Search in your library"
-          onChange={(e) => handleSearch(e)}
-          type="text"
-        />
-      </form>
+          </form>
+        </>
+      )}
       {filterLibrary(userLibrary).map((playlist) => (
         <div
           key={playlist.id}
@@ -102,32 +108,36 @@ export default function UserLibrary({
                 height={48}
                 className="max-w-12 rounded"
               />
-              <div className="flex overflow-hidden">
-                <div className="flex flex-col overflow-hidden">
-                  <div
-                    className={`${isCurrentlyPlaying(currentTrackContext, playlist.uri) ? `text-green` : ""} overflow-hidden text-ellipsis whitespace-nowrap`}
-                  >
-                    {playlist.name}
+              {isExpanded && (
+                <>
+                  <div className="flex overflow-hidden">
+                    <div className="flex flex-col overflow-hidden">
+                      <div
+                        className={`${isCurrentlyPlaying(currentTrackContext, playlist.uri) ? `text-green` : ""} overflow-hidden text-ellipsis whitespace-nowrap`}
+                      >
+                        {playlist.name}
+                      </div>
+                      <div className="overflow-hidden text-sm capitalize text-gray-400">
+                        <span>
+                          {playlist.type}
+                          {" • "}
+                          {"owner" in playlist
+                            ? playlist.owner.display_name
+                            : playlist.artists.map((artist, index) => (
+                                <span key={artist.id}>
+                                  {artist.name}
+                                  {playlist.artists.length > 1 &&
+                                    playlist.artists.length !== index + 1 && (
+                                      <>{", "}</>
+                                    )}
+                                </span>
+                              ))}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="overflow-hidden text-sm capitalize text-gray-400">
-                    <span>
-                      {playlist.type}
-                      {" • "}
-                      {"owner" in playlist
-                        ? playlist.owner.display_name
-                        : playlist.artists.map((artist, index) => (
-                            <span key={artist.id}>
-                              {artist.name}
-                              {playlist.artists.length > 1 &&
-                                playlist.artists.length !== index + 1 && (
-                                  <>{", "}</>
-                                )}
-                            </span>
-                          ))}
-                    </span>
-                  </div>
-                </div>
-              </div>
+                </>
+              )}
             </div>
             <div>
               {isCurrentlyPlaying(currentTrackContext, playlist.uri) && (
