@@ -60,7 +60,7 @@ export default async function RootLayout({
                 <Providers token={token} user={user}>
                   <div className="flex flex-col w-full">
                     <header className="h-16 flex gap-1 justify-between p-2 items-center align-center">
-                      <div className="justify-start">
+                      <div className="md:flex-1 justify-start">
                         <Link
                           href="/"
                           className=" h-full w-fit flex items-center gap-2 text-gray-400 rounded-full bg-tag p-2  hover:text-white active:text-white/80"
@@ -85,7 +85,7 @@ export default async function RootLayout({
                       <div className="flex flex-auto md:flex-1 justify-center gap-2 items-center h-full">
                         <SearchInput placeholder="What do you want to play?" />
                       </div>
-                      <div className="justify-end flex">
+                      <div className="md:flex-1 justify-end flex">
                         <UserButton />
                       </div>
                     </header>
