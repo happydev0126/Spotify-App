@@ -3,6 +3,7 @@ import { DeviceContext, PlayerContext } from "@/app/context/appContext";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
+import Button from "../Button";
 
 function PauseTrackButton({
   token,
@@ -14,8 +15,8 @@ function PauseTrackButton({
   const { deviceId } = useContext(DeviceContext);
 
   return (
-    <button
-      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green" : "bg-white"} text-black`}
+    <Button
+      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green hover:scale-105 active:scale-95" : "bg-white hover:scale-105 active:scale-95"} text-black`}
       onClick={(e) => {
         pausePlayback(token, deviceId);
         e.stopPropagation();
@@ -27,7 +28,7 @@ function PauseTrackButton({
         src="/icons/track/pauseBlack.svg"
         alt="Pause"
       />
-    </button>
+    </Button>
   );
 }
 
@@ -42,8 +43,8 @@ function PlayTrackButton({
 }) {
   const { deviceId } = useContext(DeviceContext);
   return (
-    <button
-      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green" : "bg-white"} text-black`}
+    <Button
+      className={`flex h-8 w-8 items-center justify-center rounded-full ${variant === "GREEN" ? "bg-green hover:bg-light-green hover:scale-105 active:scale-95" : "bg-white hover:bg-white/80 hover:scale-105 active:scale-95"}`}
       onClick={(e) => {
         !pagePlaylistURI
           ? resumePlayback(token, deviceId)
@@ -57,7 +58,7 @@ function PlayTrackButton({
         src="/icons/track/playBlack.svg"
         alt="Play"
       />
-    </button>
+    </Button>
   );
 }
 

@@ -7,6 +7,7 @@ import { ChangeEvent, useContext } from "react";
 import ResumePausePlaybackButton from "../track/ResumePausePlaybackButton";
 import PlaybackShuffleButton from "../track/PlaybackShuffleButton";
 import SetRepeatModeButton from "../track/SetRepeatModeButton";
+import Button from "../Button";
 
 export const BottomScreenPlayer = ({
   handleFullScreen,
@@ -70,7 +71,7 @@ export const BottomScreenPlayer = ({
       <div className="flex flex-col items-center justify-center gap-1 md:w-[40%]">
         <div className="flex items-center justify-center gap-4 w-full">
           <PlaybackShuffleButton token={token} />
-          <button
+          <Button
             className=""
             onClick={(e) => {
               skipToPrev(token);
@@ -92,9 +93,9 @@ export const BottomScreenPlayer = ({
             >
               <path d="M17.767 19.664a1 1 0 001.633-.774V5.11a1 1 0 00-1.633-.774L13.9 7.5l-4.554 3.726a1 1 0 000 1.548L13.9 16.5zM4.6 21V3"></path>
             </svg>
-          </button>
+          </Button>
           <ResumePausePlaybackButton token={token} />
-          <button
+          <Button
             className="mr-2 md:mr-0"
             onClick={(e) => {
               skipToNext(token);
@@ -116,7 +117,7 @@ export const BottomScreenPlayer = ({
             >
               <path d="M14.4 12.524a1 1 0 000-1.548L9.85 7.25 5.983 4.086a1 1 0 00-1.633.774v13.78a1 1 0 001.633.774L9.85 16.25zm4.75-9.774v18"></path>
             </svg>
-          </button>
+          </Button>
           <SetRepeatModeButton token={token} />
         </div>
         {!isMobile && (

@@ -2,6 +2,7 @@
 import { setRepeatMode } from "@/app/api/spotify/spotify-api";
 import { PlayerContext } from "@/app/context/appContext";
 import { useContext } from "react";
+import Button from "../Button";
 
 export default function SetRepeatModeButton({ token }: { token: string }) {
   const { is_repeat } = useContext(PlayerContext);
@@ -13,7 +14,7 @@ export default function SetRepeatModeButton({ token }: { token: string }) {
     } else setRepeatMode("off", token);
   };
   return (
-    <div
+    <Button
       onClick={handleClick}
       className={`relative justify-center flex gap-1 text-center ${is_repeat == 0 ? "" : "text-green"}`}
     >
@@ -35,6 +36,6 @@ export default function SetRepeatModeButton({ token }: { token: string }) {
       <span className="absolute bg-black text-sm pointer-events-none">
         {is_repeat == 2 && "1"}
       </span>
-    </div>
+    </Button>
   );
 }
