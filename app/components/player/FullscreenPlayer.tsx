@@ -15,6 +15,10 @@ import React, {
   SetStateAction,
   useContext,
 } from "react";
+import PlaybackShuffleButton from "../track/PlaybackShuffleButton";
+import SetRepeatModeButton from "../track/SetRepeatModeButton";
+import Button from "../Button";
+import ResumePausePlaybackButton from "../track/ResumePausePlaybackButton";
 
 export const FullscreenPlayer = ({
   fullScreen,
@@ -102,84 +106,80 @@ export const FullscreenPlayer = ({
         </div>
         <div className="flex flex-col gap-6 w-full justify-center items-center overflow-hidden">
           <div className="w-full">
-            <div className="flex flex-row items-center gap-1 text-sm text-zinc-400">
+            <input
+              id="default-range"
+              onChange={(e) => handleTrackPosition(e)}
+              onMouseUp={handleMouseUp}
+              type="range"
+              min={0}
+              max={current_track?.duration_ms}
+              step={1000}
+              value={trackPositionInMs}
+              className="w-full h-1.5 accent-green cursor-pointer "
+            />
+            <div className="flex justify-between text-gray-400 text-xs">
               <span>
                 {current_track && trackPositionInMs > current_track.duration_ms
                   ? convertMsToTimestamp(current_track.duration_ms)
                   : convertMsToTimestamp(trackPositionInMs)}
               </span>
-              <input
-                id="default-range"
-                onChange={(e) => handleTrackPosition(e)}
-                onMouseUp={handleMouseUp}
-                type="range"
-                min={0}
-                max={current_track?.duration_ms}
-                step={1000}
-                value={trackPositionInMs}
-                className="w-full h-1.5 accent-green cursor-pointer "
-              />
               {current_track && (
                 <span>{convertMsToTimestamp(current_track?.duration_ms)}</span>
               )}
             </div>
           </div>
-          <div className="w-full flex gap-16 justify-center mb-16">
-            <button
-              className="w-12"
-              onClick={() => {
+          <div className="w-full flex justify-between items-center mb-16">
+            <PlaybackShuffleButton token={token} />
+
+            <Button
+              onClick={(e) => {
                 skipToPrev(token);
+                e.stopPropagation();
               }}
             >
-              <Image
-                width={48}
-                height={48}
-                src="/icons/track/previousTrack.svg"
-                alt="Previous track"
-              />
-            </button>
-            {is_paused ? (
-              <button
-                className="bg-white rounded-full text-black w-12 flex justify-center items-center"
-                onClick={() => {
-                  resumePlayback(token, deviceId);
-                }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                fill="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1"
+                viewBox="0 0 24 24"
+                data-icon="SvgSkipBack"
+                aria-hidden="true"
               >
-                <Image
-                  width={48}
-                  height={48}
-                  src="/icons/track/playBlack.svg"
-                  alt="Play"
-                />
-              </button>
-            ) : (
-              <button
-                className="bg-white rounded-full text-black w-12 flex justify-center items-center"
-                onClick={() => {
-                  pausePlayback(token, deviceId);
-                }}
-              >
-                <Image
-                  width={48}
-                  height={48}
-                  src="/icons/track/pauseBlack.svg"
-                  alt="Pause"
-                />
-              </button>
-            )}
-            <button
-              className="w-12"
-              onClick={() => {
+                <path d="M17.767 19.664a1 1 0 001.633-.774V5.11a1 1 0 00-1.633-.774L13.9 7.5l-4.554 3.726a1 1 0 000 1.548L13.9 16.5zM4.6 21V3"></path>
+              </svg>
+            </Button>
+            <ResumePausePlaybackButton token={token} />
+
+            <Button
+              className="mr-2 md:mr-0"
+              onClick={(e) => {
                 skipToNext(token);
+                e.stopPropagation();
               }}
             >
-              <Image
-                width={48}
-                height={48}
-                src="/icons/track/nextTrack.svg"
-                alt="Next track"
-              />
-            </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                stroke="currentColor"
+                fill="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1"
+                viewBox="0 0 24 24"
+                data-icon="SvgSkipForward"
+                aria-hidden="true"
+              >
+                <path d="M14.4 12.524a1 1 0 000-1.548L9.85 7.25 5.983 4.086a1 1 0 00-1.633.774v13.78a1 1 0 001.633.774L9.85 16.25zm4.75-9.774v18"></path>
+              </svg>
+            </Button>
+
+            <SetRepeatModeButton token={token} />
           </div>
         </div>
       </div>

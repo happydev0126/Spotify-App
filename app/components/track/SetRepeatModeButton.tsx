@@ -4,7 +4,13 @@ import { PlayerContext } from "@/app/context/appContext";
 import { useContext } from "react";
 import Button from "../Button";
 
-export default function SetRepeatModeButton({ token }: { token: string }) {
+export default function SetRepeatModeButton({
+  token,
+  className,
+}: {
+  token: string;
+  className?: string;
+}) {
   const { is_repeat } = useContext(PlayerContext);
   const handleClick = () => {
     if (is_repeat === 0) {
@@ -16,7 +22,7 @@ export default function SetRepeatModeButton({ token }: { token: string }) {
   return (
     <Button
       onClick={handleClick}
-      className={`relative justify-center flex gap-1 text-center ${is_repeat == 0 ? "" : "text-green"}`}
+      className={`${className} relative justify-center flex gap-1 text-center ${is_repeat == 0 ? "" : "text-green"}`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

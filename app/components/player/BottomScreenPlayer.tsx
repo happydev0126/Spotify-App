@@ -40,9 +40,9 @@ export const BottomScreenPlayer = ({
   return (
     <div
       onClick={handleFullScreen}
-      className={`fixed bottom-0 left-0 col-span-full flex h-16 w-full items-center justify-between bg-background p-2 md:static`}
+      className={`fixed bottom-0 left-0 col-span-full flex h-16 w-full items-center justify-between bg-background p-2 gap-2 md:static`}
     >
-      <div className="flex items-center gap-2 md:w-[30%]">
+      <div className="flex items-center gap-2 overflow-hidden md:w-[30%]">
         {current_track && (
           <>
             <Image
@@ -58,10 +58,12 @@ export const BottomScreenPlayer = ({
             />
             <Link
               href={`../artist/${getId(current_track.artists[0].uri)}`}
-              className="now-playing__side"
+              className="overflow-hidden"
             >
-              <div className="now-playing__name">{current_track.name}</div>
-              <div className="now-playing__artist text-xs text-gray-400">
+              <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+                {current_track.name}
+              </div>
+              <div className="text-xs text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap">
                 {current_track.artists[0].name}
               </div>
             </Link>
@@ -70,9 +72,9 @@ export const BottomScreenPlayer = ({
       </div>
       <div className="flex flex-col items-center justify-center gap-1 md:w-[40%]">
         <div className="flex items-center justify-center gap-4 w-full">
-          <PlaybackShuffleButton token={token} />
+          <PlaybackShuffleButton token={token} className="hidden sm:block" />
           <Button
-            className=""
+            className="hidden sm:block"
             onClick={(e) => {
               skipToPrev(token);
               e.stopPropagation();
@@ -118,7 +120,7 @@ export const BottomScreenPlayer = ({
               <path d="M14.4 12.524a1 1 0 000-1.548L9.85 7.25 5.983 4.086a1 1 0 00-1.633.774v13.78a1 1 0 001.633.774L9.85 16.25zm4.75-9.774v18"></path>
             </svg>
           </Button>
-          <SetRepeatModeButton token={token} />
+          <SetRepeatModeButton token={token} className="hidden sm:block" />
         </div>
         {!isMobile && (
           <div className="w-full">

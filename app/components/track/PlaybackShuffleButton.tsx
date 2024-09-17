@@ -4,13 +4,22 @@ import { PlayerContext } from "@/app/context/appContext";
 import { useContext } from "react";
 import Button from "../Button";
 
-export default function PlaybackShuffleButton({ token }: { token: string }) {
+export default function PlaybackShuffleButton({
+  token,
+  className,
+}: {
+  token: string;
+  className?: string;
+}) {
   const { is_shuffle } = useContext(PlayerContext);
   const handleClick = () => {
     togglePlaybackShuffle(!is_shuffle, token);
   };
   return (
-    <Button onClick={handleClick} className={is_shuffle ? "text-green" : ""}>
+    <Button
+      onClick={handleClick}
+      className={`${className} ${is_shuffle ? "text-green" : ""}`}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
