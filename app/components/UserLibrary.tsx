@@ -61,7 +61,7 @@ export default function UserLibrary({
   };
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       {isExpanded && (
         <>
           <div className="mb-3 flex gap-2">
@@ -109,34 +109,30 @@ export default function UserLibrary({
                 className="max-w-12 rounded"
               />
               {isExpanded && (
-                <>
-                  <div className="flex overflow-hidden">
-                    <div className="flex flex-col overflow-hidden">
-                      <div
-                        className={`${isCurrentlyPlaying(currentTrackContext, playlist.uri) ? `text-green` : ""} overflow-hidden text-ellipsis whitespace-nowrap`}
-                      >
-                        {playlist.name}
-                      </div>
-                      <div className="overflow-hidden text-sm capitalize text-gray-400">
-                        <span>
-                          {playlist.type}
-                          {" • "}
-                          {"owner" in playlist
-                            ? playlist.owner.display_name
-                            : playlist.artists.map((artist, index) => (
-                                <span key={artist.id}>
-                                  {artist.name}
-                                  {playlist.artists.length > 1 &&
-                                    playlist.artists.length !== index + 1 && (
-                                      <>{", "}</>
-                                    )}
-                                </span>
-                              ))}
-                        </span>
-                      </div>
-                    </div>
+                <div className="flex flex-col overflow-hidden">
+                  <div
+                    className={`${isCurrentlyPlaying(currentTrackContext, playlist.uri) ? `text-green` : ""} overflow-hidden text-ellipsis whitespace-nowrap`}
+                  >
+                    {playlist.name}
                   </div>
-                </>
+                  <div className="overflow-hidden text-sm capitalize text-gray-400">
+                    <span>
+                      {playlist.type}
+                      {" • "}
+                      {"owner" in playlist
+                        ? playlist.owner.display_name
+                        : playlist.artists.map((artist, index) => (
+                            <span key={artist.id}>
+                              {artist.name}
+                              {playlist.artists.length > 1 &&
+                                playlist.artists.length !== index + 1 && (
+                                  <>{", "}</>
+                                )}
+                            </span>
+                          ))}
+                    </span>
+                  </div>
+                </div>
               )}
             </div>
             {isExpanded &&

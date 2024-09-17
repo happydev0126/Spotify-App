@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
-import UserLibrary from "./Library";
+import UserLibrary from "./UserLibrary";
 import { Album, CurrentUserPlaylist } from "../types/spotify";
 import Card from "./ui/Card";
+import { useState } from "react";
 
 export default function YourLibrary({
   library,
@@ -16,7 +16,7 @@ export default function YourLibrary({
 
   return (
     <Card
-      className={`${!isExpanded ? "w-max" : ""} flex h-screen-minus-5rem flex-col overflow-y-scroll md:h-full`}
+      className={`${!isExpanded ? "w-max" : ""} flex flex-col overflow-y-scroll h-max md:h-full`}
     >
       <div className="flex items-center gap-2 px-2 text-gray-400">
         <button
@@ -42,9 +42,7 @@ export default function YourLibrary({
           {isExpanded && <b>Your library</b>}
         </button>
       </div>
-      <div>
-        <UserLibrary library={library} isExpanded={isExpanded} />
-      </div>
+      <UserLibrary library={library} isExpanded={isExpanded} />
     </Card>
   );
 }

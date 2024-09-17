@@ -45,8 +45,7 @@ export const FullscreenPlayer = ({
   volume: number;
   isMuted: boolean;
 }) => {
-  const { deviceId } = useContext(DeviceContext);
-  const { is_paused, current_track } = useContext(PlayerContext);
+  const { current_track } = useContext(PlayerContext);
 
   const handleSetFullScreen = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -58,7 +57,7 @@ export const FullscreenPlayer = ({
     : `flex h-16 w-full items-center justify-between `;
 
   return (
-    <div onClick={handleFullScreen} className="w-full col-span-full">
+    <div onClick={handleFullScreen} className="w-full col-span-full fixed">
       <div className={fullScreenPlayer}>
         {fullScreen && (
           <button onClick={(e) => handleSetFullScreen(e)} className="mr-auto">

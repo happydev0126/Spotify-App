@@ -59,8 +59,8 @@ export default async function RootLayout({
               {user && (
                 <Providers token={token} user={user}>
                   <div className="flex flex-col w-full">
-                    <header className="h-16 flex justify-between p-2 items-center align-center">
-                      <div className="flex-1 justify-start">
+                    <header className="h-16 flex gap-1 justify-between p-2 items-center align-center">
+                      <div className="justify-start">
                         <Link
                           href="/"
                           className=" h-full w-fit flex items-center gap-2 text-gray-400 rounded-full bg-tag p-2  hover:text-white active:text-white/80"
@@ -82,18 +82,16 @@ export default async function RootLayout({
                           </svg>
                         </Link>
                       </div>
-                      <div className="flex flex-1 justify-center gap-2 items-center h-full">
+                      <div className="flex flex-auto md:flex-1 justify-center gap-2 items-center h-full">
                         <SearchInput placeholder="What do you want to play?" />
                       </div>
-                      <div className="flex-1 justify-end flex">
+                      <div className="justify-end flex">
                         <UserButton />
                       </div>
                     </header>
                     <div className="relative w-full columns-auto grid-cols-[minmax(0,auto),auto] grid-rows-[minmax(0,1fr)] gap-2 bg-background px-2 pb-2 md:flex md:h-screen md:overflow-hidden">
                       <Dashboard />
-                      <Card className="w-full h-full pb-20 md:pb-0">
-                        {children}
-                      </Card>
+                      <Card className="w-full pb-16 md:pb-0">{children}</Card>
                     </div>
                     <Player token={token} />
                   </div>
